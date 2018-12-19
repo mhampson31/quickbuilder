@@ -21,22 +21,18 @@ UPGRADE_CHOICES = (
     (1, 'Astromech')
 )
 
-# base classes
+# base and component classes
 
 class Card(models.Model):
     name = models.CharField(max_length=64)
     xws = models.CharField(max_length=64, primary_key=True)
-    ffg = model.IntegerField
+    ffg = models.PositiveIntegerField
+    limited = models.PositiveIntegerField(choices=(0, 1, 2, 3), default=0)
+    ability_title = models.CharField(max_length=32)
+    ability_text = models.CharField(max_length=250)
 
     class Meta:
         abstract = True
-
-
-# ### components of other cards
-
-class Ability(models.Model):
-    title = models.CharField(max_length=32)
-    text = models.CharField(max_length=250)
 
 
 # ### core card models
@@ -52,13 +48,10 @@ class Pilot(Card):
                              related_name='pilots',
                              related_query_name='pilot')
     caption = models.CharField(max_length=100)
-    initiative = models.IntegerField(choices=(1, 2, 3, 4, 5, 6))
-    limited = models.IntegerField(choices=(0, 1, 2, 3), default=0)
-    ability = models.CharField(max_length=1000)
-
+    initiative = models.PositiveIntegerField(choices=(1, 2, 3, 4, 5, 6))
 
 class Upgrade(Card):
-    limited = models.IntegerField(choices=(0, 1, 2, 3), default=0)
+    slot = models.PositiveIntegerField(choices=UPGRADE_CHOICES)
 
 
 class QuickBuild(models.Model):
