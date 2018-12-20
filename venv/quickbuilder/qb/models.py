@@ -113,7 +113,7 @@ class Pilot(Card):
 
     @property
     def faction(self):
-        return self.ship.get_faction_display()
+        return self.ship.faction.name
 
 
 
@@ -138,6 +138,18 @@ class QuickBuild(models.Model):
     def pilot_names(self):
         return '; '.join([p.name for p in self.pilots.all()])
 
+    @property
+    def limited_names(self):
+        # QuickBuilds and Builds have a similar property, used to collect any limited pilots/upgrades in use
+        lnames = {}
+        for k in LIMITED_CHOICES:
+            lnames[k[0]] = []
+        for b in self.build_set.all():
+            bnames = b.limited_names
+            for k in lnames:
+                lnames[k].extend(bnames[k])
+        return lnames
+
     def __str__(self):
         return '{} ({})'.format(self.pilot_names, self.threat)
 
@@ -149,3 +161,18 @@ class Build(models.Model):
 
     def __str__(self):
         return self.pilot.name
+
+    @property
+    def limited_names(self):
+        # QuickBuilds and Builds have a similar property, used to collect any limited pilots/upgrades in use
+        lnames = {}
+        for k in LIMITED_CHOICES:
+            lnames[k[0]] = []
+        cards = [u for u in self.upgrades.all() if u.limited != '0']
+        if self.pilot.limited != '0':
+            cards.append(self.pilot)
+
+        for c in cards:
+            lnames[c.limited].append(c.name)
+
+        return lnames
