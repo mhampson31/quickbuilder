@@ -23,7 +23,7 @@ admin.site.register(Upgrade, UpgradeAdmin)
 
 class PilotAdmin(admin.ModelAdmin):
     list_display = ('display_name', 'caption', 'ship', 'faction', 'initiative')
-    list_filter = ('ship', 'initiative')
+    list_filter = ('ship__faction', 'ship', 'initiative')
 admin.site.register(Pilot, PilotAdmin)
 
 

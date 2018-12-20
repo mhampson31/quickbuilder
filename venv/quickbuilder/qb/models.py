@@ -55,6 +55,12 @@ LIMITED_CHOICES = (
     ('3', '•••')
 )
 
+def make_lnames():
+    from .models import LIMITED_CHOICES
+    lnames = {}
+    for k in LIMITED_CHOICES:
+        lnames[k[0]] = []
+    return lnames
 
 # base and component classes
 
@@ -141,9 +147,7 @@ class QuickBuild(models.Model):
     @property
     def limited_names(self):
         # QuickBuilds and Builds have a similar property, used to collect any limited pilots/upgrades in use
-        lnames = {}
-        for k in LIMITED_CHOICES:
-            lnames[k[0]] = []
+        lnames = make_lnames()
         for b in self.build_set.all():
             bnames = b.limited_names
             for k in lnames:
@@ -165,9 +169,7 @@ class Build(models.Model):
     @property
     def limited_names(self):
         # QuickBuilds and Builds have a similar property, used to collect any limited pilots/upgrades in use
-        lnames = {}
-        for k in LIMITED_CHOICES:
-            lnames[k[0]] = []
+        lnames = make_lnames()
         cards = [u for u in self.upgrades.all() if u.limited != '0']
         if self.pilot.limited != '0':
             cards.append(self.pilot)
