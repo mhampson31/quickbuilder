@@ -90,18 +90,47 @@ def load_ships():
                     else:
                         print('Skipped pilot: {}'.format(p['name']))
 
+flist = (
+    'Rebel Alliance',
+    'Galactic Empire',
+    'Scum and Villainy',
+    'Resistance',
+    'First Order',
+    'Galactic Republic',
+    'Separatist Alliance')
 
-def load_quickbuilds():
-    from qb.models import Pilot, Upgrade, QuickBuild
+def load_quickbuilds(flist=flist):
+    from qb.models import Pilot, Upgrade, QuickBuild, Build, Faction, FACTION_TYPES
 
-    fdir = os.path.join(DATA_PATH, 'pilots')
+    fdir = os.path.join(DATA_PATH, 'quick-builds')
     for fct in os.listdir(fdir):
-        subdir = os.path.join(fdir, fct)
-        for s in os.listdir(subdir):
-            with open(os.path.join(subdir, s)) as rf:
+        # figure out the faction from the filename
+        faction = fct.replace('-', ' ')[:-5].title()
+        # title case capitalizes And but most places the json provides it lowercase. This is just a quick hack to
+        # make sure it workws
+        if faction[:4] == 'Scum':
+            faction = 'Scum and Villainy'
+        if faction in flist:
+            qbfile = os.path.join(fdir, fct)
+            print('{} quick builds'.format(faction))
+            with open(qbfile) as rf:
                 qbdata = json.load(rf)
                 for qb in qbdata['quick-builds']:
-                    threat = qb['threat']
+                    new_qb = QuickBuild(threat = qb['threat'], faction=FACTION_TYPES[faction])
+                    new_qb.save()
+                    print('Loaded new quick build.')
+                    for p in qb['pilots']:
+                        pilot = Pilot.objects.get(xws=p['id'])
+                        b = Build(quickbuild=new_qb, pilot=pilot)
+                        print(' + Adding {} to the current build.'.format(pilot.name))
+                        b.save()
+                        if 'upgrades' in p:
+                            for u in p['upgrades'].values():
+                                print(u)
+                                b.upgrades.add(*[Upgrade.objects.get(xws=c) for c in u])
 
-                    pilot = Pilot.objects.get(xws=qb['xws'])
+
+
+
+
 

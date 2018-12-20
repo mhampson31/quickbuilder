@@ -68,7 +68,7 @@ class Card(models.Model):
 
     @property
     def display_name(self):
-        if self.limited >= '1':
+        if self.limited:
             return '{} {}'.format(self.get_limited_display(), self.name)
         else:
             return self.name
@@ -78,6 +78,7 @@ class Card(models.Model):
 
     class Meta:
         abstract = True
+        ordering = ['name']
 
 
 # ### core models
@@ -94,9 +95,6 @@ class Ship(Card):
     limited = None
     cost=None
 
-    @property
-    def display_name(self):
-        return '{} ({})'.format(self.name, self.get_faction_display())
 
 
 class Pilot(Card):
@@ -107,8 +105,10 @@ class Pilot(Card):
         validators=[MinValueValidator(1), MaxValueValidator(6)]
      )
 
-    def __str__(self):
-        return '{} ({})'.format(self.name, self.ship.name)
+    @property
+    def faction(self):
+        return self.ship.get_faction_display()
+
 
 
 class Upgrade(Card):
@@ -135,8 +135,11 @@ class QuickBuild(models.Model):
     def __str__(self):
         return '{} ({})'.format(self.pilot_names, self.threat)
 
+
 class Build(models.Model):
     quickbuild = models.ForeignKey(QuickBuild, on_delete=models.CASCADE)
     pilot = models.ForeignKey(Pilot, related_name='qb_pilot_xws', on_delete=models.CASCADE)
     upgrades = models.ManyToManyField(Upgrade, blank=True, related_name='upgrade_xws')
 
+    def __str__(self):
+        return self.pilot.name
