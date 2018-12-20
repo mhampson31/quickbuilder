@@ -5,9 +5,12 @@ DATA_PATH = 'quickbuilder/data'
 def load_ability(arow):
     from qb.models import Ability
 
-    if not Ability.objects.filter(title=arow['title']).exists():
-        new_ability = Ability(title=arow['title'], text=arow['text'])
+    if not Ability.objects.filter(xws=arow['xws']).exists():
+        new_ability = Ability(xws=arow['xws'], title=arow['title'], text=arow['text'])
         new_ability.save()
+        print("++ Ability loaded: {}".format(new_ability.title))
+    else:
+        print("-- Ability skipped: {}".format(arow['title']))
 
 
 def load_factions():
@@ -36,7 +39,7 @@ def load_upgrades():
                 if not Upgrade.objects.filter(xws=frow['xws']).exists():
                     sides = [None, None]
                     for s in frow['sides']:
-                        load_ability({'title':s['title'], 'text':s['ability']})
+                        load_ability({'xws':s['xws'], 'title':s['title'], 'text':s.get('ability', '')})
                         sa = Ability.objects.get(title=s['title'])
                         sides[1 if sides[0] else 0] = sa
 
@@ -45,15 +48,12 @@ def load_upgrades():
                     new_upgrade = Upgrade(name=frow['name'],
                                           xws=frow['xws'],
                                           limited=frow['limited'] if frow['limited'] else '',
-                                          cost=frow['cost']['value'],
                                           slot=UPGRADE_TYPES[slots[0]],
                                           slot2=UPGRADE_TYPES[slots[1]] if len(slots)>1 else None,
                                           ability=sides[0],
                                           side2=sides[1] if len(sides)>1 else None
                                           )
-                    print(new_upgrade.name)
                     new_upgrade.save()
-
-
-
-
+                    print("++ Upgrade loaded: {}".format(new_upgrade.name))
+                else:
+                    print("-- Upgrade skipped: {}".format(frow['name']))

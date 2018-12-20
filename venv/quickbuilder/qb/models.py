@@ -29,7 +29,7 @@ UPGRADE_TYPES = {
     'Device': 'DVC',
     'Force Power': 'FRC',
     'Gunner': 'GNR',
-    'Illicite': 'ILC',
+    'Illicit': 'ILC',
     'Missile': 'MSL',
     'Modification': 'MOD',
     'Sensor':'SNS',
@@ -54,6 +54,7 @@ LIMITED_CHOICES = (
 # base and component classes
 
 class Ability(models.Model):
+    xws = models.CharField(max_length=64)
     title = models.CharField(max_length=32)
     text = models.CharField(max_length=320)
 
@@ -70,10 +71,6 @@ class Card(models.Model):
     ffg = models.PositiveIntegerField(blank=True, null=True, default=None)
     limited = models.CharField(max_length=1, choices=LIMITED_CHOICES, blank=True, default='')
     ability = models.ForeignKey(Ability, on_delete=models.SET_NULL, blank=True, null=True)
-    cost = models.SmallIntegerField(
-        default=1,
-        validators=[MinValueValidator(1), MaxValueValidator(200)]
-     )
 
     @property
     def display_name(self):
@@ -92,6 +89,7 @@ class Faction(Card):
     limited = None
     ability = None
     cost = None
+
 
 class Ship(Card):
     size = models.CharField(max_length=1, choices=SIZE_CHOICES, default='S')
@@ -115,7 +113,7 @@ class Pilot(Card):
 
 class Upgrade(Card):
     slot = models.CharField(max_length=3, choices=UPGRADE_CHOICES)
-    slot2 = models.CharField(max_length=3, choices=UPGRADE_CHOICES, blank=True)
+    slot2 = models.CharField(max_length=3, choices=UPGRADE_CHOICES, null=True, blank=True, default=None)
     side2 = models.ForeignKey(Ability,
                               on_delete=models.SET_NULL,
                               blank=True,
@@ -129,8 +127,8 @@ class QuickBuild(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(8)]
      )
     faction = models.CharField(max_length=2, choices=FACTION_CHOICES)
-    pilot = models.ForeignKey(Pilot, on_delete=models.CASCADE)
-    upgrades = models.ManyToManyField(Upgrade, blank=True, null=True)
+    pilot = models.ForeignKey(Pilot, on_delete=models.CASCADE, related_name='pilot_xws')
+    upgrades = models.ManyToManyField(Upgrade, blank=True, related_name='upgrade_xws')
 
     def __str__(self):
         return '{} ({})'.format(self.pilot.name, self.threat)
