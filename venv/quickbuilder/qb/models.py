@@ -68,7 +68,10 @@ class Card(models.Model):
 
     @property
     def display_name(self):
-        return '{} {}'.format(self.get_limited_display(), self.name).lstrip()
+        if self.limited >= '1':
+            return '{} {}'.format(self.get_limited_display(), self.name)
+        else:
+            return self.name
 
     def __str__(self):
         return self.display_name
@@ -104,6 +107,9 @@ class Pilot(Card):
         validators=[MinValueValidator(1), MaxValueValidator(6)]
      )
 
+    def __str__(self):
+        return '{} ({})'.format(self.name, self.ship.name)
+
 
 class Upgrade(Card):
     slot = models.CharField(max_length=3, choices=UPGRADE_CHOICES)
@@ -117,10 +123,20 @@ class QuickBuild(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(8)]
      )
     faction = models.CharField(max_length=2, choices=FACTION_CHOICES)
-    pilot = models.ForeignKey(Pilot, on_delete=models.CASCADE, related_name='pilot_xws')
+    pilots = models.ManyToManyField(Pilot,
+                                    through='Build',
+                                    through_fields=('quickbuild', 'pilot'),
+                                    related_name='pilot_xws')
 
-
-    upgrades = models.ManyToManyField(Upgrade, blank=True, related_name='upgrade_xws')
+    @property
+    def pilot_names(self):
+        return '; '.join([p.name for p in self.pilots.all()])
 
     def __str__(self):
-        return '{} ({})'.format(self.pilot.name, self.threat)
+        return '{} ({})'.format(self.pilot_names, self.threat)
+
+class Build(models.Model):
+    quickbuild = models.ForeignKey(QuickBuild, on_delete=models.CASCADE)
+    pilot = models.ForeignKey(Pilot, related_name='qb_pilot_xws', on_delete=models.CASCADE)
+    upgrades = models.ManyToManyField(Upgrade, blank=True, related_name='upgrade_xws')
+
