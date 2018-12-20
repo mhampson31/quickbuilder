@@ -2,8 +2,17 @@ from django.contrib import admin
 
 from .models import Ship, Pilot, Upgrade, QuickBuild, Faction, Build
 
-for m in Ship, Faction:
-    admin.site.register(m)
+
+class FactionAdmin(admin.ModelAdmin):
+    list_display = ('display_name', 'released')
+    list_filter = ('released',)
+admin.site.register(Faction, FactionAdmin)
+
+
+class ShipAdmin(admin.ModelAdmin):
+    list_display = ('display_name', 'faction', 'size')
+    list_filter = ('faction', 'size')
+admin.site.register(Ship, ShipAdmin)
 
 
 class UpgradeAdmin(admin.ModelAdmin):

@@ -49,7 +49,7 @@ def load_upgrades():
 
 
 def load_ships():
-    from qb.models import Ship, Pilot, SIZE_TYPES, FACTION_TYPES
+    from qb.models import Ship, Pilot, Faction, SIZE_TYPES
 
     fdir = os.path.join(DATA_PATH, 'pilots')
     for fct in os.listdir(fdir):
@@ -57,7 +57,9 @@ def load_ships():
         for s in os.listdir(subdir):
             with open(os.path.join(subdir, s)) as rf:
                 sdata = json.load(rf)
-                if not Ship.objects.filter(xws=sdata['xws']).exists():
+                faction = Faction.objects.get(name=sdata['faction'])
+
+                if not Ship.objects.filter(xws=sdata['xws']).filter(faction_id=faction.id).exists():
                     # check a pilot for ship abilities
                     if sdata['pilots']:
                         sa = list(sdata['pilots'])[0].get('shipAbility', {'name':'', 'text':''})
@@ -66,7 +68,7 @@ def load_ships():
                     new_ship = Ship(name=sdata['name'],
                                     xws=sdata['xws'],
                                     size=SIZE_TYPES[sdata['size']],
-                                    faction=FACTION_TYPES[sdata['faction']],
+                                    faction=faction,
                                     ability=sa['text'],
                                     ability_title=sa['name']
                                 )
@@ -105,18 +107,21 @@ def load_quickbuilds(flist=flist):
     fdir = os.path.join(DATA_PATH, 'quick-builds')
     for fct in os.listdir(fdir):
         # figure out the faction from the filename
-        faction = fct.replace('-', ' ')[:-5].title()
+        fname = fct.replace('-', ' ')[:-5].title()
         # title case capitalizes And but most places the json provides it lowercase. This is just a quick hack to
-        # make sure it workws
-        if faction[:4] == 'Scum':
-            faction = 'Scum and Villainy'
-        if faction in flist:
+        # make sure it works
+        if fname[:4] == 'Scum':
+            fname= 'Scum and Villainy'
+
+        if fname in flist:
+            faction = Faction.objects.get(name=fname)
             qbfile = os.path.join(fdir, fct)
-            print('{} quick builds'.format(faction))
+            print('{} quick builds'.format(fname))
             with open(qbfile) as rf:
+
                 qbdata = json.load(rf)
                 for qb in qbdata['quick-builds']:
-                    new_qb = QuickBuild(threat = qb['threat'], faction=FACTION_TYPES[faction])
+                    new_qb = QuickBuild(threat = qb['threat'], faction=faction)
                     new_qb.save()
                     print('Loaded new quick build.')
                     for p in qb['pilots']:
@@ -131,6 +136,17 @@ def load_quickbuilds(flist=flist):
 
 
 
+def rebuild():
+    # Assuming an empty database...
 
+    print("Loading Factions")
+    load_factions()
 
+    print("Loading Upgrades")
+    load_upgrades()
 
+    print("Loading Ships")
+    load_ships()
+
+    print("Loading Quick Builds")
+    load_quickbuilds()

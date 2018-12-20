@@ -60,7 +60,7 @@ LIMITED_CHOICES = (
 
 class Card(models.Model):
     name = models.CharField(max_length=64)
-    xws = models.CharField(max_length=64, primary_key=True)
+    xws = models.CharField(max_length=64)
     ffg = models.PositiveIntegerField(blank=True, null=True, default=None)
     limited = models.CharField(max_length=1, choices=LIMITED_CHOICES, blank=True, default='')
     ability = models.CharField(max_length=320, blank=True, default='')
@@ -68,10 +68,10 @@ class Card(models.Model):
 
     @property
     def display_name(self):
-        if self.limited:
-            return '{} {}'.format(self.get_limited_display(), self.name)
-        else:
+        if self.limited == '0' or self.limited is None:
             return self.name
+        else:
+            return '{} {}'.format(self.get_limited_display(), self.name)
 
     def __str__(self):
         return self.display_name
@@ -87,14 +87,20 @@ class Faction(Card):
     limited = None
     ability = None
     cost = None
+    ability_title = None
+    released = models.BooleanField(default=True)
 
 
 class Ship(Card):
     size = models.CharField(max_length=1, choices=SIZE_CHOICES, default='S')
-    faction = models.CharField(max_length=2, choices=FACTION_CHOICES)
+    #faction = models.CharField(max_length=2, choices=FACTION_CHOICES)
+    faction = models.ForeignKey(Faction, on_delete=models.CASCADE)
     limited = None
     cost=None
 
+    class Meta:
+        ordering = ['name']
+        unique_together = ('xws', 'faction')
 
 
 class Pilot(Card):
@@ -122,7 +128,7 @@ class QuickBuild(models.Model):
     threat = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(8)]
      )
-    faction = models.CharField(max_length=2, choices=FACTION_CHOICES)
+    faction = models.ForeignKey(Faction, on_delete=models.CASCADE)
     pilots = models.ManyToManyField(Pilot,
                                     through='Build',
                                     through_fields=('quickbuild', 'pilot'),
