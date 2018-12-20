@@ -2,25 +2,28 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
-
-SIZE_CHOICES = (
-    ('S', 'Small'),
-    ('M', 'Medium'),
-    ('L', 'Large')
-)
-
-FACTION_CHOICES = (
-    ('RA', 'Rebel Alliance'),
-    ('GE', 'Galactic Empire'),
-    ('SV', 'Scum and Villainy'),
-    ('RS', 'Resistance'),
-    ('FO', 'First Order'),
-    ('GR', 'Galactic Republic'),
-    ('SA', 'Seperatist Alliance')
-)
+# I'm defining this choice list a little differently, because I need to use the full descs later.
+# This keeps them available.
 
 
-# I'm defining this choice list a little differently, because I might want an easy list of upgrade types later
+SIZE_TYPES = {
+    'Small': 'S',
+    'Medium': 'M',
+    'Large': 'L'
+}
+
+
+FACTION_TYPES = {
+    'Rebel Alliance': 'RA',
+    'Galactic Empire': 'GE',
+    'Scum and Villainy': 'SV',
+    'Resistance': 'RS',
+    'First Order': 'FO',
+    'Galactic Republic': 'GR',
+    'Separatist Alliance': 'SA'
+}
+
+
 UPGRADE_TYPES = {
     'Astromech':'AST',
     'Cannon': 'CNN',
@@ -42,6 +45,8 @@ UPGRADE_TYPES = {
     'Ship':'SHP'
 }
 
+FACTION_CHOICES = [(v, k) for k, v in FACTION_TYPES.items()]
+SIZE_CHOICES = [(v, k) for k, v in SIZE_TYPES.items()]
 UPGRADE_CHOICES = [(v, k) for k, v in UPGRADE_TYPES.items()]
 
 LIMITED_CHOICES = (
@@ -53,24 +58,13 @@ LIMITED_CHOICES = (
 
 # base and component classes
 
-class Ability(models.Model):
-    xws = models.CharField(max_length=64)
-    title = models.CharField(max_length=32)
-    text = models.CharField(max_length=320)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        verbose_name_plural = 'abilities'
-
-
 class Card(models.Model):
     name = models.CharField(max_length=64)
     xws = models.CharField(max_length=64, primary_key=True)
     ffg = models.PositiveIntegerField(blank=True, null=True, default=None)
     limited = models.CharField(max_length=1, choices=LIMITED_CHOICES, blank=True, default='')
-    ability = models.ForeignKey(Ability, on_delete=models.SET_NULL, blank=True, null=True)
+    ability = models.CharField(max_length=320, blank=True, default='')
+    ability_title = models.CharField(max_length=32, blank=True, default='')
 
     @property
     def display_name(self):
@@ -114,12 +108,8 @@ class Pilot(Card):
 class Upgrade(Card):
     slot = models.CharField(max_length=3, choices=UPGRADE_CHOICES)
     slot2 = models.CharField(max_length=3, choices=UPGRADE_CHOICES, null=True, blank=True, default=None)
-    side2 = models.ForeignKey(Ability,
-                              on_delete=models.SET_NULL,
-                              blank=True,
-                              null=True,
-                              default=None,
-                              related_name='side2')
+    ability2 = models.CharField(max_length=320, blank=True, default='')
+    ability2_title = models.CharField(max_length=32, blank=True, default='')
 
 
 class QuickBuild(models.Model):
@@ -128,6 +118,8 @@ class QuickBuild(models.Model):
      )
     faction = models.CharField(max_length=2, choices=FACTION_CHOICES)
     pilot = models.ForeignKey(Pilot, on_delete=models.CASCADE, related_name='pilot_xws')
+
+
     upgrades = models.ManyToManyField(Upgrade, blank=True, related_name='upgrade_xws')
 
     def __str__(self):

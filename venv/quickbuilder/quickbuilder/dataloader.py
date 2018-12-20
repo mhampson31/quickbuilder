@@ -2,17 +2,6 @@ import os, json
 
 DATA_PATH = 'quickbuilder/data'
 
-def load_ability(arow):
-    from qb.models import Ability
-
-    if not Ability.objects.filter(xws=arow['xws']).exists():
-        new_ability = Ability(xws=arow['xws'], title=arow['title'], text=arow['text'])
-        new_ability.save()
-        print("++ Ability loaded: {}".format(new_ability.title))
-    else:
-        print("-- Ability skipped: {}".format(arow['title']))
-
-
 def load_factions():
     from qb.models import Faction
 
@@ -27,7 +16,7 @@ def load_factions():
 
 
 def load_upgrades():
-    from qb.models import Ability, Upgrade, UPGRADE_TYPES
+    from qb.models import Upgrade, UPGRADE_TYPES
 
     fdir = os.path.join(DATA_PATH, 'upgrades')
     u_files = os.listdir(fdir)
@@ -37,23 +26,82 @@ def load_upgrades():
             fdata = json.load(rf)
             for frow in fdata:
                 if not Upgrade.objects.filter(xws=frow['xws']).exists():
-                    sides = [None, None]
+                    sides = [{'title':'', 'text':''}, {'title':'', 'text':''}]
                     for s in frow['sides']:
-                        load_ability({'xws':s['xws'], 'title':s['title'], 'text':s.get('ability', '')})
-                        sa = Ability.objects.get(title=s['title'])
-                        sides[1 if sides[0] else 0] = sa
+                        sides[1 if sides[0]['title'] else 0] = {'title':s.get('title', ''), 'text':s.get('ability', '')}
 
                     slots = frow['sides'][0]['slots']
 
                     new_upgrade = Upgrade(name=frow['name'],
                                           xws=frow['xws'],
-                                          limited=frow['limited'] if frow['limited'] else '',
+                                          limited=frow.get('limited', ''),
                                           slot=UPGRADE_TYPES[slots[0]],
                                           slot2=UPGRADE_TYPES[slots[1]] if len(slots)>1 else None,
-                                          ability=sides[0],
-                                          side2=sides[1] if len(sides)>1 else None
-                                          )
+                                          ability=sides[0]['text'],
+                                          ability_title=sides[0]['title'],
+                                          ability2=sides[1]['text'],
+                                          ability2_title=sides[1]['title'],
+                                    )
                     new_upgrade.save()
                     print("++ Upgrade loaded: {}".format(new_upgrade.name))
                 else:
                     print("-- Upgrade skipped: {}".format(frow['name']))
+
+
+def load_ships():
+    from qb.models import Ship, Pilot, SIZE_TYPES, FACTION_TYPES
+
+    fdir = os.path.join(DATA_PATH, 'pilots')
+    for fct in os.listdir(fdir):
+        subdir = os.path.join(fdir, fct)
+        for s in os.listdir(subdir):
+            with open(os.path.join(subdir, s)) as rf:
+                sdata = json.load(rf)
+                if not Ship.objects.filter(xws=sdata['xws']).exists():
+                    # check a pilot for ship abilities
+                    if sdata['pilots']:
+                        sa = list(sdata['pilots'])[0].get('shipAbility', {'name':'', 'text':''})
+                    else:
+                        sa = {'name':'', 'text':''}
+                    new_ship = Ship(name=sdata['name'],
+                                    xws=sdata['xws'],
+                                    size=SIZE_TYPES[sdata['size']],
+                                    faction=FACTION_TYPES[sdata['faction']],
+                                    ability=sa['text'],
+                                    ability_title=sa['name']
+                                )
+                    new_ship.save()
+                    print('Loaded ship: {}'.format(new_ship.name))
+                else:
+                    print('Skipped ship: {}'.format(sdata['name']))
+                    new_ship = Ship.objects.get(xws=sdata['xws'])
+                for p in sdata['pilots']:
+                    if not Pilot.objects.filter(xws=p['xws']).exists():
+                        new_pilot = Pilot(name=p['name'],
+                                          xws=p['xws'],
+                                          limited=p.get('limited', ''),
+                                          caption=p.get('caption', ''),
+                                          initiative=p.get('initiative', 1),
+                                          ability=p.get('ability', ''),
+                                          ship=new_ship
+                                    )
+                        new_pilot.save()
+                        print('Loaded pilot: {}'.format(new_pilot.name))
+                    else:
+                        print('Skipped pilot: {}'.format(p['name']))
+
+
+def load_quickbuilds():
+    from qb.models import Pilot, Upgrade, QuickBuild
+
+    fdir = os.path.join(DATA_PATH, 'pilots')
+    for fct in os.listdir(fdir):
+        subdir = os.path.join(fdir, fct)
+        for s in os.listdir(subdir):
+            with open(os.path.join(subdir, s)) as rf:
+                qbdata = json.load(rf)
+                for qb in qbdata['quick-builds']:
+                    threat = qb['threat']
+
+                    pilot = Pilot.objects.get(xws=qb['xws'])
+
