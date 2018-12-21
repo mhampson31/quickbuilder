@@ -2,14 +2,18 @@ from django.shortcuts import HttpResponse, render
 from django.template import loader
 
 from .models import Ship
+from .tool import random_list
 
 def index(request):
     ship_list = Ship.objects.all()
-    template = loader.get_template('ship/index.html')
     context = {
         'ship_list': ship_list,
     }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'ship/index.html', context )
+
+
+def random(request):
+
 
 
 def ship(request, id):

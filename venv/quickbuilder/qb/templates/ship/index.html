@@ -1,7 +1,7 @@
 {% if ship_list %}
     <ul>
     {% for ship in ship_list %}
-        <li><a href='/ship/{{ship.id}}/'>{{ship.name}}</a></li>
+        <li><a href={% url 'qb:ship' ship.id%}"/'>{{ship.name}}</a></li>
     {% endfor %}
     </ul>
 {% else %}
