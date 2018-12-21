@@ -12,18 +12,6 @@ SIZE_TYPES = {
     'Large': 'L'
 }
 
-
-FACTION_TYPES = {
-    'Rebel Alliance': 'RA',
-    'Galactic Empire': 'GE',
-    'Scum and Villainy': 'SV',
-    'Resistance': 'RS',
-    'First Order': 'FO',
-    'Galactic Republic': 'GR',
-    'Separatist Alliance': 'SA'
-}
-
-
 UPGRADE_TYPES = {
     'Astromech':'AST',
     'Cannon': 'CNN',
@@ -45,7 +33,6 @@ UPGRADE_TYPES = {
     'Ship':'SHP'
 }
 
-FACTION_CHOICES = [(v, k) for k, v in FACTION_TYPES.items()]
 SIZE_CHOICES = [(v, k) for k, v in SIZE_TYPES.items()]
 UPGRADE_CHOICES = [(v, k) for k, v in UPGRADE_TYPES.items()]
 
@@ -99,7 +86,6 @@ class Faction(Card):
 
 class Ship(Card):
     size = models.CharField(max_length=1, choices=SIZE_CHOICES, default='S')
-    #faction = models.CharField(max_length=2, choices=FACTION_CHOICES)
     faction = models.ForeignKey(Faction, on_delete=models.CASCADE)
     limited = None
     cost=None

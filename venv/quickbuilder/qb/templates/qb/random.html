@@ -1,0 +1,33 @@
+<h1>Random Quick List</h1>
+
+<form action="{% url 'qb:random_quickbuild' %}" method="post">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="Submit">
+</form>
+
+{% if 'build_list' %}
+
+{% for qb in build_list %}
+    <p>Threat: {{qb.threat}}</p>
+
+    {% for build in qb.build_set.all %}
+        <h4>{{build.pilot}} ({{build.pilot.ship}})</h4>
+
+        {% if build.pilot.ability %}
+            <p>{{build.pilot.ability}}</p>
+        {% endif %}
+
+        {% if build.pilot.ship.ability_title %}
+            <p><b>{{build.pilot.ship.ability_title}}</b>: {{build.pilot.ship.ability}}</p>
+        {% endif %}
+
+        {% for upgrade in build.upgrades.all %}
+            <p>{{upgrade}}</p>
+            <p>{{upgrade.ability}}</p>
+        {% endfor %}
+
+    {% endfor %}
+{% endfor%}
+
+{% endif %}

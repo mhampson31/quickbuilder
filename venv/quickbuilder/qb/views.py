@@ -1,21 +1,39 @@
-from django.shortcuts import HttpResponse, render
-from django.template import loader
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
+from django.views import generic
 
 from .models import Ship
-from .tool import random_list
+from .forms import RandomListForm
+from .tools import random_list
 
-def index(request):
-    ship_list = Ship.objects.all()
-    context = {
-        'ship_list': ship_list,
-    }
-    return render(request, 'ship/index.html', context )
+class IndexView(generic.ListView):
+    template_name = 'qb/index.html'
+    context_object_name = 'ship_list'
 
-
-def random(request):
+    def get_queryset(self):
+        return Ship.objects.all()
 
 
+class ShipView(generic.DetailView):
+    model = Ship
+    template_name = 'qb/ship.html'
 
-def ship(request, id):
 
-    return HttpResponse("Here is ship {}".format(id))
+def ship_detail(request, id):
+    ship = get_object_or_404(Ship, pk=id)
+    return render(request, 'ship_detail.html', {'ship':ship})
+
+
+def random_quickbuild(request):
+    if request.method == 'POST':
+        build_list = random_list(threat=int(request.POST['threat']), faction_id=request.POST['faction'])
+        form = RandomListForm(request.POST)
+
+    else:
+        form = RandomListForm()
+    return render(request, 'qb/random.html', {'form':form, 'build_list':build_list})
+
+
+
+
