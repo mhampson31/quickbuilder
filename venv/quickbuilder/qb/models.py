@@ -42,6 +42,13 @@ LIMITED_CHOICES = (
     ('3', '•••')
 )
 
+
+DIFFICULTY_CHOICES = (
+    ('r', 'Red'),
+    ('w', 'White'),
+    ('b', 'Blue')
+)
+
 def make_lnames():
     from .models import LIMITED_CHOICES
     lnames = {}
@@ -74,6 +81,14 @@ class Card(models.Model):
         ordering = ['name']
 
 
+class Action(models.Model):
+    name = models.CharField(max_length=14)
+    description = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 # ### core models
 
 class Faction(Card):
@@ -88,11 +103,32 @@ class Ship(Card):
     size = models.CharField(max_length=1, choices=SIZE_CHOICES, default='S')
     faction = models.ForeignKey(Faction, on_delete=models.CASCADE)
     limited = None
+    actions = models.ManyToManyField(Action,
+                                     through='ShipAction',
+                                     through_fields=('ship', 'action'))
     cost=None
 
     class Meta:
         ordering = ['name']
         unique_together = ('xws', 'faction')
+
+
+class ShipAction(models.Model):
+    ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
+    action = models.ForeignKey(Action, on_delete=models.CASCADE)
+    difficulty = models.CharField(max_length=1, choices=DIFFICULTY_CHOICES, default='w')
+    linked_action = models.ForeignKey(Action, related_name='linked_ship_action',
+                                      on_delete=models.CASCADE, null=True, blank=True, default=None)
+    linked_difficulty = models.CharField(max_length=1, choices=DIFFICULTY_CHOICES, default='', blank=True)
+
+    def __str__(self):
+        if self.difficulty == 'R':
+            return 'Red {}'.format(self.action.name)
+        elif self.linked_action:
+            return '{} -> {}'.format(self.action.name, self.linked_action.name)
+        else:
+            return self.action.name
+
 
 
 class Pilot(Card):
@@ -114,6 +150,33 @@ class Upgrade(Card):
     slot2 = models.CharField(max_length=3, choices=UPGRADE_CHOICES, null=True, blank=True, default=None)
     ability2 = models.CharField(max_length=320, blank=True, default='')
     ability2_title = models.CharField(max_length=32, blank=True, default='')
+    actions = models.ManyToManyField(Action, through='UpgradeAction', through_fields=('upgrade', 'action'))
+
+    @property
+    def get_both_slots_display(self):
+        if self.slot2:
+            return '/'.join([self.get_slot_display(), self.get_slot2_display()])
+        else:
+            return self.get_slot_display()
+
+
+class UpgradeAction(models.Model):
+    side = models.IntegerField(default=1)
+    upgrade = models.ForeignKey(Upgrade, on_delete=models.CASCADE)
+    action = models.ForeignKey(Action, on_delete=models.CASCADE)
+    difficulty = models.CharField(max_length=1, choices=DIFFICULTY_CHOICES, default='w')
+    linked_action = models.ForeignKey(Action, related_name='linked_upgrade_action',
+                                      on_delete=models.CASCADE, null=True, blank=True, default=None)
+    linked_difficulty = models.CharField(max_length=1, choices=DIFFICULTY_CHOICES, default='', blank=True)
+
+    def __str__(self):
+        if self.difficulty == 'R':
+            return 'Red {}'.format(self.action.name)
+        elif self.linked_action:
+            return '{} -> {}'.format(self.action.name, self.linked_action.name)
+        else:
+            return self.action.name
+
 
 
 class QuickBuild(models.Model):
@@ -123,8 +186,7 @@ class QuickBuild(models.Model):
     faction = models.ForeignKey(Faction, on_delete=models.CASCADE)
     pilots = models.ManyToManyField(Pilot,
                                     through='Build',
-                                    through_fields=('quickbuild', 'pilot'),
-                                    related_name='pilot_xws')
+                                    through_fields=('quickbuild', 'pilot'))
 
     @property
     def pilot_names(self):
@@ -140,14 +202,18 @@ class QuickBuild(models.Model):
                 lnames[k].extend(bnames[k])
         return lnames
 
+    @property
+    def threat_display(self):
+        return {'1':'I', '2':'II', '3':'III', '4':'IV', '5':'V', '6':'VI', '7':'VII', '8':'VIII' }
+
     def __str__(self):
         return '{} ({})'.format(self.pilot_names, self.threat)
 
 
 class Build(models.Model):
     quickbuild = models.ForeignKey(QuickBuild, on_delete=models.CASCADE)
-    pilot = models.ForeignKey(Pilot, related_name='qb_pilot_xws', on_delete=models.CASCADE)
-    upgrades = models.ManyToManyField(Upgrade, blank=True, related_name='upgrade_xws')
+    pilot = models.ForeignKey(Pilot, related_name='qb_pilot_id', on_delete=models.CASCADE)
+    upgrades = models.ManyToManyField(Upgrade, blank=True, related_name='upgrade_id')
 
     def __str__(self):
         return self.pilot.name
@@ -156,11 +222,20 @@ class Build(models.Model):
     def limited_names(self):
         # QuickBuilds and Builds have a similar property, used to collect any limited pilots/upgrades in use
         lnames = make_lnames()
-        cards = [u for u in self.upgrades.all() if u.limited != '0']
-        if self.pilot.limited != '0':
+        cards = [u for u in self.upgrades.all() if u.limited not in ('0', '')]
+        if self.pilot.limited not in ('0', ''):
             cards.append(self.pilot)
 
         for c in cards:
             lnames[c.limited].append(c.name)
 
         return lnames
+
+    @property
+    def all_actions(self):
+        actions = [a for a in self.pilot.ship.shipaction_set.all()]
+        upgrade_actions = []
+        for upgrade in self.upgrades.all():
+            if upgrade.upgradeaction_set.all():
+                actions.extend([a for a in upgrade.upgradeaction_set.all()])
+        return actions

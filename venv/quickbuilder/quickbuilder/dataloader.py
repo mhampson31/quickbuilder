@@ -74,6 +74,17 @@ def load_ships():
                                 )
                     new_ship.save()
                     print('Loaded ship: {}'.format(new_ship.name))
+                    alist = sdata['actions']                    for a in alist:
+                        action = Action.objects.get(name=a['type'])
+                        difficulty = 'r' if a['difficulty'] == 'Red' else 'w'
+                        new_action = ShipAction(action=action, difficulty=difficulty)
+                        if 'linked' in a:
+                            l = a['linked']
+                            new_action.linked_action = Action.objects.get(name=l['type'])
+                            new_action.linked_difficulty = 'r' if l['difficulty'] == 'Red' else 'w'
+                        new_action.ship = ship
+                        print('    {}'.format(new_action))
+                        new_action.save()
                 else:
                     print('Skipped ship: {}'.format(sdata['name']))
                     new_ship = Ship.objects.get(xws=sdata['xws'])
@@ -136,6 +147,20 @@ def load_quickbuilds(flist=flist):
 
 
 
+def load_actions():
+    from qb.models import Ship, Action, ShipAction, Faction
+
+    fdir = os.path.join(DATA_PATH, 'pilots')
+    for fct in os.listdir(fdir):
+        subdir = os.path.join(fdir, fct)
+        for s in os.listdir(subdir):
+            with open(os.path.join(subdir, s)) as rf:
+                sdata = json.load(rf)
+                faction = Faction.objects.get(name=sdata['faction'])
+                ship = Ship.objects.filter(xws=sdata['xws']).filter(faction_id=faction.id)[0]
+
+
+
 def rebuild():
     # Assuming an empty database...
 
@@ -150,3 +175,5 @@ def rebuild():
 
     print("Loading Quick Builds")
     load_quickbuilds()
+
+

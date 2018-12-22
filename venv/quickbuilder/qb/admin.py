@@ -1,6 +1,21 @@
 from django.contrib import admin
 
-from .models import Ship, Pilot, Upgrade, QuickBuild, Faction, Build
+from .models import Ship, Pilot, Upgrade, QuickBuild, Faction, Build, Action, ShipAction, UpgradeAction
+
+
+class BuildInline(admin.TabularInline):
+    model = Build
+    extra = 0
+
+
+class ShipActionInline(admin.TabularInline):
+    model = ShipAction
+    extra = 0
+
+
+class UpgradeActionInline(admin.TabularInline):
+    model = UpgradeAction
+    extra = 0
 
 
 class FactionAdmin(admin.ModelAdmin):
@@ -10,12 +25,14 @@ admin.site.register(Faction, FactionAdmin)
 
 
 class ShipAdmin(admin.ModelAdmin):
+    inlines = (ShipActionInline,)
     list_display = ('display_name', 'faction', 'size')
     list_filter = ('faction', 'size')
 admin.site.register(Ship, ShipAdmin)
 
 
 class UpgradeAdmin(admin.ModelAdmin):
+    inlines = (UpgradeActionInline, )
     list_display = ('display_name', 'slot')
     list_filter = ('slot',)
 admin.site.register(Upgrade, UpgradeAdmin)
@@ -27,13 +44,10 @@ class PilotAdmin(admin.ModelAdmin):
 admin.site.register(Pilot, PilotAdmin)
 
 
-class BuildInline(admin.TabularInline):
-    model = Build
-    extra = 0
-
-
 class QuickBuildAdmin(admin.ModelAdmin):
     inlines = (BuildInline, )
     list_display = ('pilot_names', 'threat', 'faction')
     list_filter = ('threat', 'faction')
 admin.site.register(QuickBuild, QuickBuildAdmin)
+
+admin.site.register(Action)

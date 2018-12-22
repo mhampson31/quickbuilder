@@ -7,27 +7,39 @@
 </form>
 
 {% if 'build_list' %}
+<div id="'all_quickbuilds">
+    {% for qb in build_list %}
+    <div class="quickbuild">
+        <p>Threat: {{qb.threat}}</p>
 
-{% for qb in build_list %}
-    <p>Threat: {{qb.threat}}</p>
-
-    {% for build in qb.build_set.all %}
+        {% for build in qb.build_set.all %}
         <h4>{{build.pilot}} ({{build.pilot.ship}})</h4>
+        {{ build.all_actions|join:", " }}
 
-        {% if build.pilot.ability %}
-            <p>{{build.pilot.ability}}</p>
-        {% endif %}
+         {% if build.pilot.ability %}
+                <p>{{build.pilot.ability}}</p>
+            {% endif %}
 
-        {% if build.pilot.ship.ability_title %}
-            <p><b>{{build.pilot.ship.ability_title}}</b>: {{build.pilot.ship.ability}}</p>
-        {% endif %}
+            <dl>
+            {% if build.pilot.ship.ability_title %}
+                <dt>{{build.pilot.ship.ability_title}} (<i>Ship</i>)</dt>
+                    <dd>{{build.pilot.ship.ability}}</dd>
+            {% endif %}
+            {% for upgrade in build.upgrades.all %}
+                <dt>{{upgrade}} (<i>{{upgrade.get_both_slots_display}}</i>)</dt>
+                {% if upgrade.ability2 %}
+                   <dd><i>[Side 1]</i> {{upgrade.ability}}</dd>
+                    <dd><i>[Side 2]</i> {{upgrade.ability2}}</dd>
+                {% else %}
+                    <dd>{{upgrade.ability}}</dd>
+                {% endif %}
+            {% endfor %}
+            </dl>
 
-        {% for upgrade in build.upgrades.all %}
-            <p>{{upgrade}}</p>
-            <p>{{upgrade.ability}}</p>
+            {% if build.upgrades.all %}
+            {% endif %}
         {% endfor %}
-
-    {% endfor %}
-{% endfor%}
-
+        </div>
+    {% endfor%}
+</div>
 {% endif %}
