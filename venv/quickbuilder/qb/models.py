@@ -129,6 +129,14 @@ class ShipAction(models.Model):
         else:
             return self.action.name
 
+    def action_text(self, linked=False):
+        a = self.linked_action if linked else self.action
+        d = self.linked_difficulty if linked else self.difficulty
+        if d == 'r':
+            return "<span class='difficult'>{}</span>".format(a.name)
+        else:
+            return a.name
+
 
 
 class Pilot(Card):
@@ -159,6 +167,16 @@ class Upgrade(Card):
         else:
             return self.get_slot_display()
 
+    def side_actions(self, side):
+        return self.upgradeaction_set.filter(side=side)
+
+    @property
+    def side_actions_1(self):
+        return self.side_actions(1)
+
+    @property
+    def side_actions_2(self):
+        return self.side_actions(2)
 
 class UpgradeAction(models.Model):
     side = models.IntegerField(default=1)
@@ -170,12 +188,18 @@ class UpgradeAction(models.Model):
     linked_difficulty = models.CharField(max_length=1, choices=DIFFICULTY_CHOICES, default='', blank=True)
 
     def __str__(self):
-        if self.difficulty == 'R':
-            return 'Red {}'.format(self.action.name)
-        elif self.linked_action:
-            return '{} -> {}'.format(self.action.name, self.linked_action.name)
+        if self.linked_action:
+            return '{} -> {}'.format(self.action_text(), self.action_text(linked=True))
         else:
             return self.action.name
+
+    def action_text(self, linked=False):
+        a = self.linked_action if linked else self.action
+        d = self.linked_difficulty if linked else self.difficulty
+        if d == 'r':
+            return "<span class='difficult'>{}</span>".format(a.name)
+        else:
+            return a.name
 
 
 
@@ -201,10 +225,6 @@ class QuickBuild(models.Model):
             for k in lnames:
                 lnames[k].extend(bnames[k])
         return lnames
-
-    @property
-    def threat_display(self):
-        return {'1':'I', '2':'II', '3':'III', '4':'IV', '5':'V', '6':'VI', '7':'VII', '8':'VIII' }
 
     def __str__(self):
         return '{} ({})'.format(self.pilot_names, self.threat)

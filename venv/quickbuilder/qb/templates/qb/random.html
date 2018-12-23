@@ -10,11 +10,11 @@
 <div id="'all_quickbuilds">
     {% for qb in build_list %}
     <div class="quickbuild">
-        <p>Threat: {{qb.threat}}</p>
+        <p>Threat {{qb.threat}} quick build with {{qb.pilot_names}}</p>
 
         {% for build in qb.build_set.all %}
         <h4>{{build.pilot}} ({{build.pilot.ship}})</h4>
-        {{ build.all_actions|join:", " }}
+        {{ build.pilot.ship.shipaction_set.all|join:", "}}
 
          {% if build.pilot.ability %}
                 <p>{{build.pilot.ability}}</p>
@@ -29,9 +29,18 @@
                 <dt>{{upgrade}} (<i>{{upgrade.get_both_slots_display}}</i>)</dt>
                 {% if upgrade.ability2 %}
                    <dd><i>[Side 1]</i> {{upgrade.ability}}</dd>
+                    {% if upgrade.side_actions_1 %}
+                    <dd>Grants {{upgrade.side_actions_1|join:", "}}</dd>
+                    {% endif %}
                     <dd><i>[Side 2]</i> {{upgrade.ability2}}</dd>
+                    {% if upgrade.side_actions_2 %}
+                    <dd>Grants {{upgrade.side_actions_2|join:", "}}</dd>
+                    {% endif %}
                 {% else %}
                     <dd>{{upgrade.ability}}</dd>
+                    {% if upgrade.side_actions_1 %}
+                    <dd>Grants {{upgrade.side_actions_1|join:", "}}</dd>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
             </dl>
