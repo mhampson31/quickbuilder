@@ -12,12 +12,12 @@
     {% if 'build_list' %}
     <div id="'all_quickbuilds">
         {% for qb in build_list %}
-        <section class="quickbuild container">
+        <section class="quickbuild container list-group">
            <!--  <div class="row">
                 <h4>Threat {{qb.threat}} quick build with {{qb.pilot_names}}</h4>
             </div> -->
             {% for build in qb.build_set.all %}
-                <div class="row">
+                <div class="row list-item ship_type">
                     <div class="col-md-3">
                         <h5>{{build.pilot.ship}}</h5>
                     </div>
@@ -26,9 +26,10 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row list-item pilot">
                     <div class="col-md-3">
-                        <h6>{{build.pilot}}</h6>
+                        <b>{{build.pilot}}</b>
+                        <span class="badge badge-info">{{build.pilot.initiative}} </span>
                     </div>
                     <div class="col-md-9">
                         {{build.pilot.ability}}
@@ -36,7 +37,7 @@
                 </div>
 
                 {% if build.pilot.ship.ability_title %}
-                    <div class="row">
+                    <div class="row list-item ship_ability">
                         <div class="col-md-3">
                             {{build.pilot.ship.ability_title}} (<i>Ship</i>)
                         </div>
@@ -48,7 +49,7 @@
 
                 {% if build.upgrades.all %}
                     {% for upgrade in build.upgrades.all %}
-                        <div class="row">
+                        <div class="row list-item ship_upgrade">
                             <div class="col-md-3">
                                 {{upgrade}} (<i>{{upgrade.get_both_slots_display}}</i>)
                             </div>
