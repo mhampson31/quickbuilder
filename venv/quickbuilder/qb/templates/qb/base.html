@@ -1,15 +1,17 @@
-{% load staticfiles %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     {% block meta_tags %}{% endblock %}
     <title>
         {% block title %}
-    </title>title
+        {% endblock %}
+    </title>
     {% block stylesheet %}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
               integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
               crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{% static 'qb/style.css' %}">
     {% endblock %}
     {% block javascript %}
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
@@ -18,10 +20,12 @@
     {% endblock %}
     {% block extra_head %}{% endblock %}
 </head>
+
 <body>
-    <header class='navbar navbar-fixed-top'>
-        {% include 'qb/navigation.html' %}
-    </header>
+    <nav class='navbar navbar-light bg-dark'>
+        <a class="nav-item nav-link" href="{% url 'qb:index' %}">Home</a>
+        <a class="nav-item nav-link" href="{% url 'qb:random_quickbuild' %}">Random List</a>
+    </nav>
 
     <div id="main" role="main">
         <div class="container">

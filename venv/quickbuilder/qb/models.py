@@ -141,7 +141,7 @@ class ShipAction(models.Model):
 
 class Pilot(Card):
     ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
-    caption = models.CharField(max_length=100)
+    caption = models.CharField(max_length=100, blank=True)
     initiative = models.IntegerField(
         default=1,
         validators=[MinValueValidator(1), MaxValueValidator(6)]

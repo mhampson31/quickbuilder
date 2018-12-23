@@ -32,6 +32,7 @@ def random_quickbuild(request):
 
     else:
         form = RandomListForm()
+        build_list = []
     return render(request, 'qb/random.html', {'form':form, 'build_list':build_list})
 
 
