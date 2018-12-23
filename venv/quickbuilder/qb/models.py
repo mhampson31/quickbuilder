@@ -84,10 +84,13 @@ class Card(models.Model):
 class Action(models.Model):
     name = models.CharField(max_length=14)
     description = models.CharField(max_length=100)
+    icon = models.CharField(max_length=30)
 
     def __str__(self):
         return self.name
 
+    def display(self, red=False):
+        return '<i class="xwing-miniatures-font xwing-miniatures-font-{}{}"></i>'.format(self.icon, ' hard' if red else '')
 
 # ### core models
 
@@ -108,35 +111,39 @@ class Ship(Card):
                                      through_fields=('ship', 'action'))
     cost=None
 
+    def all_actions(self):
+        return [s.display_name for s in self.shipaction_set.all()]
+
     class Meta:
         ordering = ['name']
         unique_together = ('xws', 'faction')
 
 
-class ShipAction(models.Model):
-    ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
-    action = models.ForeignKey(Action, on_delete=models.CASCADE)
-    difficulty = models.CharField(max_length=1, choices=DIFFICULTY_CHOICES, default='w')
-    linked_action = models.ForeignKey(Action, related_name='linked_ship_action',
-                                      on_delete=models.CASCADE, null=True, blank=True, default=None)
-    linked_difficulty = models.CharField(max_length=1, choices=DIFFICULTY_CHOICES, default='', blank=True)
+class ActionMixin(object):
+    """Mixin to permit some common action tasks.
+       Assumes any class that uses this will have some action-based attributes"""
 
     def __str__(self):
-        if self.difficulty == 'R':
-            return 'Red {}'.format(self.action.name)
-        elif self.linked_action:
-            return '{} -> {}'.format(self.action.name, self.linked_action.name)
+        if self.linked_action:
+            return '{}->{}'.format(self.action.name, self.linked_action.name)
         else:
             return self.action.name
 
-    def action_text(self, linked=False):
-        a = self.linked_action if linked else self.action
-        d = self.linked_difficulty if linked else self.difficulty
-        if d == 'r':
-            return "<span class='difficult'>{}</span>".format(a.name)
+    @property
+    def display_name(self):
+        if self.linked_action:
+            return '{}->{}'.format(self.action.display(self.hard), self.linked_action.display(self.linked_hard))
         else:
-            return a.name
+            return self.action.display(self.hard)
 
+
+class PilotAction(ActionMixin, models.Model):
+    ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
+    action = models.ForeignKey(Action, on_delete=models.CASCADE)
+    hard = models.BooleanField(default=False)
+    linked_action = models.ForeignKey(Action, related_name='linked_ship_action',
+                                      on_delete=models.CASCADE, null=True, blank=True, default=None)
+    linked_hard = models.BooleanField(default=False)
 
 
 class Pilot(Card):
@@ -150,7 +157,6 @@ class Pilot(Card):
     @property
     def faction(self):
         return self.ship.faction.name
-
 
 
 class Upgrade(Card):
@@ -178,29 +184,15 @@ class Upgrade(Card):
     def side_actions_2(self):
         return self.side_actions(2)
 
-class UpgradeAction(models.Model):
+
+class UpgradeAction(ActionMixin, models.Model):
     side = models.IntegerField(default=1)
     upgrade = models.ForeignKey(Upgrade, on_delete=models.CASCADE)
     action = models.ForeignKey(Action, on_delete=models.CASCADE)
-    difficulty = models.CharField(max_length=1, choices=DIFFICULTY_CHOICES, default='w')
+    hard = models.BooleanField(default=False)
     linked_action = models.ForeignKey(Action, related_name='linked_upgrade_action',
                                       on_delete=models.CASCADE, null=True, blank=True, default=None)
-    linked_difficulty = models.CharField(max_length=1, choices=DIFFICULTY_CHOICES, default='', blank=True)
-
-    def __str__(self):
-        if self.linked_action:
-            return '{} -> {}'.format(self.action_text(), self.action_text(linked=True))
-        else:
-            return self.action.name
-
-    def action_text(self, linked=False):
-        a = self.linked_action if linked else self.action
-        d = self.linked_difficulty if linked else self.difficulty
-        if d == 'r':
-            return "<span class='difficult'>{}</span>".format(a.name)
-        else:
-            return a.name
-
+    linked_hard = models.BooleanField(default=False)
 
 
 class QuickBuild(models.Model):
@@ -259,3 +251,4 @@ class Build(models.Model):
             if upgrade.upgradeaction_set.all():
                 actions.extend([a for a in upgrade.upgradeaction_set.all()])
         return actions
+

@@ -13,16 +13,13 @@
     <div id="'all_quickbuilds">
         {% for qb in build_list %}
         <section class="quickbuild container list-group">
-           <!--  <div class="row">
-                <h4>Threat {{qb.threat}} quick build with {{qb.pilot_names}}</h4>
-            </div> -->
             {% for build in qb.build_set.all %}
                 <div class="row list-item ship_type">
                     <div class="col-md-3">
                         <h5>{{build.pilot.ship}}</h5>
                     </div>
                     <div class="col-md-9">
-                        {{ build.pilot.ship.shipaction_set.all|join:", "}}
+                        {{ build.pilot.ship.all_actions|safeseq|join:" "}}
                     </div>
                 </div>
 
@@ -57,14 +54,14 @@
                             {% if upgrade.ability2 %}<i>[Side 1]</i>{% endif %}
                                 {{upgrade.ability}}
                                 {% if upgrade.side_actions_1 %}
-                                    <br />Grants {{upgrade.side_actions_1|join:", "}}
+                                    <br />Grants {{upgrade.side_actions_1|join:", "|safe}}
                                 {% endif %}
                                 {% if upgrade.ability2 %}
                                     <br />
                                     <i>[Side 2]</i>
                                     {{upgrade.ability2}}
                                     {% if upgrade.side_actions_2 %}
-                                    <br />Grants {{upgrade.side_actions_2|join:", "}}
+                                    <br />Grants {{upgrade.side_actions_2|join:", "|safe}}
                                     {% endif %} <!-- end ability2 -->
                                 {% endif %}
                             </div>
@@ -76,5 +73,12 @@
             </section>
         {% endfor%} <!-- end build_list -->
     </div>
+
+    <!-- build table -->
+    <div class="row">
+    <!--    <h4>Threat {{qb.threat}} quick build with {{qb.pilot_names}}</h4> -->
+        <i class="xwing-miniatures-font xwing-miniatures-font-coordinate hard"></i>
+    </div>
+
     {% endif %} <!-- end build_list -->
 {% endblock %}
