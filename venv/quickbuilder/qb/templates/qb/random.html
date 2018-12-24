@@ -1,4 +1,5 @@
 {% extends 'qb/base.html' %}
+{% load qb_extras %}
 
 {% block content %}
     <h1>Random Quick List</h1>
@@ -18,15 +19,74 @@
                     <div class="col-md-3">
                         <h5>{{build.pilot.ship}}</h5>
                     </div>
-                    <div class="col-md-9">
-                        {{ build.pilot.ship.all_actions|safeseq|join:" "}}
+                </div>
+
+                <div class="row list-item stats">
+                    <div class="col-md-3">
+                        Initiative {{build.pilot.initiative}}
                     </div>
+
+                    {% if build.pilot.ship.front %}
+                    <div class="col-md-1">
+                        {{ "frontarc"|get_icon:"attack" }} {{build.pilot.ship.front}}
+                    </div>
+                    {% endif %}
+
+                    {% if build.pilot.ship.turret %}
+                    <div class="col-md-1">
+                        {{ "singleturretarc"|get_icon:"attack" }} {{build.pilot.ship.turret}}
+                    </div>
+                    {% endif %}
+
+                    {% if build.pilot.ship.doubleturret %}
+                    <div col-md-1">
+                        {{ "doubleturretarc"|get_icon:"attack" }} {{build.pilot.ship.doubleturret}}
+                    </div>
+                    {% endif %}
+
+                    {% if build.pilot.ship.full_front %}
+                    <div class="col-md-1">
+                        {{ "fullfrontarc"|get_icon:"attack" }} {{build.pilot.ship.full_front}}
+                    </div>
+                    {% endif %}
+
+                    <div class="col-md-1">
+                        {{ "agility"|get_icon:"agility" }} {{build.pilot.ship.agility}}
+                    </div>
+
+                    {% if build.pilot.ship.shields %}
+                    <div class="col-md-1">
+                        {{ "shield"|get_icon:"shields" }} {{build.pilot.ship.shields}}
+                    </div>
+                    {% endif %}
+
+                    <div class="col-md-1">
+                        {{ "hull"|get_icon:"hull" }} {{build.pilot.ship.hull}}
+                    </div>
+
+                    {% if build.pilot.ship.force %}
+                    <div class="col-md-1">
+                        {{ "force"|get_icon:"force" }} {{build.pilot.ship.force}}
+                    </div>
+                    {% endif %}
+
+                    {% if build.pilot.ship.charge %}
+                    <div class="col-md-1">
+                        {{ "charge"|get_icon:"charge" }} {{build.pilot.ship.charge}}
+                        {% if build.pilot.ship.charge_regen %} {{"recurring"|get_icon:"charge"}}{% endif %}
+                    </div>
+                    {% endif %}
+
+                    <div class="col-md-2">
+                        {{ build.pilot.ship.all_actions|safeseq|join:", "}}
+                    </div>
+
                 </div>
 
                 <div class="row list-item pilot">
                     <div class="col-md-3">
                         <b>{{build.pilot}}</b>
-                        <span class="badge badge-info">{{build.pilot.initiative}} </span>
+
                     </div>
                     <div class="col-md-9">
                         {{build.pilot.ability}}
@@ -77,7 +137,7 @@
     <!-- build table -->
     <div class="row">
     <!--    <h4>Threat {{qb.threat}} quick build with {{qb.pilot_names}}</h4> -->
-        <i class="xwing-miniatures-font xwing-miniatures-font-coordinate hard"></i>
+
     </div>
 
     {% endif %} <!-- end build_list -->

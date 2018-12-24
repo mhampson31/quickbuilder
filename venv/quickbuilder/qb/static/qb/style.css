@@ -9,3 +9,19 @@
 .hard {
     color: red;
 }
+
+.attack:before {
+    color: red;
+}
+
+.agility:before {
+    color: green;
+}
+
+.shields:before {
+    color: blue;
+}
+
+.hull:before {
+    color: olive;
+}

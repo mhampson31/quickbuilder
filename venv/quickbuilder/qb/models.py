@@ -1,9 +1,13 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+from .templatetags.qb_extras import get_icon
 
 # I'm defining this choice list a little differently, because I need to use the full descs later.
 # This keeps them available.
+
+def get_icon(iname, red=False):
+    return '<i class="xwing-miniatures-font xwing-miniatures-font-{}{}"></i>'.format(iname.lower(), ' hard' if red else '')
 
 
 SIZE_TYPES = {
@@ -56,6 +60,7 @@ def make_lnames():
         lnames[k[0]] = []
     return lnames
 
+
 # base and component classes
 
 class Card(models.Model):
@@ -90,7 +95,53 @@ class Action(models.Model):
         return self.name
 
     def display(self, red=False):
-        return '<i class="xwing-miniatures-font xwing-miniatures-font-{}{}"></i>'.format(self.icon, ' hard' if red else '')
+        return get_icon(self.icon, red)
+
+
+class Stats(models.Model):
+    agility = models.PositiveIntegerField(default=0)
+    shields = models.PositiveIntegerField(default=0)
+    hull = models.PositiveIntegerField(default=0)
+
+    front = models.PositiveIntegerField(default=0)
+    left = models.PositiveIntegerField(default=0)
+    right = models.PositiveIntegerField(default=0)
+    rear = models.PositiveIntegerField(default=0)
+
+    full_front = models.PositiveIntegerField(default=0)
+    full_rear = models.PositiveIntegerField(default=0)
+    bullseye = models.PositiveIntegerField(default=0)
+    doubleturret = models.PositiveIntegerField(default=0)
+    turret = models.PositiveIntegerField(default=0)
+
+    force = models.PositiveIntegerField(default=0)
+
+    charge = models.PositiveIntegerField(default=0)
+    charge_regen = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True
+
+
+class ActionMixin(object):
+    """Mixin to permit some common action tasks.
+       Assumes any class that uses this will have some action-based attributes"""
+
+    def __str__(self):
+        if self.linked_action:
+            return '{} -> {}'.format(self.action.name, self.linked_action.name)
+        else:
+            return self.action.name
+
+    @property
+    def display_name(self):
+        if self.linked_action:
+            return '{} {} {}'.format(get_icon(self.action.name, self.hard),
+                                     get_icon('linked'),
+                                     get_icon(self.linked_action.name, self.linked_hard))
+        else:
+            return get_icon(self.action.name, self.hard)
+
 
 # ### core models
 
@@ -102,13 +153,10 @@ class Faction(Card):
     released = models.BooleanField(default=True)
 
 
-class Ship(Card):
+class Ship(Card, Stats):
     size = models.CharField(max_length=1, choices=SIZE_CHOICES, default='S')
     faction = models.ForeignKey(Faction, on_delete=models.CASCADE)
     limited = None
-    actions = models.ManyToManyField(Action,
-                                     through='ShipAction',
-                                     through_fields=('ship', 'action'))
     cost=None
 
     def all_actions(self):
@@ -119,44 +167,38 @@ class Ship(Card):
         unique_together = ('xws', 'faction')
 
 
-class ActionMixin(object):
-    """Mixin to permit some common action tasks.
-       Assumes any class that uses this will have some action-based attributes"""
-
-    def __str__(self):
-        if self.linked_action:
-            return '{}->{}'.format(self.action.name, self.linked_action.name)
-        else:
-            return self.action.name
-
-    @property
-    def display_name(self):
-        if self.linked_action:
-            return '{}->{}'.format(self.action.display(self.hard), self.linked_action.display(self.linked_hard))
-        else:
-            return self.action.display(self.hard)
-
-
-class PilotAction(ActionMixin, models.Model):
-    ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
-    action = models.ForeignKey(Action, on_delete=models.CASCADE)
-    hard = models.BooleanField(default=False)
-    linked_action = models.ForeignKey(Action, related_name='linked_ship_action',
-                                      on_delete=models.CASCADE, null=True, blank=True, default=None)
-    linked_hard = models.BooleanField(default=False)
-
-
-class Pilot(Card):
+class Pilot(Card, Stats):
     ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
     caption = models.CharField(max_length=100, blank=True)
     initiative = models.IntegerField(
         default=1,
         validators=[MinValueValidator(1), MaxValueValidator(6)]
      )
+    actions = models.ManyToManyField(Action,
+                                     through='PilotAction',
+                                     through_fields=('pilot', 'action'))
 
     @property
     def faction(self):
         return self.ship.faction.name
+
+
+class PilotAction(ActionMixin, models.Model):
+    pilot = models.ForeignKey(Pilot, on_delete=models.CASCADE)
+    action = models.ForeignKey(Action, on_delete=models.CASCADE)
+    hard = models.BooleanField(default=False)
+    linked_action = models.ForeignKey(Action, related_name='linked_pilot_action',
+                                      on_delete=models.CASCADE, null=True, blank=True, default=None)
+    linked_hard = models.BooleanField(default=False)
+
+
+class ShipAction(ActionMixin, models.Model):
+    ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
+    action = models.ForeignKey(Action, on_delete=models.CASCADE)
+    hard = models.BooleanField(default=False)
+    linked_action = models.ForeignKey(Action, related_name='linked_ship_action',
+                                      on_delete=models.CASCADE, null=True, blank=True, default=None)
+    linked_hard = models.BooleanField(default=False)
 
 
 class Upgrade(Card):

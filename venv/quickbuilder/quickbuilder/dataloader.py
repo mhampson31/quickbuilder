@@ -49,7 +49,7 @@ def load_upgrades():
 
 
 def load_ships():
-    from qb.models import Ship, Pilot, Faction, SIZE_TYPES
+    from qb.models import Ship, Pilot, Action, ShipAction, PilotAction, Faction, SIZE_TYPES
 
     fdir = os.path.join(DATA_PATH, 'pilots')
     for fct in os.listdir(fdir):
@@ -60,6 +60,7 @@ def load_ships():
                 faction = Faction.objects.get(name=sdata['faction'])
 
                 if not Ship.objects.filter(xws=sdata['xws']).filter(faction_id=faction.id).exists():
+                    print('New ship')
                     # check a pilot for ship abilities
                     if sdata['pilots']:
                         sa = list(sdata['pilots'])[0].get('shipAbility', {'name':'', 'text':''})
@@ -72,22 +73,53 @@ def load_ships():
                                     ability=sa['text'],
                                     ability_title=sa['name']
                                 )
+                    #ship stats
+                    for s in sdata['stats']:
+                        v = int(s['value'])
+
+                        if s['type'] == 'attack':
+                            if s['arc'] == 'Front Arc':
+                                new_ship.front = v
+                            elif s['arc'] == 'Single Turret Arc':
+                                new_ship.turret = v
+                            elif s['arc'] == 'Double Turret Arc':
+                                new_ship.doubleturret = v
+                            elif s['arc'] == 'Rear Arc':
+                                new_ship.rear = v
+                            elif s['arc'] == 'Full Front Arc':
+                                    new_ship.full_front = v
+                            elif s['arc'] == 'Full Rear Arc':
+                                    new_ship.full_rear = v
+                            else:
+                                print('Error: bad arc {}'.format(s['arc']))
+                        elif s['type'] == 'agility':
+                            new_ship.agility = v
+                        elif s['type'] == 'hull':
+                            new_ship.hull = v
+                        elif s['type'] == 'shields':
+                            new_ship.shields = v
+                        else:
+                            print('Error: bad stat type {}'.format(s['type']))
+
                     new_ship.save()
                     print('Loaded ship: {}'.format(new_ship.name))
-                    alist = sdata['actions']                    for a in alist:
+
+                    ship_actions = sdata['actions']
+                    for a in ship_actions:
                         action = Action.objects.get(name=a['type'])
-                        difficulty = 'r' if a['difficulty'] == 'Red' else 'w'
-                        new_action = ShipAction(action=action, difficulty=difficulty)
+                        hard = True if a['difficulty'] == 'Red' else False
+                        new_action = ShipAction(action=action, hard=hard)
                         if 'linked' in a:
                             l = a['linked']
                             new_action.linked_action = Action.objects.get(name=l['type'])
-                            new_action.linked_difficulty = 'r' if l['difficulty'] == 'Red' else 'w'
-                        new_action.ship = ship
+                            new_action.linked_hard = True if l['difficulty'] == 'Red' else False
+                        new_action.ship = new_ship
                         print('    {}'.format(new_action))
                         new_action.save()
+
                 else:
-                    print('Skipped ship: {}'.format(sdata['name']))
-                    new_ship = Ship.objects.get(xws=sdata['xws'])
+                    #print('Skipped ship: {}'.format(sdata['name']))
+                    new_ship = Ship.objects.filter(faction_id=faction.id).get(xws=sdata['xws'])
                 for p in sdata['pilots']:
                     if not Pilot.objects.filter(xws=p['xws']).exists():
                         new_pilot = Pilot(name=p['name'],
@@ -98,10 +130,30 @@ def load_ships():
                                           ability=p.get('ability', ''),
                                           ship=new_ship
                                     )
+                        if 'force' in p:
+                            new_pilot.force = int(p['force']['value'])
+                        if 'charges' in p:
+                            new_pilot.charge = int(p['charges']['value'])
+                            new_pilot.charge_regen =  int(p['charges']['value']) > 0
+
                         new_pilot.save()
                         print('Loaded pilot: {}'.format(new_pilot.name))
+
+                        pilot_actions = p.get('shipActions', [])
+                        for a in pilot_actions:
+                            action = Action.objects.get(name=a['type'])
+                            hard = True if a['difficulty'] == 'Red' else False
+                            new_action = PilotAction(action=action, hard=hard)
+                            if 'linked' in a:
+                                l = a['linked']
+                                new_action.linked_action = Action.objects.get(name=l['type'])
+                                new_action.linked_hard = True if l['difficulty'] == 'Red' else False
+                            new_action.pilot = new_pilot
+                            new_action.save()
+
                     else:
-                        print('Skipped pilot: {}'.format(p['name']))
+                        #print('Skipped pilot: {}'.format(p['name']))
+                        pass
 
 flist = (
     'Rebel Alliance',
@@ -112,8 +164,9 @@ flist = (
     'Galactic Republic',
     'Separatist Alliance')
 
+
 def load_quickbuilds(flist=flist):
-    from qb.models import Pilot, Upgrade, QuickBuild, Build, Faction, FACTION_TYPES
+    from qb.models import Pilot, Upgrade, QuickBuild, Build, Faction
 
     fdir = os.path.join(DATA_PATH, 'quick-builds')
     for fct in os.listdir(fdir):
@@ -144,7 +197,6 @@ def load_quickbuilds(flist=flist):
                             for u in p['upgrades'].values():
                                 print(u)
                                 b.upgrades.add(*[Upgrade.objects.get(xws=c) for c in u])
-
 
 
 def load_actions():

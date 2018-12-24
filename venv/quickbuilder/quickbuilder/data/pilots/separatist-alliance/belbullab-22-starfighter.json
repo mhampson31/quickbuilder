@@ -26,7 +26,7 @@
   "faction": "Separatist Alliance",
   "stats": [
     {
-      "type": "shield",
+      "type": "shields",
       "value": 2
     }
   ],
