@@ -25,3 +25,7 @@
 .hull:before {
     color: olive;
 }
+
+.icon {
+    margin-left: 8px
+}

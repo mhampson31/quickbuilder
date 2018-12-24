@@ -6,8 +6,9 @@ from .templatetags.qb_extras import get_icon
 # I'm defining this choice list a little differently, because I need to use the full descs later.
 # This keeps them available.
 
-def get_icon(iname, red=False):
-    return '<i class="xwing-miniatures-font xwing-miniatures-font-{}{}"></i>'.format(iname.lower(), ' hard' if red else '')
+
+def get_icon2(iname, red=False):
+    return '<span class="icon"><i class="xwing-miniatures-font xwing-miniatures-font-{}{}"></i>'.format(iname.lower(), ' hard' if red else '')
 
 
 SIZE_TYPES = {
@@ -19,7 +20,7 @@ SIZE_TYPES = {
 UPGRADE_TYPES = {
     'Astromech':'AST',
     'Cannon': 'CNN',
-    'Configuration': 'CNF',
+    'Config': 'CNF',
     'Crew': 'CRW',
     'Device': 'DVC',
     'Force Power': 'FRC',
@@ -94,8 +95,8 @@ class Action(models.Model):
     def __str__(self):
         return self.name
 
-    def display(self, red=False):
-        return get_icon(self.icon, red)
+    def display(self, css=False):
+        return get_icon(self.icon, css)
 
 
 class Stats(models.Model):
@@ -133,14 +134,29 @@ class ActionMixin(object):
         else:
             return self.action.name
 
+    def __eq__(self, other):
+        """
+        We occassionally need to a==b different kinds of upgrades.
+        :param other: Another object, ideally using this mixin class
+        :return: True if both objects have the same actions and same difficulties.
+        """
+        try:
+            return self.action == other.action and \
+               self.hard == other.hard and \
+               self.linked_action == other.linked_action and \
+               self.linked_hard == other.linked_hard
+        except AttributeError:
+            return False
+
+
     @property
     def display_name(self):
         if self.linked_action:
-            return '{} {} {}'.format(get_icon(self.action.name, self.hard),
+            return '<span class="icon">{}{}{}</span>'.format(get_icon(self.action.icon, css='hard' if self.hard else None),
                                      get_icon('linked'),
-                                     get_icon(self.linked_action.name, self.linked_hard))
+                                     get_icon(self.linked_action.icon, css='hard' if self.linked_hard else None))
         else:
-            return get_icon(self.action.name, self.hard)
+            return '<span class="icon">{}</span>'.format(get_icon(self.action.icon, css='hard' if self.hard else None))
 
 
 # ### core models
@@ -161,6 +177,10 @@ class Ship(Card, Stats):
 
     def all_actions(self):
         return [s.display_name for s in self.shipaction_set.all()]
+
+    @property
+    def icon(self):
+        return '<span class="icon"><i class="xwing-miniatures-ship xwing-miniatures-ship-{}"></i></span>'.format(self.xws)
 
     class Meta:
         ordering = ['name']
@@ -208,13 +228,6 @@ class Upgrade(Card):
     ability2_title = models.CharField(max_length=32, blank=True, default='')
     actions = models.ManyToManyField(Action, through='UpgradeAction', through_fields=('upgrade', 'action'))
 
-    @property
-    def get_both_slots_display(self):
-        if self.slot2:
-            return '/'.join([self.get_slot_display(), self.get_slot2_display()])
-        else:
-            return self.get_slot_display()
-
     def side_actions(self, side):
         return self.upgradeaction_set.filter(side=side)
 
@@ -225,6 +238,9 @@ class Upgrade(Card):
     @property
     def side_actions_2(self):
         return self.side_actions(2)
+
+    class Meta:
+        ordering = ['slot', 'slot2', 'name']
 
 
 class UpgradeAction(ActionMixin, models.Model):
@@ -284,6 +300,14 @@ class Build(models.Model):
             lnames[c.limited].append(c.name)
 
         return lnames
+
+    @property
+    def action_bar(self):
+        pa =  self.pilot.pilotaction_set.all() if self.pilot.pilotaction_set.exists() else self.pilot.ship.shipaction_set.all()
+        bar = [p for p in pa]
+        ua = [bar.extend(u.upgradeaction_set.all()) for u in self.upgrades.filter(actions__isnull=False)]
+        return bar
+
 
     @property
     def all_actions(self):
