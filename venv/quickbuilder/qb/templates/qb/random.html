@@ -32,32 +32,32 @@
 
                 <div class="row"> <!-- row 2 -->
                     <div class="col">
-                        {% if build.pilot.ship.front %}
-                        <span class="icon">{{ "frontarc"|get_icon:"attack" }} {{build.pilot.ship.front}}</span>
+                        {% if build.front %}
+                        <span class="icon">{{ "frontarc"|get_icon:"attack" }} {{build.front}}</span>
                         {% endif %}
 
-                        {% if build.pilot.ship.turret %}
-                            <span class="icon">{{ "singleturretarc"|get_icon:"attack" }} {{build.pilot.ship.turret}}</span>
+                        {% if build.turret %}
+                            <span class="icon">{{ "singleturretarc"|get_icon:"attack" }} {{build.turret}}</span>
                         {% endif %}
 
-                        {% if build.pilot.ship.doubleturret %}
-                            <span class="icon">{{ "doubleturretarc"|get_icon:"attack" }} {{build.pilot.ship.doubleturret}}</span>
+                        {% if build.doubleturret %}
+                            <span class="icon">{{ "doubleturretarc"|get_icon:"attack" }} {{build.doubleturret}}</span>
                         {% endif %}
 
-                        {% if build.pilot.ship.full_front %}
-                            <span class="icon">{{ "fullfrontarc"|get_icon:"attack" }} {{build.pilot.ship.full_front}}</span>
+                        {% if build.full_front %}
+                            <span class="icon">{{ "fullfrontarc"|get_icon:"attack" }} {{build.full_front}}</span>
                         {% endif %}
 
-                            <span class="icon">{{ "agility"|get_icon:"agility" }} {{build.pilot.ship.agility}}</span>
+                            <span class="icon">{{ "agility"|get_icon:"agility" }} {{build.agility}}</span>
 
-                        {% if build.pilot.ship.shields %}
-                            <span class="icon">{{ "shield"|get_icon:"shields" }} {{build.pilot.ship.shields}}</span>
+                        {% if build.shields %}
+                            <span class="icon">{{ "shield"|get_icon:"shields" }} {{build.shields}}</span>
                         {% endif %}
 
-                            <span class="icon">{{ "hull"|get_icon:"hull" }} {{build.pilot.ship.hull}}</span>
+                            <span class="icon">{{ "hull"|get_icon:"hull" }} {{build.hull}}</span>
 
-                        {% if build.pilot.ship.force %}
-                            <span class="icon">{{ "forcecharge"|get_icon:"force" }} {{build.pilot.ship.force}}</span>
+                        {% if build.force %}
+                            <span class="icon">{{ "forcecharge"|get_icon:"force" }} {{build.force}}</span>
                         {% endif %}
 
                         {% if build.pilot.ship.charge %}
@@ -65,16 +65,16 @@
                             {% if build.pilot.ship.charge_regen %} {{"recurring"|get_icon:"charge"}}{% endif %}</span>
                         {% endif %}
                     </div>
+
+                    <div class="col"> <!-- action sidebar -->
+                        {% for action in build.action_bar %}
+                            <span>{{action.display_name|safe}}</span>
+                        {% endfor %}
+                    </div>
+
                 </div> <!-- end row 2 -->
 
                 <div class="row"> <!-- row 3 -->
-                    <div class="col-md-1"> <!-- action sidebar -->
-                        {% for action in build.action_bar %}
-                        <div class="row">
-                            {{action.display_name|safe}}
-                        </div>
-                        {% endfor %}
-                    </div>
 
                     <div class="col"> <!-- abilities sub-rows -->
                         <div class="row list-item pilot">
@@ -82,7 +82,7 @@
 
                             </div>
                             <div class="col-md-9">
-                                {{ build.pilot.ability }}
+                                {{ build.pilot.ability|iconize|safe }}
                             </div>
                         </div>
 
@@ -93,7 +93,7 @@
                                 {{build.pilot.ship.icon|safe}}
                             </div>
                             <div class="col-md-9">
-                                {{ build.pilot.ship.ability }}
+                                {{ build.pilot.ship.ability|iconize|safe }}
                             </div>
                         </div>
                         {% endif %}
@@ -109,14 +109,14 @@
                             </div>
                             <div class="col-md-9">
                             {% if upgrade.ability2 %}<i>[Side 1]</i>{% endif %}
-                                {{ upgrade.ability }}
+                                {{ upgrade.ability|iconize|safe }}
                                 {% if upgrade.side_actions_1 %}
-                                    <br />Grants {{upgrade.side_actions_1|join:", "|safe}}
+                                    {% if upgrade.ability %}<br />{% endif %}Grants {{upgrade.side_actions_1|join:", "|safe}}
                                 {% endif %}
                                 {% if upgrade.ability2 %}
                                     <br />
                                     <i>[Side 2]</i>
-                                    {{ upgrade.ability2 }}
+                                    {{ upgrade.ability2|iconize|safe }}
                                     {% if upgrade.side_actions_2 %}
                                     <br />Grants {{upgrade.side_actions_2|join:", "|safe}}
                                     {% endif %} <!-- end ability2 -->

@@ -153,7 +153,7 @@ class ActionMixin(object):
     def display_name(self):
         if self.linked_action:
             return '<span class="icon">{}{}{}</span>'.format(get_icon(self.action.icon, css='hard' if self.hard else None),
-                                     get_icon('linked'),
+                                     get_icon('linked', css='linked'),
                                      get_icon(self.linked_action.icon, css='hard' if self.linked_hard else None))
         else:
             return '<span class="icon">{}</span>'.format(get_icon(self.action.icon, css='hard' if self.hard else None))
@@ -180,7 +180,7 @@ class Ship(Card, Stats):
 
     @property
     def icon(self):
-        return '<span class="icon"><i class="xwing-miniatures-ship xwing-miniatures-ship-{}"></i></span>'.format(self.xws)
+        return '<i class="xwing-miniatures-ship xwing-miniatures-ship-{}"></i>'.format(self.xws)
 
     class Meta:
         ordering = ['name']
@@ -221,7 +221,7 @@ class ShipAction(ActionMixin, models.Model):
     linked_hard = models.BooleanField(default=False)
 
 
-class Upgrade(Card):
+class Upgrade(Card, Stats):
     slot = models.CharField(max_length=3, choices=UPGRADE_CHOICES)
     slot2 = models.CharField(max_length=3, choices=UPGRADE_CHOICES, null=True, blank=True, default=None)
     ability2 = models.CharField(max_length=320, blank=True, default='')
@@ -253,6 +253,10 @@ class UpgradeAction(ActionMixin, models.Model):
     linked_hard = models.BooleanField(default=False)
 
 
+
+##############################
+# ### Quick Build models ### #
+
 class QuickBuild(models.Model):
     threat = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(8)]
@@ -281,6 +285,10 @@ class QuickBuild(models.Model):
 
 
 class Build(models.Model):
+    """
+    This model is really the core unit of this app. It takes a pilot+ship, maybe some upgrades, and prepares it for
+    presentation.
+    """
     quickbuild = models.ForeignKey(QuickBuild, on_delete=models.CASCADE)
     pilot = models.ForeignKey(Pilot, related_name='qb_pilot_id', on_delete=models.CASCADE)
     upgrades = models.ManyToManyField(Upgrade, blank=True, related_name='upgrade_id')
@@ -305,16 +313,65 @@ class Build(models.Model):
     def action_bar(self):
         pa =  self.pilot.pilotaction_set.all() if self.pilot.pilotaction_set.exists() else self.pilot.ship.shipaction_set.all()
         bar = [p for p in pa]
-        ua = [bar.extend(u.upgradeaction_set.all()) for u in self.upgrades.filter(actions__isnull=False)]
+        upgrades = [card.upgradeaction_set.all() for card in self.upgrades.filter(actions__isnull=False)]
+        for card in upgrades:
+            for action in card:
+                if action not in bar:
+                    bar.append(action)
         return bar
 
+    def make_stat(self, stat):
+        stat_gt = {'{}__gt'.format(stat): 0}
+        return getattr(self.pilot.ship, stat) + sum([getattr(u, stat) for u in self.upgrades.filter(**stat_gt)])
+
+    def make_attack(self, arc):
+        arc_gt = {'{}__gt'.format(arc): 0}
+        attacks = [getattr(u, arc) for u in self.upgrades.filter(**arc_gt)]
+        attacks.append(getattr(self.pilot.ship, arc))
+        return max(attacks)
 
     @property
-    def all_actions(self):
-        actions = [a for a in self.pilot.ship.shipaction_set.all()]
-        upgrade_actions = []
-        for upgrade in self.upgrades.all():
-            if upgrade.upgradeaction_set.all():
-                actions.extend([a for a in upgrade.upgradeaction_set.all()])
-        return actions
+    def agility(self): return self.make_stat('agility')
 
+    @property
+    def shields(self): return self.make_stat('shields')
+
+    @property
+    def hull(self): return self.make_stat('hull')
+
+    @property
+    def force(self): return self.make_stat('force')
+
+    @property
+    def front(self): return self.make_attack('front')
+
+    @property
+    def left(self): return self.make_attack('left')
+
+    @property
+    def right(self):
+        return self.make_attack('right')
+
+    @property
+    def rear(self):
+        return self.make_attack('rear')
+
+    @property
+    def turret(self):
+        return self.make_attack('turret')
+
+    @property
+    def doubleturret(self):
+        return self.make_attack('doubleturret')
+
+    @property
+    def full_front(self):
+        return self.make_attack('full_front')
+
+    @property
+    def full_rear(self):
+        return self.make_attack('full_rear')
+
+    @property
+    def bullseye(self):
+        return self.make_attack('bullseye')
