@@ -7,6 +7,7 @@ from .models import Ship
 from .forms import RandomListForm
 from .tools import random_list
 
+
 class IndexView(generic.ListView):
     template_name = 'qb/index.html'
     context_object_name = 'ship_list'

@@ -1,9 +1,49 @@
 .quickbuild {
-    margin: 1.5em;
+    margin: 1.5rem;
 }
 
 .quickbuild > .row {
-    margin-bottom: 0.3em;
+    margin-bottom: 0.3rem;
 }
 
+.hard {
+    color: red;
+}
 
+.attack:before {
+    color: red;
+}
+
+.agility:before {
+    color: green;
+}
+
+.shields:before {
+    color: blue;
+}
+
+.hull:before {
+    color: olive;
+}
+
+.force:before {
+    color:mediumpurple
+}
+
+.charge:before {
+    color:orange
+}
+
+.linked.before {
+    color:dimgrey;
+}
+
+.icon {
+    border-color: dimgrey;
+    padding: 0.5rem;
+    margin-left: 0;
+}
+
+td > .xwing-miniatures-font {
+    font-size: 1rem;
+}
