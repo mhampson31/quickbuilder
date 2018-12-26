@@ -6,3 +6,5 @@
 qb/migrations/
 *.cnf
 prod.py
+
+run-django.sh

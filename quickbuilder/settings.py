@@ -25,7 +25,7 @@ SECRET_KEY = prod.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = prod.DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['quickbuilder.nfshost.com']
 
 
 # Application definition
@@ -112,4 +112,5 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+STATIC_ROOT = '/home/public/static'
 STATIC_URL = '/static/'
