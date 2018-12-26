@@ -18,3 +18,5 @@ venv/quickbuilder/quickbuilder/__pycache__/
 venv/quickbuilder/qb/__pycache__/
 
 *.pyc
+
+venv/quickbuilder/qb/migrations/
