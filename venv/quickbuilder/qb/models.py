@@ -152,11 +152,11 @@ class ActionMixin(object):
     @property
     def display_name(self):
         if self.linked_action:
-            return '<span class="icon">{}{}{}</span>'.format(get_icon(self.action.icon, css='hard' if self.hard else None),
+            return '<span class="border rounded icon">{}{}{}</span>'.format(get_icon(self.action.icon, css='hard' if self.hard else None),
                                      get_icon('linked', css='linked'),
                                      get_icon(self.linked_action.icon, css='hard' if self.linked_hard else None))
         else:
-            return '<span class="icon">{}</span>'.format(get_icon(self.action.icon, css='hard' if self.hard else None))
+            return '<span class="border rounded icon">{}</span>'.format(get_icon(self.action.icon, css='hard' if self.hard else None))
 
 
 # ### core models
@@ -194,9 +194,7 @@ class Pilot(Card, Stats):
         default=1,
         validators=[MinValueValidator(1), MaxValueValidator(6)]
      )
-    actions = models.ManyToManyField(Action,
-                                     through='PilotAction',
-                                     through_fields=('pilot', 'action'))
+    actions = models.ManyToManyField(Action, through='PilotAction', through_fields=('pilot', 'action'))
 
     @property
     def faction(self):
@@ -340,7 +338,10 @@ class Build(models.Model):
     def hull(self): return self.make_stat('hull')
 
     @property
-    def force(self): return self.make_stat('force')
+    def force(self):
+        # Force is on the pilot, unlike other stats, so the make_stat method won't work
+        return self.pilot.force + sum([u.force for u in self.upgrades.filter(force__gt=0)])
+
 
     @property
     def front(self): return self.make_attack('front')

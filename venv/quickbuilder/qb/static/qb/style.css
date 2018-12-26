@@ -26,12 +26,24 @@
     color: olive;
 }
 
+.force:before {
+    color:mediumpurple
+}
+
+.charge:before {
+    color:orange
+}
+
 .linked.before {
     color:dimgrey;
 }
 
 .icon {
-    border: 1px solid lightgray;
+    border-color: dimgrey;
     padding: 0.5rem;
     margin-left: 0;
+}
+
+td > .xwing-miniatures-font {
+    font-size: 1rem;
 }

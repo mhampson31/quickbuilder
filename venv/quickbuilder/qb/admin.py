@@ -54,9 +54,9 @@ class UpgradeAdmin(admin.ModelAdmin):
     inlines = (UpgradeActionInline, )
     fieldsets = (
         (None, {'fields': (('name', 'limited'), 'xws', 'ability', ('slot', 'slot2'))}),
+        ('Powers', {'fields': (('charge', 'charge_regen', 'force'),)}),
         ('Primary Weapons', {'fields': (('front', 'turret', 'doubleturret'),)}),
         ('Defenses', {'fields': (('agility', 'shields', 'hull'),)}),
-        ('Powers', {'fields': (('force', 'charge', 'charge_regen'),)}),
         ('Primary (Uncommon)', {'fields': (('left', 'right', 'rear', 'bullseye', 'full_front', 'full_rear'),)})
     )
     list_display = ('display_name', 'slot')
