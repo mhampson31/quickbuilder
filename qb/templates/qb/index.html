@@ -1,0 +1,15 @@
+{% extends 'qb/base.html' %}
+
+{% block content %}
+
+    {% if ship_list %}
+        <ul>
+        {% for ship in ship_list %}
+            <li><a href={% url 'qb:ship_detail' ship.id %}>{{ship.name}}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No ships exist.</p>
+    {% endif %}
+
+{% endblock %}
