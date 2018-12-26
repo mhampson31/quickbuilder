@@ -215,6 +215,16 @@ def load_actions():
 
 def rebuild():
     # Assuming an empty database...
+    from qb.models import Action
+
+    with open(os.path.join(DATA_PATH, 'actions/actions.json', 'r')) as rf:
+        af = json.load(rf)
+        for a in af:
+            if a['name'] == 'Slam':
+                a['name'] = 'SLAM'
+            new_action = Action(name=a['name'], icon=a['xws'], description='')
+            new_action.save()
+            print("Loaded {}".format(new_action.name))
 
     print("Loading Factions")
     load_factions()
