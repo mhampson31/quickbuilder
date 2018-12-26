@@ -59,7 +59,7 @@ class UpgradeAdmin(admin.ModelAdmin):
         ('Defenses', {'fields': (('agility', 'shields', 'hull'),)}),
         ('Primary (Uncommon)', {'fields': (('left', 'right', 'rear', 'bullseye', 'full_front', 'full_rear'),)})
     )
-    list_display = ('display_name', 'slot')
+    list_display = ('display_name', 'slot', 'charge', 'ability')
     list_filter = ('slot',)
 admin.site.register(Upgrade, UpgradeAdmin)
 

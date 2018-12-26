@@ -20,7 +20,7 @@ SIZE_TYPES = {
 UPGRADE_TYPES = {
     'Astromech':'AST',
     'Cannon': 'CNN',
-    'Config': 'CNF',
+    'Configuration': 'CNF',
     'Crew': 'CRW',
     'Device': 'DVC',
     'Force Power': 'FRC',
@@ -53,6 +53,8 @@ DIFFICULTY_CHOICES = (
     ('w', 'White'),
     ('b', 'Blue')
 )
+
+
 
 def make_lnames():
     from .models import LIMITED_CHOICES
