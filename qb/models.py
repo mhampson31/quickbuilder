@@ -69,7 +69,7 @@ class Card(models.Model):
     xws = models.CharField(max_length=64)
     ffg = models.PositiveIntegerField(blank=True, null=True, default=None)
     limited = models.CharField(max_length=1, choices=LIMITED_CHOICES, blank=True, default='')
-    ability = models.CharField(max_length=320, blank=True, default='')
+    ability = models.CharField(max_length=400, blank=True, default='')
     ability_title = models.CharField(max_length=32, blank=True, default='')
 
     @property
