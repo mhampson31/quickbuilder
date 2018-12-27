@@ -56,15 +56,15 @@ DIFFICULTY_CHOICES = (
 )
 
 ARC_CHOICES = (
-    ('FT', 'Front'),
-    ('LE', 'Left'),
-    ('RI','Right'),
-    ('RE','Rear'),
-    ('FF','Full Front'),
-    ('FR','Full Rear'),
-    ('BU','Bullseye'),
-    ('DT','Double Turret'),
-    ('ST','Single Turret')
+    ('FT', 'Front Arc'),
+    ('LE', 'Left Arc'),
+    ('RI','Right Arc'),
+    ('RE','Rear Arc'),
+    ('FF','Full Front Arc'),
+    ('FR','Full Rear Arc'),
+    ('BU','Bullseye Arc'),
+    ('DT','Double Turret Arc'),
+    ('ST','Single Turret Arc')
 )
 
 RANGE_CHOICES = (
@@ -122,6 +122,27 @@ class Action(models.Model):
         return get_icon(self.icon, css)
 
 
+class Attack(models.Model):
+    arc = models.CharField(max_length=2, choices=ARC_CHOICES, default='FR')
+    value = models.PositiveIntegerField(default=2)
+    range = models.CharField(max_length=2, choices=RANGE_CHOICES, default='13')
+    ordanance = models.BooleanField(default=False)
+    primary = True
+
+    def __str__(self):
+        return '{} {}'.format(self.get_arc_display(), self.value)
+
+    @property
+    def display_name(self):
+        return '[{}] {} {}{}'.format(self.get_arc_display(),
+                                     self.value,
+                                     '[ordanance] ' if self.ordanance else '',
+                                     self.range if self.type is 'special' else '')
+
+    class Meta:
+        abstract = True
+
+
 class Stats(models.Model):
     agility = models.PositiveIntegerField(default=0)
     shields = models.PositiveIntegerField(default=0)
@@ -135,19 +156,6 @@ class Charges(models.Model):
     force = models.PositiveIntegerField(default=0)
     charge = models.PositiveIntegerField(default=0)
     charge_regen = models.BooleanField(default=False)
-
-    class Meta:
-        abstract = True
-
-
-class Attack(models.Model):
-    arc = models.CharField(max_length=2, choices=ARC_CHOICES, default='FR')
-    value = models.PositiveIntegerField(default=2)
-    range = models.CharField(max_length=2, choices=RANGE_CHOICES, default='13')
-    ordanance = models.BooleanField(default=False)
-
-    def __str__(self):
-        return '{} {}'.format(self.get_arc_display(), self.value)
 
     class Meta:
         abstract = True
@@ -320,9 +328,11 @@ class UpgradeAction(ActionMixin, models.Model):
 
 class ShipAttack(Attack):
     ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
+    type = 'primary'
 
 class UpgradeAttack(Attack):
     upgrade = models.ForeignKey(Upgrade, on_delete=models.CASCADE)
+    type = 'special'
 
 ##############################
 # ### Quick Build models ### #
@@ -391,14 +401,9 @@ class Build(models.Model):
         return bar
 
     def make_stat(self, stat):
+        """This method lets us add any upgrade benefits to a ship's agility, hull, or shields """
         stat_gt = {'{}__gt'.format(stat): 0}
         return getattr(self.pilot.ship, stat) + sum([getattr(u, stat) for u in self.upgrades.filter(**stat_gt)])
-
-    def make_attack(self, arc):
-        arc_gt = {'{}__gt'.format(arc): 0}
-        attacks = [getattr(u, arc) for u in self.upgrades.filter(**arc_gt)]
-        attacks.append(getattr(self.pilot.ship, arc))
-        return max(attacks)
 
     @property
     def agility(self): return self.make_stat('agility')
@@ -409,42 +414,8 @@ class Build(models.Model):
     @property
     def hull(self): return self.make_stat('hull')
 
+
     @property
     def force(self):
         # Force is on the pilot, unlike other stats, so the make_stat method won't work
         return self.pilot.force + sum([u.force for u in self.upgrades.filter(force__gt=0)])
-
-
-    @property
-    def front(self): return self.make_attack('front')
-
-    @property
-    def left(self): return self.make_attack('left')
-
-    @property
-    def right(self):
-        return self.make_attack('right')
-
-    @property
-    def rear(self):
-        return self.make_attack('rear')
-
-    @property
-    def turret(self):
-        return self.make_attack('turret')
-
-    @property
-    def doubleturret(self):
-        return self.make_attack('doubleturret')
-
-    @property
-    def full_front(self):
-        return self.make_attack('full_front')
-
-    @property
-    def full_rear(self):
-        return self.make_attack('full_rear')
-
-    @property
-    def bullseye(self):
-        return self.make_attack('bullseye')

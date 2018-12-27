@@ -12,6 +12,7 @@ icon_text = {
     'Bank Right':'bankright',
     'Bullseye Arc':'bullseyearc',
     'Single Turret Arc':'singleturretarc',
+    'Double Turret Arc':'doubleturretarc',
     'Critical Hit':'crit',
     'Front Arc':'frontarc',
     'Force Power':'forcepower',

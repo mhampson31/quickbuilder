@@ -35,21 +35,9 @@
                     </div>
 
                     <div class="col">
-                        {% if build.front %}
-                        <span class="border rounded icon">{{ "frontarc"|get_icon:"attack" }} {{build.front}}</span>
-                        {% endif %}
-
-                        {% if build.turret %}
-                            <span class="border rounded icon">{{ "singleturretarc"|get_icon:"attack" }} {{build.turret}}</span>
-                        {% endif %}
-
-                        {% if build.doubleturret %}
-                            <span class="border rounded icon">{{ "doubleturretarc"|get_icon:"attack" }} {{build.doubleturret}}</span>
-                        {% endif %}
-
-                        {% if build.full_front %}
-                            <span class="border rounded icon">{{ "fullfrontarc"|get_icon:"attack" }} {{build.full_front}}</span>
-                        {% endif %}
+                        {% for attack in build.pilot.ship.shipattack_set.all %}
+                            <span class="border rounded icon attack">{{ attack.display_name|iconize|safe  }}</span>
+                        {% endfor %}
 
                             <span class="border rounded icon">{{ "agility"|get_icon:"agility" }} {{build.agility}}</span>
 

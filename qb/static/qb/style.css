@@ -10,7 +10,8 @@
     color: red;
 }
 
-.attack:before {
+.attack:before,
+.attack > i:before {
     color: red;
 }
 
