@@ -21,7 +21,7 @@
 
                 <div class="row"> <!-- row 1 -->
                     <div class="col-md-3">
-                        <h5>{{build.pilot}} <span class="border rounded">{{build.pilot.initiative}}</span></h5>
+                        <h5>{{build.pilot}}</h5>
                     </div>
 
                     <div class="col-md-3">
@@ -30,6 +30,10 @@
                 </div> <!-- end row 1 -->
 
                 <div class="row"> <!-- row 2 -->
+                    <div class="col-md-3">
+                        <span class="border rounded icon">Initiative {{ build.pilot.initiative }}</span>
+                    </div>
+
                     <div class="col">
                         {% if build.front %}
                         <span class="border rounded icon">{{ "frontarc"|get_icon:"attack" }} {{build.front}}</span>
@@ -64,9 +68,6 @@
                             {% if build.pilot.ship.charge_regen %} {{"recurring"|get_icon:"charge"}}{% endif %}</span>
                         {% endif %}
                     </div>
-                </div>
-
-                <div class="row">
 
                     <div class="col"> <!-- action sidebar -->
                         {% for action in build.action_bar %}
