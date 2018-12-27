@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Ship, Pilot, Upgrade, QuickBuild, Faction, Build, Action, PilotAction, ShipAction, UpgradeAction
+from .models import Ship, Pilot, Upgrade, QuickBuild, Faction, Build, Action,\
+    PilotAction, ShipAction, UpgradeAction, ShipAttack
 
 stat_fields = (
     (None, {'fields':('name', 'caption', 'initiative')}),
@@ -21,6 +22,11 @@ class ShipActionInline(admin.TabularInline):
     extra = 0
 
 
+class ShipAttackInline(admin.TabularInline):
+    model = ShipAttack
+    extra = 0
+
+
 class PilotActionInline(admin.TabularInline):
     model = PilotAction
     extra = 0
@@ -38,7 +44,7 @@ admin.site.register(Faction, FactionAdmin)
 
 
 class ShipAdmin(admin.ModelAdmin):
-    inlines = (ShipActionInline, )
+    inlines = (ShipAttackInline, ShipActionInline)
     fieldsets = (
             (None, {'fields':('name', 'faction', 'size')}),
             ('Primary Weapons', {'fields': (('front', 'turret', 'doubleturret'),)}),

@@ -55,7 +55,27 @@ DIFFICULTY_CHOICES = (
     ('b', 'Blue')
 )
 
+ARC_CHOICES = (
+    ('FT', 'Front'),
+    ('LE', 'Left'),
+    ('RI','Right'),
+    ('RE','Rear'),
+    ('FF','Full Front'),
+    ('FR','Full Rear'),
+    ('BU','Bullseye'),
+    ('DT','Double Turret'),
+    ('ST','Single Turret')
+)
 
+RANGE_CHOICES = (
+    ('00', '0'),
+    ('11', '1'),
+    ('22', '2'),
+    ('33', '3'),
+    ('12', '1-2'),
+    ('23', '2-3'),
+    ('13', '1-3')
+)
 
 def make_lnames():
     from .models import LIMITED_CHOICES
@@ -111,29 +131,23 @@ class Stats(models.Model):
         abstract = True
 
 
-class Attacks(models.Model):
-
-    front = models.PositiveIntegerField(default=0)
-    left = models.PositiveIntegerField(default=0)
-    right = models.PositiveIntegerField(default=0)
-    rear = models.PositiveIntegerField(default=0)
-
-    full_front = models.PositiveIntegerField(default=0)
-    full_rear = models.PositiveIntegerField(default=0)
-    bullseye = models.PositiveIntegerField(default=0)
-    doubleturret = models.PositiveIntegerField(default=0)
-    turret = models.PositiveIntegerField(default=0)
-
-    range = models.CharField(max_length=3, blank=True)
+class Charges(models.Model):
+    force = models.PositiveIntegerField(default=0)
+    charge = models.PositiveIntegerField(default=0)
+    charge_regen = models.BooleanField(default=False)
 
     class Meta:
         abstract = True
 
 
-class Charges(models.Model):
-    force = models.PositiveIntegerField(default=0)
-    charge = models.PositiveIntegerField(default=0)
-    charge_regen = models.BooleanField(default=False)
+class Attack(models.Model):
+    arc = models.CharField(max_length=2, choices=ARC_CHOICES, default='FR')
+    value = models.PositiveIntegerField(default=2)
+    range = models.CharField(max_length=2, choices=RANGE_CHOICES, default='13')
+    ordanance = models.BooleanField(default=False)
+
+    def __str__(self):
+        return '{} {}'.format(self.get_arc_display(), self.value)
 
     class Meta:
         abstract = True
@@ -184,11 +198,35 @@ class Faction(Card):
     released = models.BooleanField(default=True)
 
 
-class Ship(Card, Stats, Attacks):
+class Ship(Card, Stats):
     size = models.CharField(max_length=1, choices=SIZE_CHOICES, default='S')
     faction = models.ForeignKey(Faction, on_delete=models.CASCADE)
     limited = None
     cost=None
+
+    def make_attacks(self):
+        print('Changing {} attacks:'.format(self.name))
+        if self.front:
+            print('... Front')
+            ShipAttack(ship=self, arc='FT', value=self.front).save()
+            self.front = 0
+        if self.rear:
+            print('... Rear')
+            ShipAttack(ship=self, arc='RE', value=self.rear).save()
+            self.rear = 0
+        if self.full_front:
+            print('... Full Front')
+            ShipAttack(ship=self, arc='FF', value=self.full_front).save()
+            self.full_front = 0
+        if self.doubleturret:
+            print('... Double Turret')
+            ShipAttack(ship=self, arc='DT', value=self.doubleturret).save()
+            self.doubleturret = 0
+        if self.turret:
+            print('... Single Turret')
+            ShipAttack(ship=self, arc='ST', value=self.turret).save()
+            self.turret = 0
+        self.save()
 
     def all_actions(self):
         return [s.display_name for s in self.shipaction_set.all()]
@@ -235,7 +273,7 @@ class ShipAction(ActionMixin, models.Model):
     linked_hard = models.BooleanField(default=False)
 
 
-class Upgrade(Card, Stats, Attacks, Charges):
+class Upgrade(Card, Stats, Charges):
     slot = models.CharField(max_length=3, choices=UPGRADE_CHOICES)
     slot2 = models.CharField(max_length=3, choices=UPGRADE_CHOICES, null=True, blank=True, default=None)
     ability2 = models.CharField(max_length=320, blank=True, default='')
@@ -280,6 +318,11 @@ class UpgradeAction(ActionMixin, models.Model):
     linked_hard = models.BooleanField(default=False)
 
 
+class ShipAttack(Attack):
+    ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
+
+class UpgradeAttack(Attack):
+    upgrade = models.ForeignKey(Upgrade, on_delete=models.CASCADE)
 
 ##############################
 # ### Quick Build models ### #
