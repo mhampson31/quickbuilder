@@ -8,4 +8,5 @@ qb/migrations/
 prod.py
 
 run-django.sh
+db.sqlite3
 .vscode/settings.json

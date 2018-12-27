@@ -28,7 +28,6 @@ DEBUG = prod.DEBUG
 #ALLOWED_HOSTS = ['quickbuilder.nfshost.com']
 
 ALLOWED_HOSTS = prod.ALLOWED_HOSTS
-
 # Application definition
 
 INSTALLED_APPS = [
