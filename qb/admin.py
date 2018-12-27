@@ -43,7 +43,6 @@ class ShipAdmin(admin.ModelAdmin):
             (None, {'fields':('name', 'faction', 'size')}),
             ('Primary Weapons', {'fields': (('front', 'turret', 'doubleturret'),)}),
              ('Defenses', {'fields': (('agility', 'shields', 'hull'),)}),
-             ('Powers', {'fields': (('force', 'charge', 'charge_regen'),)}),
              ('Primary (Uncommon)', {'fields': (('left', 'right', 'rear', 'bullseye', 'full_front', 'full_rear'),)})
           )
     list_filter = ('faction', 'size')
@@ -69,11 +68,8 @@ class PilotAdmin(admin.ModelAdmin):
     inlines = (PilotActionInline,)
     fieldsets = (
         (None, {'fields':(('name', 'initiative'), 'caption', 'ship', 'ability')}),
-         ('Primary Weapons', {'fields': (('front', 'turret', 'doubleturret'),)}),
         ('Powers', {'fields': (('force', 'charge', 'charge_regen'),)}),
-        ('Defenses', {'fields': (('agility', 'shields', 'hull'),)}),
-        ('Primary (Uncommon)', {'fields': (('left', 'right', 'rear', 'bullseye', 'full_front', 'full_rear'),)})
-    )
+        )
     list_display = ('display_name', 'caption', 'faction', 'ship', 'initiative')
     list_filter = ('ship__faction', 'ship', 'initiative')
 admin.site.register(Pilot, PilotAdmin)

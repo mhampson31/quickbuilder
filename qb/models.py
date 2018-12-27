@@ -126,7 +126,6 @@ class Attacks(models.Model):
 
     range = models.CharField(max_length=3, blank=True)
 
-
     class Meta:
         abstract = True
 
@@ -203,7 +202,7 @@ class Ship(Card, Stats, Attacks):
         unique_together = ('xws', 'faction')
 
 
-class Pilot(Card, Stats, Charges):
+class Pilot(Card, Charges):
     ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
     caption = models.CharField(max_length=100, blank=True)
     droid = models.BooleanField(default=False)
