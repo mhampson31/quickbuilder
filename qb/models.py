@@ -108,6 +108,12 @@ class Stats(models.Model):
     shields = models.PositiveIntegerField(default=0)
     hull = models.PositiveIntegerField(default=0)
 
+    class Meta:
+        abstract = True
+
+
+class Attacks(models.Model):
+
     front = models.PositiveIntegerField(default=0)
     left = models.PositiveIntegerField(default=0)
     right = models.PositiveIntegerField(default=0)
@@ -119,8 +125,15 @@ class Stats(models.Model):
     doubleturret = models.PositiveIntegerField(default=0)
     turret = models.PositiveIntegerField(default=0)
 
-    force = models.PositiveIntegerField(default=0)
+    range = models.CharField(max_length=3, blank=True)
 
+
+    class Meta:
+        abstract = True
+
+
+class Charges(models.Model):
+    force = models.PositiveIntegerField(default=0)
     charge = models.PositiveIntegerField(default=0)
     charge_regen = models.BooleanField(default=False)
 
@@ -173,7 +186,7 @@ class Faction(Card):
     released = models.BooleanField(default=True)
 
 
-class Ship(Card, Stats):
+class Ship(Card, Stats, Attacks):
     size = models.CharField(max_length=1, choices=SIZE_CHOICES, default='S')
     faction = models.ForeignKey(Faction, on_delete=models.CASCADE)
     limited = None
@@ -191,9 +204,10 @@ class Ship(Card, Stats):
         unique_together = ('xws', 'faction')
 
 
-class Pilot(Card, Stats):
+class Pilot(Card, Stats, Charges):
     ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
     caption = models.CharField(max_length=100, blank=True)
+    droid = models.BooleanField(default=False)
     initiative = models.IntegerField(
         default=1,
         validators=[MinValueValidator(1), MaxValueValidator(6)]
@@ -223,7 +237,7 @@ class ShipAction(ActionMixin, models.Model):
     linked_hard = models.BooleanField(default=False)
 
 
-class Upgrade(Card, Stats):
+class Upgrade(Card, Stats, Attacks, Charges):
     slot = models.CharField(max_length=3, choices=UPGRADE_CHOICES)
     slot2 = models.CharField(max_length=3, choices=UPGRADE_CHOICES, null=True, blank=True, default=None)
     ability2 = models.CharField(max_length=320, blank=True, default='')

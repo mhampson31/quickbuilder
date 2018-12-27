@@ -25,8 +25,8 @@ SECRET_KEY = prod.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = prod.DEBUG
 
-ALLOWED_HOSTS = ['quickbuilder.nfshost.com']
-
+#ALLOWED_HOSTS = ['quickbuilder.nfshost.com']
+ALLOWED_HOSTS = prod.ALLOWED_HOSTS
 
 # Application definition
 
