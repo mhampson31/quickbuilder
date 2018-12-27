@@ -8,3 +8,4 @@ qb/migrations/
 prod.py
 
 run-django.sh
+.vscode/settings.json

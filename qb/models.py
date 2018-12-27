@@ -5,13 +5,12 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 from .templatetags.qb_extras import get_icon
 
-# I'm defining this choice list a little differently, because I need to use the full descs later.
-# This keeps them available.
-
-
+# todo: is this still in use anywhere?
 def get_icon2(iname, red=False):
     return '<span class="icon"><i class="xwing-miniatures-font xwing-miniatures-font-{}{}"></i>'.format(iname.lower(), ' hard' if red else '')
 
+# I'm defining this choice list a little differently, because I need to use the full descs later.
+# This keeps them available.
 
 SIZE_TYPES = {
     'Small': 'S',
