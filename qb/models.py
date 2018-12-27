@@ -253,6 +253,19 @@ class Upgrade(Card, Stats, Attacks, Charges):
     def side_actions_2(self):
         return self.side_actions(2)
 
+    @property
+    def grants(self):
+        stats = []
+        if self.shields:
+            stats.append('+{} [Shield]'.format(self.shields))
+        if self.hull:
+            stats.append('+{} [Hull]'.format(self.hull))
+        if self.agility:
+            stats.append('+{} [Agility]'.format(self.agility))
+        if self.force:
+            stats.append('+{} [Forcecharge]'.format(self.force))
+        return '  '.join(stats)
+
     class Meta:
         ordering = ['slot', 'slot2', 'name']
 

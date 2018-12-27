@@ -1,12 +1,15 @@
 {% extends 'qb/base.html' %}
+
+{% load crispy_forms_tags %}
 {% load qb_extras %}
+
 
 {% block content %}
     <h1>Random Quick List</h1>
 
     <form action="{% url 'qb:random_quickbuild' %}" method="post">
         {% csrf_token %}
-        {{form}}
+        {{ form|crispy }}
         <input type="submit" value="Submit">
     </form>
 
@@ -90,7 +93,7 @@
                                 <td>{{ build.pilot.ability|iconize|safe }}</td>
                                 <td>
                                     {% if build.pilot.charge %}
-                                    {{ build.pilot.charge|iconize|safe }}{% if build.pilot.charge_regen %}{{ "recurring"|iconize|safe }}{% endif %}
+                                    {{ build.pilot.charge }}{% if build.pilot.charge_regen %}{{ "recurring"|get_icon|safe }}{% endif %}
                                     {% endif %}
                                 </td>
                             </tr>
@@ -114,11 +117,13 @@
                                     {% endif %}
                                 </th>
                                 <td>
+                                    {% if upgrade.grants %} {{ upgrade.grants|iconize|safe }}{% endif %}
                                     {% if upgrade.ability2 %}<i>[Side 1]</i>{% endif %}
                                     {% if upgrade.ability %}
                                         {{ upgrade.ability|iconize|safe }}
                                         {% if upgrade.side_actions_1 %}
                                             {% if upgrade.ability %}<br />{% endif %}Grants {{upgrade.side_actions_1|join:", "|safe}}.
+
                                         {% endif %}
                                     {% endif %}
                                     {% if upgrade.ability2 %}
@@ -132,7 +137,7 @@
                                 </td>
                                 <td>
                                     {% if upgrade.charge %}
-                                    {{upgrade.charge}}{% if build.pilot.charge_regen %} {{ "recurring"|iconize|safe }}{% endif %}
+                                    {{upgrade.charge}}{% if upgrade.charge_regen %} {{ "recurring"|get_icon|safe }}{% endif %}
                                     {% endif %}
                                 </td>
 
