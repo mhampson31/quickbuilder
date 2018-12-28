@@ -47,9 +47,7 @@ class ShipAdmin(admin.ModelAdmin):
     inlines = (ShipAttackInline, ShipActionInline)
     fieldsets = (
             (None, {'fields':('name', 'faction', 'size')}),
-            ('Primary Weapons', {'fields': (('front', 'turret', 'doubleturret'),)}),
-             ('Defenses', {'fields': (('agility', 'shields', 'hull'),)}),
-             ('Primary (Uncommon)', {'fields': (('left', 'right', 'rear', 'bullseye', 'full_front', 'full_rear'),)})
+            ('Defenses', {'fields': (('agility', 'shields', 'hull'),)}),
           )
     list_filter = ('faction', 'size')
     list_display = ('name', 'faction', 'size')
