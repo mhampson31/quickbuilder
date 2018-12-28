@@ -13,6 +13,7 @@ icon_text = {
     'Bullseye Arc':'bullseyearc',
     'Single Turret Arc':'singleturretarc',
     'Double Turret Arc':'doubleturretarc',
+    'Configuration':'config',
     'Critical Hit':'crit',
     'Front Arc':'frontarc',
     'Force Power':'forcepower',
@@ -31,12 +32,9 @@ def regex_icon(m):
 
 @register.filter(is_safe=True)
 def get_icon(iname, css=''):
-    if ' ' in iname:
-        iname = icon_text.get(iname, iname)
-    iname = iname.lower()
+    iname = icon_text.get(iname, iname.lower())
     """Returns the <i> block that inserts an icon from the xwing font css. Doesn't work for ship icons."""
     return '<i class="xwing-miniatures-font xwing-miniatures-font-{} {}"></i>'.format(iname, css)
-
 
 
 @register.filter(is_safe=True)

@@ -123,7 +123,7 @@ class Action(models.Model):
 
 
 class Attack(models.Model):
-    arc = models.CharField(max_length=2, choices=ARC_CHOICES, default='FR')
+    arc = models.CharField(max_length=2, choices=ARC_CHOICES, default='FT')
     value = models.PositiveIntegerField(default=2)
     range = models.CharField(max_length=2, choices=RANGE_CHOICES, default='13')
     ordanance = models.BooleanField(default=False)
@@ -134,10 +134,10 @@ class Attack(models.Model):
 
     @property
     def display_name(self):
-        return '[{}] {} {}{}'.format(self.get_arc_display(),
+        return '<span class="attack">[{}]</span>{}{}{}'.format(self.get_arc_display(),
                                      self.value,
-                                     '[ordanance] ' if self.ordanance else '',
-                                     self.range if self.type is 'special' else '')
+                                     ' {} '.format(get_icon('rangebonusindicator', css='attack')) if self.ordanance else '',
+                                     ' Range {}'.format(self.get_range_display()) if self.type is 'special' else '')
 
     class Meta:
         abstract = True
@@ -184,7 +184,6 @@ class ActionMixin(object):
                self.linked_hard == other.linked_hard
         except AttributeError:
             return False
-
 
     @property
     def display_name(self):
@@ -248,6 +247,20 @@ class Ship(Card, Stats):
         unique_together = ('xws', 'faction')
 
 
+class ShipAction(ActionMixin, models.Model):
+    ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
+    action = models.ForeignKey(Action, on_delete=models.CASCADE)
+    hard = models.BooleanField(default=False)
+    linked_action = models.ForeignKey(Action, related_name='linked_ship_action',
+                                      on_delete=models.CASCADE, null=True, blank=True, default=None)
+    linked_hard = models.BooleanField(default=False)
+
+
+class ShipAttack(Attack):
+    ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
+    type = 'primary'
+
+
 class Pilot(Card, Charges):
     ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
     caption = models.CharField(max_length=100, blank=True)
@@ -256,29 +269,27 @@ class Pilot(Card, Charges):
         default=1,
         validators=[MinValueValidator(1), MaxValueValidator(6)]
      )
-    actions = models.ManyToManyField(Action, through='PilotAction', through_fields=('pilot', 'action'))
 
     @property
     def faction(self):
         return self.ship.faction.name
 
-
-class PilotAction(ActionMixin, models.Model):
-    pilot = models.ForeignKey(Pilot, on_delete=models.CASCADE)
-    action = models.ForeignKey(Action, on_delete=models.CASCADE)
-    hard = models.BooleanField(default=False)
-    linked_action = models.ForeignKey(Action, related_name='linked_pilot_action',
-                                      on_delete=models.CASCADE, null=True, blank=True, default=None)
-    linked_hard = models.BooleanField(default=False)
-
-
-class ShipAction(ActionMixin, models.Model):
-    ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
-    action = models.ForeignKey(Action, on_delete=models.CASCADE)
-    hard = models.BooleanField(default=False)
-    linked_action = models.ForeignKey(Action, related_name='linked_ship_action',
-                                      on_delete=models.CASCADE, null=True, blank=True, default=None)
-    linked_hard = models.BooleanField(default=False)
+    @property
+    def actions(self):
+        aset = self.ship.shipaction_set.all()
+        if self.droid:
+            focus = Action.objects.get(name='Focus')
+            calc = Action.objects.get(name='Calculate')
+            new_aset = []
+            for a in aset:
+                if a.action == focus or a.linked_action == focus:
+                    a1 = calc if a.action == focus else a.action
+                    a2 = calc if a.linked_action == focus else a.linked_action
+                    new_aset.append(ShipAction(action=a1, hard=a.hard, linked_action=a2, linked_hard=a.linked_hard))
+                else:
+                    new_aset.append(a)
+            aset = new_aset
+        return aset
 
 
 class Upgrade(Card, Stats, Charges):
@@ -326,12 +337,8 @@ class UpgradeAction(ActionMixin, models.Model):
     linked_hard = models.BooleanField(default=False)
 
 
-class ShipAttack(Attack):
-    ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
-    type = 'primary'
-
 class UpgradeAttack(Attack):
-    upgrade = models.ForeignKey(Upgrade, on_delete=models.CASCADE)
+    upgrade = models.OneToOneField(Upgrade, on_delete=models.CASCADE, related_name='special_attack')
     type = 'special'
 
 ##############################
@@ -391,8 +398,7 @@ class Build(models.Model):
 
     @property
     def action_bar(self):
-        pa =  self.pilot.pilotaction_set.all() if self.pilot.pilotaction_set.exists() else self.pilot.ship.shipaction_set.all()
-        bar = [p for p in pa]
+        bar = list(self.pilot.actions)
         upgrades = [card.upgradeaction_set.all() for card in self.upgrades.filter(actions__isnull=False)]
         for card in upgrades:
             for action in card:
