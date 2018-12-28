@@ -89,7 +89,7 @@ def make_lnames():
 
 class Card(models.Model):
     name = models.CharField(max_length=64)
-    xws = models.CharField(max_length=64)
+    xws = models.CharField(max_length=64, db_index=True)
     ffg = models.PositiveIntegerField(blank=True, null=True, default=None)
     limited = models.CharField(max_length=1, choices=LIMITED_CHOICES, blank=True, default='')
     ability = models.CharField(max_length=400, blank=True, default='')
