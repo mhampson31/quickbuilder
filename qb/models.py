@@ -345,9 +345,7 @@ class UpgradeAttack(Attack):
 # ### Quick Build models ### #
 
 class QuickBuild(models.Model):
-    threat = models.IntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(8)]
-     )
+    threat = models.IntegerField(db_index=True, validators=[MinValueValidator(1), MaxValueValidator(8)])
     faction = models.ForeignKey(Faction, on_delete=models.CASCADE)
     pilots = models.ManyToManyField(Pilot,
                                     through='Build',
