@@ -41,3 +41,7 @@ def get_icon(iname, css=''):
 def iconize(text):
     return re.sub(rgx, regex_icon, text)
 
+
+@register.inclusion_tag('qb/quickbuild.html')
+def show_quickbuild(qb):
+    return {'qb':qb}

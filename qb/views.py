@@ -25,6 +25,9 @@ def ship_detail(request, id):
     ship = get_object_or_404(Ship, pk=id)
     return render(request, 'ship_detail.html', {'ship':ship})
 
+def quickbuild_view(request, id_list):
+    quickbuilds = id_list.split(',')
+
 
 def random_quickbuild(request):
     if request.method == 'POST':
