@@ -43,5 +43,5 @@ def iconize(text):
 
 
 @register.inclusion_tag('qb/quickbuild.html')
-def show_quickbuild(qb):
+def show_buildlist(qb):
     return {'qb':qb}

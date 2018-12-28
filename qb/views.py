@@ -1,12 +1,17 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 
-from .models import Ship
+from .models import Ship, QuickBuild
 from .forms import RandomListForm
 from .tools import random_list
 
+import re
+
+ID_SEP = '-'
+
+id_rx = re.compile('\d+')
 
 class IndexView(generic.ListView):
     template_name = 'qb/index.html'
@@ -25,19 +30,24 @@ def ship_detail(request, id):
     ship = get_object_or_404(Ship, pk=id)
     return render(request, 'ship_detail.html', {'ship':ship})
 
-def quickbuild_view(request, id_list):
-    quickbuilds = id_list.split(',')
+
+def quickbuild_list(request, qb_list):
+    id_list = qb_list.split(ID_SEP)
+    qb_list = [QuickBuild.objects.get(id=i) for i in id_list]
+    # Some quick builds may be used more than once, but the IN query
+    return render(request, 'qb/qb_list.html', {'qb_list':qb_list, 'id_list':id_list})
 
 
 def random_quickbuild(request):
     if request.method == 'POST':
-        build_list = random_list(threat=int(request.POST['threat']), faction_id=request.POST['faction'])
+        qb_list = random_list(threat=int(request.POST['threat']), faction_id=request.POST['faction'])
+        id_param = ID_SEP.join([str(qb.id) for qb in qb_list])
         form = RandomListForm(request.POST)
-
     else:
         form = RandomListForm()
-        build_list = []
-    return render(request, 'qb/random.html', {'form':form, 'build_list':build_list})
+        qb_list = []
+        id_param = None
+    return render(request, 'qb/random.html', {'form':form, 'qb_list':qb_list, 'id_param':id_param})
 
 
 

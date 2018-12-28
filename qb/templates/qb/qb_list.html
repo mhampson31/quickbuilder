@@ -1,0 +1,11 @@
+{% extends 'qb/base.html' %}
+
+{% load qb_extras %}
+
+{% block content %}
+
+{% for qb in qb_list %}
+    {% show_buildlist qb %}
+{% endfor %}
+
+{% endblock %}

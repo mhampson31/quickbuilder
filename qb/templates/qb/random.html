@@ -3,7 +3,6 @@
 {% load crispy_forms_tags %}
 {% load qb_extras %}
 
-
 {% block content %}
     <h1>Random Quick List</h1>
 
@@ -15,19 +14,12 @@
         </form>
     </div>
 
+    {% if 'qb_list' %}
+        {% for qb in qb_list %}
+            {% show_buildlist qb %}
+        {% endfor %}
 
-    {% if 'build_list' %}
-    <div id="'all_quickbuilds">
-        {% for qb in build_list %}
-            {% show_quickbuild qb %}
-        {% endfor %} <!-- end quickbuilds -->
-    </div>
-
-    <!-- build table -->
-    <div class="row">
-    <!--    <h4>Threat {{qb.threat}} quick build with {{qb.pilot_names}}</h4> -->
-
-    </div>
+        <a href="{% url 'qb:quickbuild_list' id_param|safe %}">Link</a>
 
     {% endif %} <!-- end build_list -->
 {% endblock %}

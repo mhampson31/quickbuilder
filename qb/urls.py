@@ -6,6 +6,7 @@ app_name = 'qb'
 urlpatterns = [
     path(r'', views.IndexView.as_view(), name='index'),
     path(r'ship/<int:pk>/', views.ShipView.as_view(), name='ship_detail'),
-    path(r'random/', views.random_quickbuild, name='random_quickbuild')
+    path(r'random/', views.random_quickbuild, name='random_quickbuild'),
+    path(r'quickbuilds/<str:qb_list>/', views.quickbuild_list, name='quickbuild_list'),
 ]
 
