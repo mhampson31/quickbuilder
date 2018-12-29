@@ -51,6 +51,7 @@
             </div> <!-- end row 2 -->
 
             <div class="row"> <!-- row 3 -->
+                {% if build.pilot.ability or build.pilot.ship.ability or build.upgrades.exists %}
                 <table class="table">
                     <thead>
                         <tr>
@@ -63,39 +64,37 @@
                     <tbody>
                         {% if build.pilot.ability %}
                         <tr>
-                            <td class="text-nowrap">{{build.pilot.display_name}}</td>
+                            <td class="text-nowrap"><span>{{build.pilot.display_name}}</span></td>
                             <td class="text-center">
                                 {% if build.pilot.charge %}
-                                {{ build.pilot.charge }}{% if build.pilot.charge_regen %}{{ "recurring"|get_icon|safe }}{% endif %}
+                                <span>{{ build.pilot.charge }}{% if build.pilot.charge_regen %}{{ "recurring"|get_icon|safe }}{% endif %}</span>
                                 {% endif %}
                             </td>
-
-                            <td>{{ build.pilot.ability|iconize|safe }}</td>
-
+                            <td><span>{{ build.pilot.ability|iconize|safe }}</span></td>
                         </tr>
                         {% endif %}
 
                         {% if build.pilot.ship.ability_title %}
                         <tr>
-                            <td class="text-nowrap">{{ build.pilot.ship.ability_title }} {{ build.pilot.ship.icon|safe }}</th>
+                            <td class="text-nowrap"><span>{{ build.pilot.ship.ability_title }} {{ build.pilot.ship.icon|safe }}</span></th>
                             <td></td>
-                            <td>{{ build.pilot.ship.ability|iconize|safe }}</td>
+                            <td><span>{{ build.pilot.ship.ability|iconize|safe }}</span></td>
                         </tr>
                         {% endif %}
 
                         {% for upgrade in build.upgrades.all %}
                         <tr>
                             <td class="text-nowrap">
-                                {{upgrade}}
+                                <span>{{upgrade}}
                                 {{upgrade.get_slot_display|get_icon|safe}}
                                 {% if upgrade.slot2 %}
                                 {{upgrade.get_slot_display|get_icon|safe}}
-                                {% endif %}
+                                    {% endif %}</span>
                             </td>
 
                             <td class="text-center">
                                 {% if upgrade.charge %}
-                                {{upgrade.charge}}{% if upgrade.charge_regen %} {{ "recurring"|get_icon|safe }}{% endif %}
+                                <span>{{upgrade.charge}}{% if upgrade.charge_regen %} {{ "recurring"|get_icon|safe }}{% endif %}<span>
                                 {% endif %}
                             </td>
 
@@ -105,8 +104,10 @@
                                         {{ upgrade.special_attack.display_name|iconize|safe }}
                                     </div>
                                 {% endif %}
-                                {% if upgrade.grants %} {{ upgrade.grants|iconize|safe }}{% endif %}
-                                {% if upgrade.ability2 %}<i>Side 1:</i>{% endif %}
+                                {% if upgrade.grants %}
+                                    <div>{{ upgrade.grants|iconize|safe }}</div>
+                                {% endif %}
+                                <div>{% if upgrade.ability2 %}<i>Side 1:</i>{% endif %}
                                 {% if upgrade.ability %}
                                     {{ upgrade.ability|iconize|safe }}
                                     {% if upgrade.side_actions_1 %}
@@ -117,8 +118,9 @@
                                         </div>
                                     {% endif %}
                                 {% endif %}
+                                </div>
                                 {% if upgrade.ability2 %}
-                                    <br />
+                                <div>
                                     <i>Side 2:</i>
                                     {{ upgrade.ability2|iconize|safe }}
                                     {% if upgrade.side_actions_2 %}
@@ -128,6 +130,7 @@
                                             {% endfor %}
                                         </div>
                                     {% endif %} <!-- end ability2 -->
+                                </div>
                                 {% endif %}
 
                             </td>
@@ -136,7 +139,13 @@
                         {% endfor %} <!-- end upgrades -->
                     </tbody>
                 </table>
+                {% else %}
+                <div class="col">
+                    <span><i>No special abilities.</i></span>
+                </div>
+                {% endif %}
             </div>
+
 
         </section> <!-- end build -->
     {% endfor %} <!-- end quickbuild -->

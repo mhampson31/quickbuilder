@@ -33,4 +33,5 @@ def random_list(threat, faction_id):
             threat = threat - new_build.threat
             if DEBUG: print('{} remaining threat points to spend.'.format(threat))
     print('Done.')
+    build_list.sort(key=lambda x: x.threat, reverse=True)
     return build_list
