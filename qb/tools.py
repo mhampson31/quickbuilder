@@ -1,4 +1,7 @@
+from random import choice
+
 from .models import QuickBuild, Faction, make_lnames
+
 
 DEBUG = True
 
@@ -9,8 +12,10 @@ def random_list(threat, faction_id):
 
     print('Starting quickbuild.')
 
+    all_builds = QuickBuild.objects.filter(faction_id=faction_id).filter(threat__lte=threat)\
+
     while threat > 0:
-        new_build = QuickBuild.objects.filter(faction_id=faction_id).filter(threat__lte=threat).exclude(id__in=rejects).order_by('?').first()
+        new_build = choice([b for b in all_builds if b.threat <= threat and b.id not in rejects])
         if not new_build:
             if DEBUG: print('No ships left with threat <= {}'.format(threat))
             break
