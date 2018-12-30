@@ -6,8 +6,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from .templatetags.qb_extras import get_icon
 
 # todo: is this still in use anywhere?
-def get_icon2(iname, red=False):
-    return '<span class="icon"><i class="xwing-miniatures-font xwing-miniatures-font-{}{}"></i>'.format(iname.lower(), ' hard' if red else '')
+#def get_icon2(iname, red=False):
+#    return '<span class="icon"><i class="xwing-miniatures-font xwing-miniatures-font-{}{}"></i>'.format(iname.lower(), ' hard' if red else '')
 
 # I'm defining this choice list a little differently, because I need to use the full descs later.
 # This keeps them available.
@@ -77,6 +77,8 @@ RANGE_CHOICES = (
     ('13', '1-3')
 )
 
+QB_COLORS = ('green', 'yellow', 'orange', 'red', 'magenta', 'purple')
+
 def make_lnames():
     from .models import LIMITED_CHOICES
     lnames = {}
@@ -134,7 +136,7 @@ class Attack(models.Model):
 
     @property
     def display_name(self):
-        return '<span class="attack">[{}]</span>{}{}{}'.format(self.get_arc_display(),
+        return '<span class="attack">[{}]</span> {}{}{}'.format(self.get_arc_display(),
                                      self.value,
                                      ' {} '.format(get_icon('rangebonusindicator', css='attack')) if self.ordanance else '',
                                      ' Range {}'.format(self.get_range_display()) if self.type is 'special' else '')
@@ -364,6 +366,11 @@ class QuickBuild(models.Model):
             for k in lnames:
                 lnames[k].extend(bnames[k])
         return lnames
+
+    @property
+    def threat_color(self):
+        return QB_COLORS[self.threat]
+
 
     def __str__(self):
         return '{} ({})'.format(self.pilot_names, self.threat)

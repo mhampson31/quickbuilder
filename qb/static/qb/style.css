@@ -14,11 +14,11 @@ section > .row {
 .hard,
 .attack:before,
 .attack > i:before {
-    color: firebrick;
+    color: red;
 }
 
 .agility:before {
-    color: green;
+    color: springgreen;
 }
 
 .shields:before {
@@ -48,5 +48,12 @@ section > .row {
 }
 
 td .xwing-miniatures-font {
-    font-size: 1rem;
+    font-size: inherit;
 }
+
+.threat-1 {color:green;}
+.threat-2 {color:yellow;}
+.threat-3 {color:orange;}
+.threat-4 {color:red;}
+.threat-5 {color:magenta;}
+.threat-6 {color:purple;}

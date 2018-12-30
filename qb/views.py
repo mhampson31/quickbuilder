@@ -13,6 +13,7 @@ ID_SEP = '-'
 
 id_rx = re.compile('\d+')
 
+
 class IndexView(generic.ListView):
     template_name = 'qb/index.html'
     context_object_name = 'ship_list'

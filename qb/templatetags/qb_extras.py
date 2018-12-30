@@ -26,6 +26,7 @@ icon_text = {
     'Turn Right':'turnright'
 }
 
+
 def regex_icon(m):
     return get_icon(m[1])
 
@@ -44,4 +45,12 @@ def iconize(text):
 
 @register.inclusion_tag('qb/quickbuild.html')
 def show_buildlist(qb):
-    return {'qb':qb}
+    return {'qb':
+                qb}
+
+@register.filter(is_safe=True)
+def threatbar(threat):
+    colors = ('green', 'yellow', 'orange', 'red', 'magenta', 'purple')
+    return '<span class="threat-{}">{}{}</span>'.format(threat, '▰' * threat, '▱' * (6-threat))
+
+

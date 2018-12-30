@@ -1,6 +1,6 @@
 {% load qb_extras %}
 
-    <h6>Threat {{ qb.threat }}</h6>
+    <span class="font-weight-light {{ qb.threat|threatbar }}">Threat {{ qb.threat|threatbar|safe }}</span>
     <div class="quickbuild border round">
 
         {% for build in qb.build_set.all %}
@@ -13,7 +13,7 @@
 
                 <div class="col text-right">
                     {% for attack in build.pilot.ship.shipattack_set.all %}
-                        <span class="border rounded icon attack">{{ attack.display_name|iconize|safe  }}</span>
+                        <span class="border rounded icon attack">{{ attack.display_name|iconize|safe }}</span>
                     {% endfor %}
 
                         <span class="border rounded icon">{{ "agility"|get_icon:"agility" }} {{build.agility}}</span>
