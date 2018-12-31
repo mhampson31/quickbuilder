@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.utils.safestring import mark_safe
 
 from .templatetags.qb_extras import get_icon
 
@@ -136,10 +137,10 @@ class Attack(models.Model):
 
     @property
     def display_name(self):
-        return '<span class="attack">[{}]</span> {}{}{}'.format(self.get_arc_display(),
+        return mark_safe('<span class="attack">[{}]</span> {}{}{}'.format(self.get_arc_display(),
                                      self.value,
                                      ' {} '.format(get_icon('rangebonusindicator', css='attack')) if self.ordanance else '',
-                                     ' Range {}'.format(self.get_range_display()) if self.type is 'special' else '')
+                                     ' Range {}'.format(self.get_range_display()) if self.type is 'special' else ''))
 
     class Meta:
         abstract = True
@@ -190,11 +191,12 @@ class ActionMixin(object):
     @property
     def display_name(self):
         if self.linked_action:
-            return '<span class="border rounded icon">{}{}{}</span>'.format(get_icon(self.action.icon, css='hard' if self.hard else None),
+            name = '<span class="border rounded icon">{}{}{}</span>'.format(get_icon(self.action.icon, css='hard' if self.hard else None),
                                      get_icon('linked', css='linked'),
                                      get_icon(self.linked_action.icon, css='hard' if self.linked_hard else None))
         else:
-            return '<span class="border rounded icon">{}</span>'.format(get_icon(self.action.icon, css='hard' if self.hard else None))
+            name = '<span class="border rounded icon">{}</span>'.format(get_icon(self.action.icon, css='hard' if self.hard else None))
+        return mark_safe(name)
 
 
 # ### core models
@@ -242,7 +244,7 @@ class Ship(Card, Stats):
 
     @property
     def icon(self):
-        return '<i class="xwing-miniatures-ship xwing-miniatures-ship-{}"></i>'.format(self.xws)
+        return mark_safe('<i class="xwing-miniatures-ship xwing-miniatures-ship-{}"></i>'.format(self.xws))
 
     class Meta:
         ordering = ['name']

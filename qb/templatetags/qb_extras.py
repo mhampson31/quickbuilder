@@ -1,4 +1,6 @@
 from django import template
+from django.utils.safestring import mark_safe
+
 
 import re
 
@@ -18,12 +20,14 @@ icon_text = {
     'Front Arc':'frontarc',
     'Force Power':'forcepower',
     'Force Charge':'forcecharge',
+    'Force': 'forcecharge',
     'Rear Arc':'reararc',
     'Rotate Arc':'rotatearc',
+    'Stationary':'stop',
     'Tallon Roll Left':'trollleft',
     'Tallon Roll Right':'trollright',
     'Turn Left':'turnleft',
-    'Turn Right':'turnright'
+    'Turn Right':'turnright',
 }
 
 
@@ -35,18 +39,17 @@ def regex_icon(m):
 def get_icon(iname, css=''):
     iname = icon_text.get(iname, iname.lower())
     """Returns the <i> block that inserts an icon from the xwing font css. Doesn't work for ship icons."""
-    return '<i class="xwing-miniatures-font xwing-miniatures-font-{} {}"></i>'.format(iname, css)
+    return mark_safe('<i class="xwing-miniatures-font xwing-miniatures-font-{} {}"></i>'.format(iname, css))
 
 
 @register.filter(is_safe=True)
 def iconize(text):
-    return re.sub(rgx, regex_icon, text)
+    return mark_safe(re.sub(rgx, regex_icon, text))
 
 
 @register.inclusion_tag('qb/quickbuild.html')
 def show_buildlist(qb):
-    return {'qb':
-                qb}
+    return {'qb': qb}
 
 @register.filter(is_safe=True)
 def threatbar(threat):
