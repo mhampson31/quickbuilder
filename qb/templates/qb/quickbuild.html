@@ -109,42 +109,63 @@
 
                             <td>
                                 {% if upgrade.special_attack %}
-                                    <div>
-                                        {{ upgrade.special_attack.display_name|iconize }}
-                                    </div>
-                                {% endif %}
-                                {% if upgrade.grants %}
-                                    <div>{{ upgrade.grants|iconize|safe }}</div>
-                                {% endif %}
-                                <div>{% if upgrade.ability2 %}<i>Side 1:</i>{% endif %}
-                                {% if upgrade.ability %}
-                                    {{ upgrade.ability|iconize|safe }}
-                                    {% if upgrade.side_actions_1 %}
-                                        <div>
-                                            {% for action in upgrade.side_actions_1 %}
-                                            {{ action.display_name }}
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                {% endif %}
-                                </div>
-                                {% if upgrade.ability2 %}
-                                <div>
-                                    <i>Side 2:</i>
-                                    {{ upgrade.ability2|iconize }}
-                                    {% if upgrade.side_actions_2 %}
-                                        <div>
-                                            {% for action in upgrade.side_actions_2 %}
-                                            {{ action.display_name }}
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %} <!-- end ability2 -->
-                                </div>
+                                    <div>{{ upgrade.special_attack.display_name|iconize }}</div>
                                 {% endif %}
 
+                                {% if upgrade.actions.exists %}
+                                    <div>
+                                        {% for action in upgrade.upgradeaction_set.all %}
+                                        {{ action.display_name }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                                {% if upgrade.grants %}
+                                    <div>{{ upgrade.grants|iconize }}</div>
+                                {% endif %}
+
+                                {{ upgrade.ability|iconize }}
                             </td>
 
                         </tr>
+
+                        {% if upgrade.side2 %}
+                        <tr class="side2">
+                            <td class="text-nowrap">
+                                <span>{{upgrade.side2}}
+                                {{upgrade.side2.get_slot_display|get_icon}}
+                                {% if upgrade..side2.slot2 %}
+                                {{upgrade..side2.get_slot_display|get_icon}}
+                                {% endif %}</span>
+                            </td>
+
+                            <td class="text-center">
+                                {% if upgrade.side2.charge %}
+                                <span>{{upgrade.side2.charge}}{% if upgrade.side2.charge_regen %} {{ "recurring"|get_icon }}{% endif %}<span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if upgrade.side2.special_attack %}
+                                    <div>{{ upgrade.side2.special_attack.display_name|iconize }}</div>
+                                {% endif %}
+
+                                {% if upgrade.side2.actions.exists %}
+                                    <div>
+                                        {% for action in upgrade.side2.upgradeaction_set.all %}
+                                        {{ action.display_name }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                                {% if upgrade.side2.grants %}
+                                    <div>{{ upgrade.side2.grants|iconize }}</div>
+                                {% endif %}
+
+                                {{ upgrade.side2.ability|iconize }}
+                            </td>
+                        </tr>
+                        {% endif %}
                         {% endfor %} <!-- end upgrades -->
                     </tbody>
                 </table>

@@ -296,23 +296,17 @@ class Pilot(Card, Charges):
         return aset
 
 
+#class UpgradeSide(Card, Stats, Charges):
+
+
+
 class Upgrade(Card, Stats, Charges):
     slot = models.CharField(max_length=3, choices=UPGRADE_CHOICES)
     slot2 = models.CharField(max_length=3, choices=UPGRADE_CHOICES, null=True, blank=True, default=None)
-    ability2 = models.CharField(max_length=320, blank=True, default='')
-    ability2_title = models.CharField(max_length=32, blank=True, default='')
+
+    #Two-sided upgrades just link to another upgrade for the reverse side.
+    side2 = models.OneToOneField('self', null=True, blank=True, default=None, on_delete=models.CASCADE)
     actions = models.ManyToManyField(Action, through='UpgradeAction', through_fields=('upgrade', 'action'))
-
-    def side_actions(self, side):
-        return self.upgradeaction_set.filter(side=side)
-
-    @property
-    def side_actions_1(self):
-        return self.side_actions(1)
-
-    @property
-    def side_actions_2(self):
-        return self.side_actions(2)
 
     @property
     def grants(self):
@@ -332,7 +326,6 @@ class Upgrade(Card, Stats, Charges):
 
 
 class UpgradeAction(ActionMixin, models.Model):
-    side = models.IntegerField(default=1)
     upgrade = models.ForeignKey(Upgrade, on_delete=models.CASCADE)
     action = models.ForeignKey(Action, on_delete=models.CASCADE)
     hard = models.BooleanField(default=False)
