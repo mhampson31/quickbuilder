@@ -14,7 +14,7 @@
         </form>
     </div>
 
-    {% if 'qb_list' %}
+    {% if qb_list %}
         {% for qb in qb_list %}
             {% show_buildlist qb %}
         {% endfor %}
@@ -24,4 +24,5 @@
         </div>
 
     {% endif %} <!-- end build_list -->
+
 {% endblock %}

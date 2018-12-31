@@ -1,15 +1,14 @@
 {% load qb_extras %}
 
     <span class="font-weight-light {{ qb.threat|threatbar }}">{{ qb.threat|threatbar|safe }}</span>
-    <div class="quickbuild border round">
+    <section class="quickbuild border rounded">
 
-
-        {% for build in qb.build_set.all %}
+    {% for build in qb.build_set.all %}
         <section class="container">
 
             <div class="row"> <!-- row 1 -->
                 <div class="col-md-5">
-                    <h5>{{build.pilot}}</h5>
+                    <h5>{{build.pilot}} ({{build.pilot.ship}})</h5>
                 </div>
 
                 <div class="col text-right">
@@ -40,7 +39,7 @@
             <div class="row"> <!-- row 2 -->
 
                 <div class="col-md-5">
-                    <h5>{{build.pilot.ship}}</h5>
+                    <h5>Initiative {{ build.pilot.initiative }}</h5>
                 </div>
 
 
@@ -52,133 +51,132 @@
 
             </div> <!-- end row 2 -->
 
-            <div class="row">
-                <div class="col-md-3">
-                    <h5>Initiative {{ build.pilot.initiative }}</h5>
+            <section> <!-- upgrade group -->
+                {% if build.pilot.ability or build.pilot.ship.ability or build.upgrades.exists %}
+                <div class="row">
+                    <div class="col-md-3">Ability</div>
+                    <div class="col">Description</div>
                 </div>
 
-            </div>
+                {% if build.pilot.ability %}
+                <div class="row upgrade">
+                    <div class="col-md-3 text-nowrap">{{build.pilot.display_name}}</div>
 
-            <div class="row"> <!-- row 3 -->
-                {% if build.pilot.ability or build.pilot.ship.ability or build.upgrades.exists %}
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Ability</th>
-                            <th scope="col">Charges</th>
-                            <th scope="col">Description</th>
-                        </tr>
-                    </thead>
+                    <div class="col ability">
+                        <span>{{ build.pilot.ability|iconize|safe }}</span>
+                        {% if build.pilot.charge %}
+                            <div>
+                                {{ "charge"|get_icon:"charge" }}
+                                {{ build.pilot.charge }}{% if build.pilot.charge_regen %}{{ "recurring"|get_icon }}{% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
 
-                    <tbody>
-                        {% if build.pilot.ability %}
-                        <tr>
-                            <td class="text-nowrap"><span>{{build.pilot.display_name}}</span></td>
-                            <td class="text-center">
-                                {% if build.pilot.charge %}
-                                <span>{{ build.pilot.charge }}{% if build.pilot.charge_regen %}{{ "recurring"|get_icon }}{% endif %}</span>
-                                {% endif %}
-                            </td>
-                            <td><span class="ability">{{ build.pilot.ability|iconize|safe }}</span></td>
-                        </tr>
+                {% if build.pilot.ship.ability_title %}
+                <div class="row upgrade">
+                    <div class=" col-md-3 text-nowrap">{{ build.pilot.ship.ability_title }} {{ build.pilot.ship.icon }}</div>
+                    <div class="col ability">{{ build.pilot.ship.ability|iconize }}</div>
+                </div>
+                {% endif %}
+
+                {% for upgrade in build.upgrades.all %}
+                <div class="row upgrade">
+                    <div class="col-md-3 text-nowrap ability" >
+                        {{upgrade}}
+                        {{upgrade.get_slot_display|get_icon}}
+                        {% if upgrade.slot2 %}
+                        {{upgrade.get_slot_display|get_icon}}
+                        {% endif %}
+                    </div>
+
+                    <div class="col">
+                        {% if upgrade.special_attack %}
+                            <div>{{ upgrade.special_attack.display_name|iconize }}</div>
                         {% endif %}
 
-                        {% if build.pilot.ship.ability_title %}
-                        <tr>
-                            <td class="text-nowrap"><span>{{ build.pilot.ship.ability_title }} {{ build.pilot.ship.icon }}</span></th>
-                            <td></td>
-                            <td><span class="ability">{{ build.pilot.ship.ability|iconize }}</span></td>
-                        </tr>
+                        {% if upgrade.actions.exists %}
+                            <div>
+                                {% for action in upgrade.upgradeaction_set.all %}
+                                {{ action.display_name }}
+                                {% endfor %}
+                            </div>
                         {% endif %}
 
-                        {% for upgrade in build.upgrades.all %}
-                        <tr>
-                            <td class="text-nowrap ability" >
-                                <span>{{upgrade}}
-                                {{upgrade.get_slot_display|get_icon}}
-                                {% if upgrade.slot2 %}
-                                {{upgrade.get_slot_display|get_icon}}
-                                    {% endif %}</span>
-                            </td>
-
-                            <td class="text-center">
-                                {% if upgrade.charge %}
-                                <span>{{upgrade.charge}}{% if upgrade.charge_regen %} {{ "recurring"|get_icon }}{% endif %}<span>
-                                {% endif %}
-                            </td>
-
-                            <td>
-                                {% if upgrade.special_attack %}
-                                    <div>{{ upgrade.special_attack.display_name|iconize }}</div>
-                                {% endif %}
-
-                                {% if upgrade.actions.exists %}
-                                    <div>
-                                        {% for action in upgrade.upgradeaction_set.all %}
-                                        {{ action.display_name }}
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
-
-                                {% if upgrade.grants %}
-                                    <div>{{ upgrade.grants|iconize }}</div>
-                                {% endif %}
-
-                                <span class="ability">{{ upgrade.ability|iconize }}</span>
-                            </td>
-
-                        </tr>
-
-                        {% if upgrade.side2 %}
-                        <tr class="side2">
-                            <td class="text-nowrap ability">
-                                <span>{{upgrade.side2}}
-                                {{upgrade.side2.get_slot_display|get_icon}}
-                                {% if upgrade..side2.slot2 %}
-                                {{upgrade..side2.get_slot_display|get_icon}}
-                                {% endif %}</span>
-                            </td>
-
-                            <td class="text-center">
-                                {% if upgrade.side2.charge %}
-                                <span>{{upgrade.side2.charge}}{% if upgrade.side2.charge_regen %} {{ "recurring"|get_icon }}{% endif %}<span>
-                                {% endif %}
-                            </td>
-
-                            <td>
-                                {% if upgrade.side2.special_attack %}
-                                    <div>{{ upgrade.side2.special_attack.display_name|iconize }}</div>
-                                {% endif %}
-
-                                {% if upgrade.side2.actions.exists %}
-                                    <div>
-                                        {% for action in upgrade.side2.upgradeaction_set.all %}
-                                        {{ action.display_name }}
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
-
-                                {% if upgrade.side2.grants %}
-                                    <div>{{ upgrade.side2.grants|iconize }}</div>
-                                {% endif %}
-
-                                <span class="ability">{{ upgrade.side2.ability|iconize }}</span>
-                            </td>
-                        </tr>
+                        {% if upgrade.grants %}
+                            <div>{{ upgrade.grants|iconize }}</div>
                         {% endif %}
-                        {% endfor %} <!-- end upgrades -->
-                    </tbody>
-                </table>
+
+                        <span class="ability">{{ upgrade.ability|iconize }}</span>
+
+                        {% if upgrade.charge %}
+                            <div>
+                                {{ "charge"|get_icon:"charge" }}
+                                {{upgrade.charge}}{% if upgrade.charge_regen %} {{ "recurring"|get_icon }}{% endif %}
+                            </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+                {% if upgrade.side2 %}
+                <div class="row side2">
+                    <div class="col-md-3 text-nowrap ability">
+                        {{upgrade.side2}}
+                        {{upgrade.side2.get_slot_display|get_icon}}
+                        {% if upgrade..side2.slot2 %}
+                        {{upgrade..side2.get_slot_display|get_icon}}
+                        {% endif %}
+                    </div>
+
+                    <div class="col">
+                        {% if upgrade.side2.special_attack %}
+                            <div>{{ upgrade.side2.special_attack.display_name|iconize }}</div>
+                        {% endif %}
+
+                        {% if upgrade.side2.actions.exists %}
+                            <div>
+                                {% for action in upgrade.side2.upgradeaction_set.all %}
+                                {{ action.display_name }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {% if upgrade.side2.grants %}
+                            <div>{{ upgrade.side2.grants|iconize }}</div>
+                        {% endif %}
+
+
+                        <span class="ability">{{ upgrade.side2.ability|iconize }}</span>
+
+                        {% if upgrade.side2.charge %}
+                            <div>
+                                {{ "charge"|get_icon:"charge" }}
+                                {{upgrade.side2.charge}}{% if upgrade.side2.charge_regen %} {{ "recurring"|get_icon }}{% endif %}
+                            </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+                {% endif %} <!-- side2 -->
+                {% endfor %} <!-- end upgrades -->
+
                 {% else %}
                 <div class="col">
                     <span><i>No special abilities.</i></span>
                 </div>
+
                 {% endif %}
-            </div>
+
+                {% if not forloop.last %}
+                <div class="text-center">Ship {{ forloop.counter }}</div>
+            {% endif %}
+            </section>
+
         </section>
-        {% if not forloop.last %}
-        <div class="text-center">Ship {{ forloop.counter }}</div>
-        {% endif %}
+
         <!-- end build -->
     {% endfor %} <!-- end quickbuild -->
-</div>
+
+    </section>
