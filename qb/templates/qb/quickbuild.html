@@ -1,6 +1,6 @@
 {% load qb_extras %}
 
-    <span class="font-weight-light {{ qb.threat|threatbar }}">Threat {{ qb.threat|threatbar|safe }}</span>
+    <span class="font-weight-light {{ qb.threat|threatbar }}">{{ qb.threat|threatbar|safe }}</span>
     <div class="quickbuild border round">
 
 
@@ -14,23 +14,23 @@
 
                 <div class="col text-right">
                     {% for attack in build.pilot.ship.shipattack_set.all %}
-                        <span class="border rounded icon attack">{{ attack.display_name|iconize }}</span>
+                        <span class="icon attack">{{ attack.display_name|iconize }}</span>
                     {% endfor %}
 
-                        <span class="border rounded icon">{{ "agility"|get_icon:"agility" }} {{build.agility}}</span>
+                        <span class="icon">{{ "agility"|get_icon:"agility" }} {{build.agility}}</span>
 
                     {% if build.shields %}
-                        <span class="border rounded icon">{{ "shield"|get_icon:"shields" }} {{build.shields}}</span>
+                        <span class="icon">{{ "shield"|get_icon:"shields" }} {{build.shields}}</span>
                     {% endif %}
 
-                        <span class="border rounded icon">{{ "hull"|get_icon:"hull" }} {{build.hull}}</span>
+                        <span class="icon">{{ "hull"|get_icon:"hull" }} {{build.hull}}</span>
 
                     {% if build.force %}
-                        <span class="border rounded icon">{{ "forcecharge"|get_icon:"force" }} {{build.force}}</span>
+                        <span class="icon">{{ "forcecharge"|get_icon:"force" }} {{build.force}}</span>
                     {% endif %}
 
                     {% if build.pilot.ship.charge %}
-                        <span class="border rounded icon">{{ "charge"|get_icon:"charge" }} {{build.pilot.ship.charge}}
+                        <span class="icon">{{ "charge"|get_icon:"charge" }} {{build.pilot.ship.charge}}
                         {% if build.pilot.ship.charge_regen %} {{"recurring"|get_icon:"charge"}}{% endif %}</span>
                     {% endif %}
                 </div>
@@ -79,7 +79,7 @@
                                 <span>{{ build.pilot.charge }}{% if build.pilot.charge_regen %}{{ "recurring"|get_icon }}{% endif %}</span>
                                 {% endif %}
                             </td>
-                            <td><span>{{ build.pilot.ability|iconize|safe }}</span></td>
+                            <td><span class="ability">{{ build.pilot.ability|iconize|safe }}</span></td>
                         </tr>
                         {% endif %}
 
@@ -87,13 +87,13 @@
                         <tr>
                             <td class="text-nowrap"><span>{{ build.pilot.ship.ability_title }} {{ build.pilot.ship.icon }}</span></th>
                             <td></td>
-                            <td><span>{{ build.pilot.ship.ability|iconize }}</span></td>
+                            <td><span class="ability">{{ build.pilot.ship.ability|iconize }}</span></td>
                         </tr>
                         {% endif %}
 
                         {% for upgrade in build.upgrades.all %}
                         <tr>
-                            <td class="text-nowrap">
+                            <td class="text-nowrap ability" >
                                 <span>{{upgrade}}
                                 {{upgrade.get_slot_display|get_icon}}
                                 {% if upgrade.slot2 %}
@@ -124,14 +124,14 @@
                                     <div>{{ upgrade.grants|iconize }}</div>
                                 {% endif %}
 
-                                {{ upgrade.ability|iconize }}
+                                <span class="ability">{{ upgrade.ability|iconize }}</span>
                             </td>
 
                         </tr>
 
                         {% if upgrade.side2 %}
                         <tr class="side2">
-                            <td class="text-nowrap">
+                            <td class="text-nowrap ability">
                                 <span>{{upgrade.side2}}
                                 {{upgrade.side2.get_slot_display|get_icon}}
                                 {% if upgrade..side2.slot2 %}
@@ -162,7 +162,7 @@
                                     <div>{{ upgrade.side2.grants|iconize }}</div>
                                 {% endif %}
 
-                                {{ upgrade.side2.ability|iconize }}
+                                <span class="ability">{{ upgrade.side2.ability|iconize }}</span>
                             </td>
                         </tr>
                         {% endif %}
@@ -175,8 +175,10 @@
                 </div>
                 {% endif %}
             </div>
-
-
-        </section> <!-- end build -->
+        </section>
+        {% if not forloop.last %}
+        <div class="text-center">Ship {{ forloop.counter }}</div>
+        {% endif %}
+        <!-- end build -->
     {% endfor %} <!-- end quickbuild -->
 </div>

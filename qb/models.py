@@ -191,11 +191,11 @@ class ActionMixin(object):
     @property
     def display_name(self):
         if self.linked_action:
-            name = '<span class="border rounded icon">{}{}{}</span>'.format(get_icon(self.action.icon, css='hard' if self.hard else None),
+            name = '<span class="icon">{}{}{}</span>'.format(get_icon(self.action.icon, css='hard' if self.hard else None),
                                      get_icon('linked', css='linked'),
                                      get_icon(self.linked_action.icon, css='hard' if self.linked_hard else None))
         else:
-            name = '<span class="border rounded icon">{}</span>'.format(get_icon(self.action.icon, css='hard' if self.hard else None))
+            name = '<span class="icon">{}</span>'.format(get_icon(self.action.icon, css='hard' if self.hard else None))
         return mark_safe(name)
 
 
@@ -365,7 +365,6 @@ class QuickBuild(models.Model):
     @property
     def threat_color(self):
         return QB_COLORS[self.threat]
-
 
     def __str__(self):
         return '{} ({})'.format(self.pilot_names, self.threat)
