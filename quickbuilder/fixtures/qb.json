@@ -10105,8 +10105,7 @@
         "charge_regen": false,
         "slot": "FRC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10127,8 +10126,7 @@
         "charge_regen": false,
         "slot": "FRC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10149,8 +10147,7 @@
         "charge_regen": false,
         "slot": "FRC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10171,8 +10168,7 @@
         "charge_regen": false,
         "slot": "FRC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10193,8 +10189,7 @@
         "charge_regen": false,
         "slot": "FRC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10215,8 +10210,7 @@
         "charge_regen": false,
         "slot": "FRC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10237,8 +10231,7 @@
         "charge_regen": false,
         "slot": "FRC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10259,8 +10252,7 @@
         "charge_regen": false,
         "slot": "SNS",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10281,8 +10273,7 @@
         "charge_regen": false,
         "slot": "SNS",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10303,8 +10294,7 @@
         "charge_regen": false,
         "slot": "SNS",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10325,8 +10315,7 @@
         "charge_regen": false,
         "slot": "SNS",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10347,8 +10336,7 @@
         "charge_regen": false,
         "slot": "TCH",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10369,8 +10357,7 @@
         "charge_regen": false,
         "slot": "TCH",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10391,8 +10378,7 @@
         "charge_regen": false,
         "slot": "TCH",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10413,8 +10399,7 @@
         "charge_regen": false,
         "slot": "TCH",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10435,8 +10420,7 @@
         "charge_regen": false,
         "slot": "TCH",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10457,8 +10441,7 @@
         "charge_regen": false,
         "slot": "TCH",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10479,15 +10462,14 @@
         "charge_regen": false,
         "slot": "TCH",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
     "model": "qb.upgrade",
     "pk": 221,
     "fields": {
-        "name": "Integrated S-foils",
+        "name": "Integrated S-foils (Closed)",
         "xws": "integratedsfoils",
         "ffg": null,
         "limited": "",
@@ -10501,8 +10483,7 @@
         "charge_regen": false,
         "slot": "CNF",
         "slot2": null,
-        "ability2": "Before you activate, you may flip this card.",
-        "ability2_title": "Integrated S-foils (Open)"
+        "side2": 406
     }
 },
 {
@@ -10523,18 +10504,17 @@
         "charge_regen": false,
         "slot": "CNF",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
     "model": "qb.upgrade",
     "pk": 223,
     "fields": {
-        "name": "Pivot Wing",
+        "name": "Pivot Wing (Closed)",
         "xws": "pivotwing",
         "ffg": null,
-        "limited": "0",
+        "limited": "",
         "ability": "While you defend, roll 1 fewer defense die. After you execute a [0 [Stationary]] maneuver, you may rotate your ship 90\u02da or 180\u02da. Before you activate, you may flip this card.",
         "ability_title": "Pivot Wing (Closed)",
         "agility": 0,
@@ -10545,15 +10525,14 @@
         "charge_regen": false,
         "slot": "CNF",
         "slot2": null,
-        "ability2": "Before you activate, you may flip this card.",
-        "ability2_title": "Pivot Wing (Open)"
+        "side2": 407
     }
 },
 {
     "model": "qb.upgrade",
     "pk": 224,
     "fields": {
-        "name": "Servomotor S-foils",
+        "name": "Servomotor S-foils (Closed)",
         "xws": "servomotorsfoils",
         "ffg": null,
         "limited": "",
@@ -10567,8 +10546,7 @@
         "charge_regen": false,
         "slot": "CNF",
         "slot2": null,
-        "ability2": "Before you activate, you may flip this card.",
-        "ability2_title": "Servomotor S-foils (Open)"
+        "side2": 405
     }
 },
 {
@@ -10589,8 +10567,7 @@
         "charge_regen": false,
         "slot": "CNF",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10611,8 +10588,7 @@
         "charge_regen": false,
         "slot": "CNF",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": "Grappling Struts (Closed)"
+        "side2": null
     }
 },
 {
@@ -10633,8 +10609,7 @@
         "charge_regen": false,
         "slot": "CNF",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10655,8 +10630,7 @@
         "charge_regen": false,
         "slot": "CNF",
         "slot2": "MOD",
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10677,8 +10651,7 @@
         "charge_regen": false,
         "slot": "TAC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10699,8 +10672,7 @@
         "charge_regen": false,
         "slot": "MSL",
         "slot2": "MSL",
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10721,8 +10693,7 @@
         "charge_regen": false,
         "slot": "MSL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10743,8 +10714,7 @@
         "charge_regen": false,
         "slot": "MSL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10765,8 +10735,7 @@
         "charge_regen": false,
         "slot": "MSL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10787,8 +10756,7 @@
         "charge_regen": false,
         "slot": "MSL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10809,8 +10777,7 @@
         "charge_regen": false,
         "slot": "MSL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10831,8 +10798,7 @@
         "charge_regen": false,
         "slot": "MSL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10853,8 +10819,7 @@
         "charge_regen": false,
         "slot": "TRT",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10875,8 +10840,7 @@
         "charge_regen": false,
         "slot": "TRT",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10897,8 +10861,7 @@
         "charge_regen": false,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10919,8 +10882,7 @@
         "charge_regen": false,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10941,8 +10903,7 @@
         "charge_regen": false,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10963,8 +10924,7 @@
         "charge_regen": false,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -10985,8 +10945,7 @@
         "charge_regen": true,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11007,8 +10966,7 @@
         "charge_regen": false,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11029,8 +10987,7 @@
         "charge_regen": false,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11051,8 +11008,7 @@
         "charge_regen": true,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11073,8 +11029,7 @@
         "charge_regen": false,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11095,8 +11050,7 @@
         "charge_regen": false,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11117,8 +11071,7 @@
         "charge_regen": false,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11139,8 +11092,7 @@
         "charge_regen": false,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11161,8 +11113,7 @@
         "charge_regen": false,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11183,8 +11134,7 @@
         "charge_regen": false,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11205,8 +11155,7 @@
         "charge_regen": false,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11227,8 +11176,7 @@
         "charge_regen": false,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11249,8 +11197,7 @@
         "charge_regen": false,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11271,8 +11218,7 @@
         "charge_regen": false,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11293,8 +11239,7 @@
         "charge_regen": false,
         "slot": "GNR",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11315,8 +11260,7 @@
         "charge_regen": false,
         "slot": "DVC",
         "slot2": "DVC",
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11337,8 +11281,7 @@
         "charge_regen": false,
         "slot": "DVC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11359,8 +11302,7 @@
         "charge_regen": false,
         "slot": "DVC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11381,8 +11323,7 @@
         "charge_regen": false,
         "slot": "DVC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11403,8 +11344,7 @@
         "charge_regen": false,
         "slot": "DVC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11425,8 +11365,7 @@
         "charge_regen": false,
         "slot": "TRP",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11447,8 +11386,7 @@
         "charge_regen": false,
         "slot": "TRP",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11469,8 +11407,7 @@
         "charge_regen": false,
         "slot": "TRP",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11491,8 +11428,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11513,8 +11449,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11535,8 +11470,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11557,8 +11491,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11579,8 +11512,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11601,8 +11533,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11623,8 +11554,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11645,8 +11575,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11667,8 +11596,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11689,8 +11617,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11711,8 +11638,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11733,8 +11659,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11755,8 +11680,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11777,8 +11701,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11799,8 +11722,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11821,8 +11743,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11843,8 +11764,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11865,8 +11785,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11887,8 +11806,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11909,8 +11827,7 @@
         "charge_regen": false,
         "slot": "TTL",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11931,8 +11848,7 @@
         "charge_regen": false,
         "slot": "CNN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11953,8 +11869,7 @@
         "charge_regen": false,
         "slot": "CNN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11975,8 +11890,7 @@
         "charge_regen": false,
         "slot": "CNN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -11997,8 +11911,7 @@
         "charge_regen": false,
         "slot": "CNN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12019,8 +11932,7 @@
         "charge_regen": false,
         "slot": "ILC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12041,8 +11953,7 @@
         "charge_regen": false,
         "slot": "ILC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12063,8 +11974,7 @@
         "charge_regen": false,
         "slot": "ILC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12085,8 +11995,7 @@
         "charge_regen": false,
         "slot": "ILC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12107,8 +12016,7 @@
         "charge_regen": false,
         "slot": "ILC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12129,8 +12037,7 @@
         "charge_regen": false,
         "slot": "ILC",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12151,8 +12058,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12173,8 +12079,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12195,8 +12100,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12217,8 +12121,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12239,8 +12142,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12261,8 +12163,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12283,8 +12184,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12305,8 +12205,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12327,8 +12226,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12349,8 +12247,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12371,8 +12268,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12393,8 +12289,7 @@
         "charge_regen": true,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12415,8 +12310,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12437,8 +12331,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12459,8 +12352,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12481,8 +12373,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12503,8 +12394,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12525,8 +12415,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12547,8 +12436,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12569,8 +12457,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12591,8 +12478,7 @@
         "charge_regen": false,
         "slot": "TLN",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12613,8 +12499,7 @@
         "charge_regen": false,
         "slot": "MOD",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12635,8 +12520,7 @@
         "charge_regen": false,
         "slot": "MOD",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12657,8 +12541,7 @@
         "charge_regen": false,
         "slot": "MOD",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12679,8 +12562,7 @@
         "charge_regen": false,
         "slot": "MOD",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12701,8 +12583,7 @@
         "charge_regen": false,
         "slot": "MOD",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12723,8 +12604,7 @@
         "charge_regen": false,
         "slot": "MOD",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12745,8 +12625,7 @@
         "charge_regen": false,
         "slot": "MOD",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12767,8 +12646,7 @@
         "charge_regen": false,
         "slot": "MOD",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12789,8 +12667,7 @@
         "charge_regen": false,
         "slot": "MOD",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12811,8 +12688,7 @@
         "charge_regen": false,
         "slot": "MOD",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12833,8 +12709,7 @@
         "charge_regen": false,
         "slot": "MOD",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12855,8 +12730,7 @@
         "charge_regen": false,
         "slot": "AST",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12877,8 +12751,7 @@
         "charge_regen": false,
         "slot": "AST",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12899,8 +12772,7 @@
         "charge_regen": false,
         "slot": "AST",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12921,8 +12793,7 @@
         "charge_regen": false,
         "slot": "AST",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12943,8 +12814,7 @@
         "charge_regen": false,
         "slot": "AST",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12965,8 +12835,7 @@
         "charge_regen": false,
         "slot": "AST",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -12987,8 +12856,7 @@
         "charge_regen": false,
         "slot": "AST",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13009,8 +12877,7 @@
         "charge_regen": false,
         "slot": "AST",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13031,8 +12898,7 @@
         "charge_regen": false,
         "slot": "AST",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13053,8 +12919,7 @@
         "charge_regen": false,
         "slot": "AST",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13075,8 +12940,7 @@
         "charge_regen": false,
         "slot": "AST",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13097,8 +12961,7 @@
         "charge_regen": false,
         "slot": "AST",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13119,8 +12982,7 @@
         "charge_regen": false,
         "slot": "AST",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13141,8 +13003,7 @@
         "charge_regen": false,
         "slot": "AST",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13163,8 +13024,7 @@
         "charge_regen": false,
         "slot": "AST",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13185,8 +13045,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13207,8 +13066,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13229,8 +13087,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13251,8 +13108,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13273,8 +13129,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13295,8 +13150,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13317,8 +13171,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13339,8 +13192,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13361,8 +13213,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13383,8 +13234,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13405,8 +13255,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13427,8 +13276,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13449,8 +13297,7 @@
         "charge_regen": true,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13471,8 +13318,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13493,8 +13339,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13515,8 +13360,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13537,8 +13381,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13559,8 +13402,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": "CRW",
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13581,8 +13423,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13603,8 +13444,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": "CRW",
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13625,8 +13465,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13647,8 +13486,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13669,8 +13507,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13691,8 +13528,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13713,8 +13549,7 @@
         "charge_regen": true,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13735,8 +13570,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13757,8 +13591,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13779,8 +13612,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13801,8 +13633,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13823,8 +13654,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": "CRW",
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13845,8 +13675,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13867,8 +13696,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13889,8 +13717,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13911,8 +13738,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13933,8 +13759,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "If you are not shielded, decrease the difficulty of your bank ([Bank Left] and [Bank Right]) maneuvers.",
-        "ability2_title": "L3-37's Programming"
+        "side2": null
     }
 },
 {
@@ -13955,8 +13780,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13977,8 +13801,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -13999,8 +13822,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14021,8 +13843,7 @@
         "charge_regen": true,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14043,8 +13864,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14065,8 +13885,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14087,8 +13906,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14109,8 +13927,7 @@
         "charge_regen": true,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14131,8 +13948,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14153,8 +13969,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14175,8 +13990,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14197,8 +14011,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14219,8 +14032,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14241,8 +14053,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14263,8 +14074,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14285,8 +14095,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14307,8 +14116,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14329,8 +14137,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14351,8 +14158,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": "CRW",
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14373,8 +14179,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14395,8 +14200,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14417,8 +14221,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14439,8 +14242,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14461,8 +14263,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14483,8 +14284,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14505,8 +14305,7 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
     }
 },
 {
@@ -14527,15 +14326,97 @@
         "charge_regen": false,
         "slot": "CRW",
         "slot2": null,
-        "ability2": "",
-        "ability2_title": ""
+        "side2": null
+    }
+},
+{
+    "model": "qb.upgrade",
+    "pk": 405,
+    "fields": {
+        "name": "Servomotor S-foils (Open)",
+        "xws": "servomotorsfoils-side2",
+        "ffg": null,
+        "limited": "",
+        "ability": "Before you activate, you may flip this card.",
+        "ability_title": "",
+        "agility": 0,
+        "shields": 0,
+        "hull": 0,
+        "force": 0,
+        "charge": 0,
+        "charge_regen": false,
+        "slot": "CNF",
+        "slot2": null,
+        "side2": null
+    }
+},
+{
+    "model": "qb.upgrade",
+    "pk": 406,
+    "fields": {
+        "name": "Integrated S-foils (Open)",
+        "xws": "integratedsfoils-side2",
+        "ffg": null,
+        "limited": "",
+        "ability": "Before you activate, you may flip this card.",
+        "ability_title": "",
+        "agility": 0,
+        "shields": 0,
+        "hull": 0,
+        "force": 0,
+        "charge": 0,
+        "charge_regen": false,
+        "slot": "CNF",
+        "slot2": null,
+        "side2": null
+    }
+},
+{
+    "model": "qb.upgrade",
+    "pk": 407,
+    "fields": {
+        "name": "Pivot Wing (Open)",
+        "xws": "pivotwing-side2",
+        "ffg": null,
+        "limited": "",
+        "ability": "Before you activate, you may flip this card.",
+        "ability_title": "",
+        "agility": 0,
+        "shields": 0,
+        "hull": 0,
+        "force": 0,
+        "charge": 0,
+        "charge_regen": false,
+        "slot": "CNF",
+        "slot2": null,
+        "side2": null
+    }
+},
+{
+    "model": "qb.upgrade",
+    "pk": 408,
+    "fields": {
+        "name": "L3-37's Programming",
+        "xws": "l337-side2",
+        "ffg": null,
+        "limited": "1",
+        "ability": "If you are not shielded, decrease the difficulty of your bank ([Bank Left] and [Bank Right]) maneuvers.",
+        "ability_title": "",
+        "agility": 0,
+        "shields": 0,
+        "hull": 0,
+        "force": 0,
+        "charge": 0,
+        "charge_regen": false,
+        "slot": "CNF",
+        "slot2": null,
+        "side2": null
     }
 },
 {
     "model": "qb.upgradeaction",
     "pk": 1,
     "fields": {
-        "side": 1,
         "upgrade": 299,
         "action": 3,
         "hard": true,
@@ -14547,7 +14428,6 @@
     "model": "qb.upgradeaction",
     "pk": 2,
     "fields": {
-        "side": 1,
         "upgrade": 314,
         "action": 8,
         "hard": true,
@@ -14559,7 +14439,6 @@
     "model": "qb.upgradeaction",
     "pk": 3,
     "fields": {
-        "side": 1,
         "upgrade": 301,
         "action": 5,
         "hard": false,
@@ -14571,7 +14450,6 @@
     "model": "qb.upgradeaction",
     "pk": 4,
     "fields": {
-        "side": 1,
         "upgrade": 237,
         "action": 13,
         "hard": false,
@@ -14583,7 +14461,6 @@
     "model": "qb.upgradeaction",
     "pk": 5,
     "fields": {
-        "side": 1,
         "upgrade": 238,
         "action": 13,
         "hard": false,
@@ -14595,7 +14472,6 @@
     "model": "qb.upgradeaction",
     "pk": 6,
     "fields": {
-        "side": 1,
         "upgrade": 351,
         "action": 9,
         "hard": false,
@@ -14607,7 +14483,6 @@
     "model": "qb.upgradeaction",
     "pk": 7,
     "fields": {
-        "side": 1,
         "upgrade": 397,
         "action": 8,
         "hard": false,
@@ -14619,7 +14494,6 @@
     "model": "qb.upgradeaction",
     "pk": 8,
     "fields": {
-        "side": 1,
         "upgrade": 224,
         "action": 1,
         "hard": false,
@@ -14631,7 +14505,6 @@
     "model": "qb.upgradeaction",
     "pk": 9,
     "fields": {
-        "side": 1,
         "upgrade": 224,
         "action": 2,
         "hard": false,
@@ -14643,7 +14516,6 @@
     "model": "qb.upgradeaction",
     "pk": 10,
     "fields": {
-        "side": 1,
         "upgrade": 275,
         "action": 3,
         "hard": false,
@@ -14655,7 +14527,6 @@
     "model": "qb.upgradeaction",
     "pk": 11,
     "fields": {
-        "side": 1,
         "upgrade": 321,
         "action": 1,
         "hard": false,
@@ -14667,7 +14538,6 @@
     "model": "qb.upgradeaction",
     "pk": 12,
     "fields": {
-        "side": 1,
         "upgrade": 361,
         "action": 8,
         "hard": false,
@@ -14679,7 +14549,6 @@
     "model": "qb.upgradeaction",
     "pk": 13,
     "fields": {
-        "side": 1,
         "upgrade": 369,
         "action": 9,
         "hard": false,
@@ -14691,7 +14560,6 @@
     "model": "qb.upgradeaction",
     "pk": 14,
     "fields": {
-        "side": 1,
         "upgrade": 276,
         "action": 5,
         "hard": false,
@@ -14703,7 +14571,6 @@
     "model": "qb.upgradeaction",
     "pk": 15,
     "fields": {
-        "side": 1,
         "upgrade": 266,
         "action": 11,
         "hard": false,
@@ -14715,7 +14582,6 @@
     "model": "qb.upgradeaction",
     "pk": 16,
     "fields": {
-        "side": 1,
         "upgrade": 402,
         "action": 3,
         "hard": true,
@@ -14727,7 +14593,6 @@
     "model": "qb.upgradeaction",
     "pk": 17,
     "fields": {
-        "side": 1,
         "upgrade": 401,
         "action": 9,
         "hard": false,
@@ -14739,7 +14604,6 @@
     "model": "qb.upgradeaction",
     "pk": 18,
     "fields": {
-        "side": 1,
         "upgrade": 401,
         "action": 8,
         "hard": true,
@@ -14751,7 +14615,6 @@
     "model": "qb.upgradeaction",
     "pk": 19,
     "fields": {
-        "side": 1,
         "upgrade": 267,
         "action": 12,
         "hard": false,
@@ -14763,7 +14626,6 @@
     "model": "qb.upgradeaction",
     "pk": 20,
     "fields": {
-        "side": 1,
         "upgrade": 221,
         "action": 5,
         "hard": false,
@@ -14775,7 +14637,6 @@
     "model": "qb.upgradeaction",
     "pk": 21,
     "fields": {
-        "side": 1,
         "upgrade": 221,
         "action": 2,
         "hard": false,
