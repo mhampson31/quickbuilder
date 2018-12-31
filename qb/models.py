@@ -296,10 +296,6 @@ class Pilot(Card, Charges):
         return aset
 
 
-#class UpgradeSide(Card, Stats, Charges):
-
-
-
 class Upgrade(Card, Stats, Charges):
     slot = models.CharField(max_length=3, choices=UPGRADE_CHOICES)
     slot2 = models.CharField(max_length=3, choices=UPGRADE_CHOICES, null=True, blank=True, default=None)

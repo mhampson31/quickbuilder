@@ -57,7 +57,12 @@ admin.site.register(Ship, ShipAdmin)
 class UpgradeAdmin(admin.ModelAdmin):
     inlines = (UpgradeAttackInline, UpgradeActionInline, )
     fieldsets = (
-        (None, {'fields': (('name', 'limited'), 'xws', 'ability', ('slot', 'slot2'))}),
+        (None, {'fields': (('name', 'limited'),
+                           'xws',
+                           'ability',
+                           ('slot', 'slot2'),
+                           'side2'
+                           )}),
         ('Powers', {'fields': (('charge', 'charge_regen', 'force'),)}),
         ('Defenses', {'fields': (('agility', 'shields', 'hull'),)}),
         )
