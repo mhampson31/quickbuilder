@@ -11,7 +11,7 @@ import re
 
 ID_SEP = '-'
 
-id_rx = re.compile('\d+')
+id_rx = re.compile(r'\d+')
 
 
 class IndexView(generic.ListView):
@@ -34,8 +34,7 @@ def ship_detail(request, id):
 
 def quickbuild_list(request, qb_list):
     id_list = qb_list.split(ID_SEP)
-    qb_list = [QuickBuild.objects.get(id=i) for i in id_list]
-    # Some quick builds may be used more than once, but the IN query
+    qb_list = [QuickBuild.objects.get(id=i) for i in id_list] # IN would dedupe    
     return render(request, 'qb/qb_list.html', {'qb_list':qb_list, 'id_list':id_list})
 
 

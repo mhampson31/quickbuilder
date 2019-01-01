@@ -215,30 +215,6 @@ class Ship(Card, Stats):
     limited = None
     cost=None
 
-    def make_attacks(self):
-        print('Changing {} attacks:'.format(self.name))
-        if self.front:
-            print('... Front')
-            ShipAttack(ship=self, arc='FT', value=self.front).save()
-            self.front = 0
-        if self.rear:
-            print('... Rear')
-            ShipAttack(ship=self, arc='RE', value=self.rear).save()
-            self.rear = 0
-        if self.full_front:
-            print('... Full Front')
-            ShipAttack(ship=self, arc='FF', value=self.full_front).save()
-            self.full_front = 0
-        if self.doubleturret:
-            print('... Double Turret')
-            ShipAttack(ship=self, arc='DT', value=self.doubleturret).save()
-            self.doubleturret = 0
-        if self.turret:
-            print('... Single Turret')
-            ShipAttack(ship=self, arc='ST', value=self.turret).save()
-            self.turret = 0
-        self.save()
-
     def all_actions(self):
         return [s.display_name for s in self.shipaction_set.all()]
 
@@ -382,7 +358,7 @@ class Build(models.Model):
     def limited_names(self):
         # QuickBuilds and Builds have a similar property, used to collect any limited pilots/upgrades in use
         lnames = make_lnames()
-        cards = [u for u in self.upgrades.all() if u.limited not in ('0', '')]
+        cards = [u for u in self.upgrades.filter(limited__gte=1)]
         if self.pilot.limited not in ('0', ''):
             cards.append(self.pilot)
 
