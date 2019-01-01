@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 
-from .models import Ship, QuickBuild
+from .models import Ship, QuickBuild, Faction
 from .forms import RandomListForm
 from .tools import random_list
 
@@ -25,6 +25,12 @@ class IndexView(generic.ListView):
 class ShipView(generic.DetailView):
     model = Ship
     template_name = 'qb/ship.html'
+
+
+def faction_builds(request, faction):
+    faction = Faction.objects.values('id', 'name').get(xws=faction)
+    builds = QuickBuild.objects.filter(faction_id=faction['id']).order_by('-threat')
+    return render(request, 'faction_builds.html', {'faction':faction['name'], 'builds':builds})
 
 
 def ship_detail(request, id):

@@ -284,13 +284,13 @@ class Upgrade(Card, Stats, Charges):
     def grants(self):
         stats = []
         if self.shields:
-            stats.append('+{} [Shield]'.format(self.shields))
+            stats.append('+{} <span class="shields">[Shield]</span>'.format(self.shields))
         if self.hull:
-            stats.append('+{} [Hull]'.format(self.hull))
+            stats.append('+{} <span class="hull">[Hull]</span>'.format(self.hull))
         if self.agility:
-            stats.append('+{} [Agility]'.format(self.agility))
+            stats.append('+{} <span class="agility">[Agility]</span>'.format(self.agility))
         if self.force:
-            stats.append('+{} [Forcecharge]'.format(self.force))
+            stats.append('+{} <span class="force">[Forcecharge]</span>'.format(self.force))
         return '  '.join(stats)
 
     class Meta:
