@@ -5,6 +5,7 @@ from .models import QuickBuild, Faction, make_lnames
 
 DEBUG = True
 
+
 def random_list(threat, faction_id):
     build_list = []
     rejects = []
@@ -12,11 +13,12 @@ def random_list(threat, faction_id):
 
     print('Starting quickbuild.')
 
-    all_builds = QuickBuild.objects.filter(faction_id=faction_id).filter(threat__lte=threat)\
+    all_builds = QuickBuild.objects.filter(faction_id=faction_id).filter(threat__lte=threat)
 
     while threat > 0:
-        new_build = choice([b for b in all_builds if b.threat <= threat and b.id not in rejects])
-        if not new_build:
+        try:
+            new_build = choice([b for b in all_builds if b.threat <= threat and b.id not in rejects])
+        except IndexError: # random.choice raises this exception if new_build is empty
             if DEBUG: print('No ships left with threat <= {}'.format(threat))
             break
         if DEBUG: print('Trying {}'.format(new_build))
