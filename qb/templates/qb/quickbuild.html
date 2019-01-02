@@ -14,7 +14,7 @@
             {% endif %}
 
             <div class="row"> <!-- row 1 -->
-                <div class="col-md-5">
+                <div class="col-md-8">
                     <h5>{{build.pilot}} ({{build.pilot.ship}})</h5>
                 </div>
 
@@ -73,6 +73,21 @@
                         {% endif %}
                     </div>
                 </div>
+
+                {% with condition=build.pilot.condition %}
+                {% if condition %}
+                <div class="row condition">
+                    <div class="col-md-3">
+                        {{ condition.name }}
+                    </div>
+
+                    <div class="col">
+                        {{ condition.effect }}
+                    </div>
+                </div>
+                {% endif %}
+                {% endwith %}
+
                 {% endif %}
 
                 {% if build.pilot.ship.ability_title %}
@@ -160,6 +175,20 @@
                     </div>
                 </div>
                 {% endif %} <!-- side2 -->
+                {% endwith %}
+
+                {% with condition=upgrade.condition %}
+                {% if condition %}
+                <div class="row condition">
+                    <div class="col-md-3">
+                        {{ condition.name }}
+                    </div>
+
+                    <div class="col">
+                        {{ condition.effect }}
+                    </div>
+                </div>
+                {% endif %}
                 {% endwith %}
 
                 {% endfor %} <!-- end upgrades -->

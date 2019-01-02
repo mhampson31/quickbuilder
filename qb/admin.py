@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import Ship, Pilot, Upgrade, QuickBuild, Faction, Build, Action,\
-    ShipAction, UpgradeAction, UpgradeAttack, ShipAttack
+    ShipAction, UpgradeAction, UpgradeAttack, ShipAttack, Condition
 
 stat_fields = (
     (None, {'fields':('name', 'caption', 'initiative')}),
@@ -38,7 +38,7 @@ class UpgradeActionInline(admin.TabularInline):
 
 
 class FactionAdmin(admin.ModelAdmin):
-    list_display = ('display_name', 'released')
+    list_display = ('name', 'released')
     list_filter = ('released',)
 admin.site.register(Faction, FactionAdmin)
 
@@ -58,9 +58,10 @@ class UpgradeAdmin(admin.ModelAdmin):
     inlines = (UpgradeAttackInline, UpgradeActionInline, )
     fieldsets = (
         (None, {'fields': (('name', 'limited'),
+                           ('slot', 'slot2'),
                            'xws',
                            'ability',
-                           ('slot', 'slot2'),
+                           'condition',
                            'side2'
                            )}),
         ('Powers', {'fields': (('charge', 'charge_regen', 'force'),)}),
@@ -73,7 +74,13 @@ admin.site.register(Upgrade, UpgradeAdmin)
 
 class PilotAdmin(admin.ModelAdmin):
     fieldsets = (
-        (None, {'fields':(('name', 'initiative'), 'caption', 'ship', 'ability', 'droid')}),
+        (None, {'fields':(('name', 'initiative'),
+                          'caption',
+                          'ship',
+                          'droid',
+                          'ability',
+                          'condition'
+                          )}),
         ('Powers', {'fields': (('force', 'charge', 'charge_regen'),)}),
         )
     list_display = ('display_name', 'caption', 'faction', 'ship', 'initiative', 'droid')
@@ -88,3 +95,4 @@ class QuickBuildAdmin(admin.ModelAdmin):
 admin.site.register(QuickBuild, QuickBuildAdmin)
 
 admin.site.register(Action)
+admin.site.register(Condition)

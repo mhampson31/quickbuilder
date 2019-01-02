@@ -96,7 +96,7 @@ class Card(models.Model):
     ffg = models.PositiveIntegerField(blank=True, null=True, default=None)
     limited = models.CharField(max_length=1, choices=LIMITED_CHOICES, blank=True, default='')
     ability = models.CharField(max_length=400, blank=True, default='')
-    ability_title = models.CharField(max_length=32, blank=True, default='')
+    condition = models.OneToOneField('Condition', on_delete=models.CASCADE, blank=True, null=True, default=None)
 
     @property
     def display_name(self):
@@ -144,6 +144,15 @@ class Attack(models.Model):
 
     class Meta:
         abstract = True
+
+
+class Condition(models.Model):
+    name = models.CharField(max_length=64)
+    effect = models.CharField(max_length=300)
+    xws = models.CharField(max_length=64, db_index=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Stats(models.Model):
@@ -201,17 +210,21 @@ class ActionMixin(object):
 
 # ### core models
 
-class Faction(Card):
-    limited = None
-    ability = None
-    cost = None
-    ability_title = None
+class Faction(models.Model):
+    name = models.CharField(max_length=64)
+    xws = models.CharField(max_length=64, db_index=True)
+    ffg = models.PositiveIntegerField(blank=True, null=True, default=None)
     released = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
 
 
 class Ship(Card, Stats):
     size = models.CharField(max_length=1, choices=SIZE_CHOICES, default='S')
     faction = models.ForeignKey(Faction, on_delete=models.CASCADE)
+    ability_title = models.CharField(max_length=32, blank=True, default='')
     limited = None
     cost=None
 
@@ -309,6 +322,8 @@ class UpgradeAction(ActionMixin, models.Model):
 class UpgradeAttack(Attack):
     upgrade = models.OneToOneField(Upgrade, on_delete=models.CASCADE, related_name='special_attack')
     type = 'special'
+
+
 
 ##############################
 # ### Quick Build models ### #
