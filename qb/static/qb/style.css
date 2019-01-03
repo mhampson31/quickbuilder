@@ -1,3 +1,13 @@
+:root {
+    --green: mediumseagreen;
+    --red: red;
+    --blue: blue;
+    --yellow: gold;
+    --orange: darkorange;
+    --purple: mediumpurple;
+    --grey: dimgrey;
+}
+
 .quickbuild {
     margin-bottom: 1.5rem;
 
@@ -14,36 +24,36 @@ section > .row {
 .hard,
 .attack:before,
 .attack > i:before {
-    color: red;
+    color: var(--red);
 }
 
 .agility > i.before,
 .agility:before {
-    color: springgreen;
+    color: var(--green);
 }
 
 .shields > i.before,
 .shields:before {
-    color: blue;
+    color: var(--blue);
 }
 
 .hull > i.before,
 .hull:before {
-    color: olive;
+    color: var(--yellow);
 }
 
 .force > i.before,
 .force:before {
-    color: mediumpurple
+    color: var(--purple);
 }
 
 .charge > i.before,
 .charge:before {
-    color: orange
+    color: var(--orange);
 }
 
 .linked.before {
-    color: dimgrey;
+    color: var(--grey);
 }
 
 .icon {
@@ -55,18 +65,18 @@ section > .row {
     font-size: inherit;
 }
 
-.threat-1 {color:springgreen;}
-.threat-2 {color:yellow;}
-.threat-3 {color:orange;}
-.threat-4 {color:red;}
+.threat-1 {color:var(--green);}
+.threat-2 {color:var(--yellow);}
+.threat-3 {color:var(--orange);}
+.threat-4 {color: var(--red);}
 .threat-5 {color:magenta;}
-.threat-6 {color:mediumpurple;}
+.threat-6 {color:var(--purple);}
 
 .upgrade {
     padding-top: 0.25rem;
-    border-top: 1px solid dimgrey;
+    border-top: 1px solid var(--grey);
 }
 
 .side2 {
-    border-top: 1px dashed dimgrey;
+    border-top: 1px dashed var(--grey);
 }
