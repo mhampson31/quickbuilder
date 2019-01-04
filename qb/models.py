@@ -49,7 +49,6 @@ LIMITED_CHOICES = (
     ('3', '•••')
 )
 
-
 DIFFICULTY_CHOICES = (
     ('r', 'Red'),
     ('w', 'White'),
@@ -81,10 +80,16 @@ RANGE_CHOICES = (
 QB_COLORS = ('green', 'yellow', 'orange', 'red', 'magenta', 'purple')
 
 def make_lnames():
-    from .models import LIMITED_CHOICES
+    """
+    this is a utility function to help compare the names of limited cards across a build
+    :return: a dictionary in the form of {n:[], ...} where n is each possible count of limited pips on a card.
+    The idea is that if a card has, say, one limited pip, we append its name to the list under that key, and can
+    count the number of times it occurs there later.
+    There's probably a more efficient/clever way to do this but it works for now.
+    """
     lnames = {}
-    for k in LIMITED_CHOICES:
-        lnames[k[0]] = []
+    for k, v in LIMITED_CHOICES:
+        lnames[k] = []
     return lnames
 
 

@@ -5,7 +5,7 @@ from django.views import generic
 
 from .models import Ship, QuickBuild, Faction
 from .forms import RandomListForm
-from .tools import random_list
+from .tools import QuickList
 
 import re
 
@@ -46,7 +46,9 @@ def quickbuild_list(request, qb_list):
 
 def random_quickbuild(request):
     if request.method == 'POST':
-        qb_list = random_list(threat=int(request.POST['threat']), faction_id=request.POST['faction'])
+        ql = QuickList(max_threat=int(request.POST['threat']), faction_id=request.POST['faction'])
+        ql.random_fill()
+        qb_list = ql.build_list
         id_param = ID_SEP.join([str(qb.id) for qb in qb_list])
         form = RandomListForm(request.POST)
     else:
