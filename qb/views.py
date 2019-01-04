@@ -30,7 +30,7 @@ class ShipView(generic.DetailView):
 def faction_builds(request, faction):
     faction = Faction.objects.values('id', 'name').get(xws=faction)
     builds = QuickBuild.objects.filter(faction_id=faction['id']).order_by('-threat')
-    return render(request, 'faction_builds.html', {'faction':faction['name'], 'builds':builds})
+    return render(request, 'qb/faction_builds.html', {'faction':faction['name'], 'builds':builds})
 
 
 def ship_detail(request, id):
