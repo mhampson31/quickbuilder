@@ -61,7 +61,7 @@ section > .row {
     margin-left: 0;
 }
 
-.ability.xwing-miniatures-font {
+.ability > .xwing-miniatures-font {
     font-size: inherit;
 }
 

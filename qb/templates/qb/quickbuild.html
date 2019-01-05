@@ -9,9 +9,9 @@
     {% for build in qb.build_set.all %}
         <section class="container">
 
-            {% if not forloop.first %}
+           <!-- {% if not forloop.first %}
                 <div class="text-center">Ship {{ forloop.counter }}</div>
-            {% endif %}
+            {% endif %} -->
 
             <div class="row"> <!-- row 1 -->
                 <div class="col-md-8">
@@ -99,7 +99,7 @@
 
                 {% for upgrade in build.upgrades.all %}
                 <div class="row upgrade">
-                    <div class="col-md-3 text-nowrap ability" >
+                    <div class="col-md-3 text-nowrap" >
                         {{upgrade}}
                         {{upgrade.get_slot_display|get_icon}}
                         {% if upgrade.slot2 %}
@@ -113,7 +113,7 @@
                         {% endif %}
 
                         {% if upgrade.actions %}
-                            <div>
+                            <div class="text-right">
                                 {% for action in upgrade.upgradeaction_set.all %}
                                 {{ action.display_name }}
                                 {% endfor %}
@@ -139,7 +139,7 @@
                 {% with side2=upgrade.side2 %}
                 {% if side2 %}
                 <div class="row">
-                    <div class="col-md-3 text-nowrap ability">
+                    <div class="col-md-3 text-nowrap">
                         {{side2}}
                         {{side2.get_slot_display|get_icon}}
                         {% if side2.slot2 %}
@@ -153,7 +153,7 @@
                         {% endif %}
 
                         {% if side2.actions %}
-                            <div>
+                            <div class="text-right">
                                 {% for action in side2.upgradeaction_set.all %}
                                 {{ action.display_name }}
                                 {% endfor %}
