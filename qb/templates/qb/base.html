@@ -27,6 +27,12 @@
     <nav class='navbar bg-dark text-light'>
         <a class="nav-item nav-link" href="{% url 'qb:index' %}">Home</a>
         <a class="nav-item nav-link" href="{% url 'qb:random_quickbuild' %}">Random List</a>
+        {% if user.is_authenticated %}
+        <span class="nav-item">{{ user.username }}</span>
+        <a class="nav-item nav-link" href="{% url 'logout' %}">logout</a>
+        {% else %}
+        <a class="nav-item nav-link" href="{% url 'login' %}">login</a>
+        {% endif %}
     </nav>
 
     <div id="main" role="main" class="">
