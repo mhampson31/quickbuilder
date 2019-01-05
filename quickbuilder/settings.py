@@ -58,7 +58,7 @@ ROOT_URLCONF = 'quickbuilder.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,3 +119,5 @@ STATIC_ROOT = '/home/public/static'
 STATIC_URL = '/static/'
 
 LOGGING = prod.LOGGING
+
+LOGIN_REDIRECT_URL = '/'
