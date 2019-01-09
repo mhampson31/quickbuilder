@@ -77,7 +77,7 @@ admin.site.register(Upgrade, UpgradeAdmin)
 class PilotAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'fields':(('name', 'initiative'),
-                          'caption',
+                          ('limited', 'caption'),
                           'ship',
                           'droid',
                           'ability',
