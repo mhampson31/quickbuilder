@@ -58,7 +58,7 @@ class Pilot(Card, Charges):
 
     @property
     def actions(self):
-        aset = self.ship.shipaction_set.all()
+        aset = self.ship.shipaction_set.all().select_related('action')
         if self.droid:
             focus = Action.objects.get(name='Focus')
             calc = Action.objects.get(name='Calculate')

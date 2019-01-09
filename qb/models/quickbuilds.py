@@ -20,12 +20,13 @@ class QuickBuild(models.Model):
 
     @property
     def limited_names(self):
-        # QuickBuilds and Builds have a similar property, used to collect any limited pilots/upgrades in use
         lnames = make_lnames()
-        for b in self.build_set.all():
-            bnames = b.limited_names
-            for k in lnames:
-                lnames[k].extend(bnames[k])
+        for b in self.build_set.prefetch_related('upgrades').select_related('pilot').all():
+            cards = list(b.upgrades.filter(limited__gte=1))
+            if b.pilot.limited not in ('0', ''):
+                cards.append(b.pilot)
+            for c in cards:
+                lnames[c.limited].append(c.name)
         return lnames
 
     @property
@@ -47,29 +48,6 @@ class Build(models.Model):
 
     def __str__(self):
         return self.pilot.name
-
-    @property
-    def limited_names(self):
-        # QuickBuilds and Builds have a similar property, used to collect any limited pilots/upgrades in use
-        lnames = make_lnames()
-        cards = [u for u in self.upgrades.filter(limited__gte=1)]
-        if self.pilot.limited not in ('0', ''):
-            cards.append(self.pilot)
-
-        for c in cards:
-            lnames[c.limited].append(c.name)
-
-        return lnames
-
-    @property
-    def action_bar(self):
-        bar = list(self.pilot.actions)
-        upgrades = [card.upgradeaction_set.all() for card in self.upgrades.filter(actions__isnull=False)]
-        for card in upgrades:
-            for action in card:
-                if action not in bar:
-                    bar.append(action)
-        return bar
 
     def make_stat(self, stat):
         """This method lets us add any upgrade benefits to a ship's agility, hull, or shields """

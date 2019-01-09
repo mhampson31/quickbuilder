@@ -40,7 +40,11 @@ def ship_detail(request, id):
 
 def quickbuild_list(request, qb_list):
     id_list = qb_list.split(ID_SEP)
-    qb_list = [QuickBuild.objects.get(id=i) for i in id_list] # IN would dedupe    
+    qb_lookup = {}
+    # a simple IN would dedupe, so we have an extra step in our selection
+    for q in list(QuickBuild.objects.filter(id__in=id_list)):
+        qb_lookup[q.id] = q
+    qb_list = [qb_lookup[int(i)] for i in id_list]
     return render(request, 'qb/qb_list.html', {'qb_list':qb_list, 'id_list':id_list})
 
 
