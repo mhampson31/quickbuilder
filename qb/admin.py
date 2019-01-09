@@ -50,6 +50,7 @@ class ShipAdmin(admin.ModelAdmin):
     fieldsets = (
             (None, {'fields':('name', 'faction', 'size')}),
             ('Defenses', {'fields': (('agility', 'shields', 'hull'),)}),
+            ('Ship Ability', {'fields': ('ability_title', 'ability')})
           )
     list_filter = ('faction', 'size')
     list_display = ('name', 'faction', 'size')

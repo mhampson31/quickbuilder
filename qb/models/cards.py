@@ -9,6 +9,7 @@ from qb.templatetags.qb_extras import get_icon
 from .choices import SIZE_CHOICES, UPGRADE_CHOICES
 from .base import Card, Stats, Charges, Action, ActionMixin, Attack, Faction
 
+
 class Ship(Card, Stats):
     size = models.CharField(max_length=1, choices=SIZE_CHOICES, default='S')
     faction = models.ForeignKey(Faction, on_delete=models.CASCADE)
