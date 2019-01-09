@@ -13,22 +13,16 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 from . import prod
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = prod.BASE_DIR
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 SECRET_KEY = prod.SECRET_KEY
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = prod.DEBUG
 
-#ALLOWED_HOSTS = ['quickbuilder.nfshost.com']
+INTERNAL_IPS = prod.INTERNAL_IPS
 
 ALLOWED_HOSTS = prod.ALLOWED_HOSTS
-# Application definition
+
 
 INSTALLED_APPS = [
     'qb.apps.QbConfig',
@@ -38,7 +32,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms'
+    'crispy_forms',
+    'debug_toolbar'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -51,6 +46,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'quickbuilder.urls'
