@@ -1,0 +1,5 @@
+django
+mysqlclient
+gunicorn
+django-crispy-forms
+django-debug-toolbar
