@@ -8,7 +8,7 @@ from .cards import Pilot, Faction, Upgrade
 from .base import make_lnames
 
 class QuickBuild(models.Model):
-    threat = models.IntegerField(db_index=True, validators=[MinValueValidator(1), MaxValueValidator(8)])
+    threat = models.PositiveSmallIntegerField(db_index=True, validators=[MinValueValidator(1), MaxValueValidator(8)])
     faction = models.ForeignKey(Faction, on_delete=models.CASCADE)
     pilots = models.ManyToManyField(Pilot,
                                     through='Build',
@@ -53,6 +53,19 @@ class Build(models.Model):
         """This method lets us add any upgrade benefits to a ship's agility, hull, or shields """
         stat_gt = {'{}__gt'.format(stat): 0}
         return getattr(self.pilot.ship, stat) + sum([getattr(u, stat) for u in self.upgrades.filter(**stat_gt)])
+
+    @property
+    def limited_names(self):
+        # QuickBuilds and Builds have a similar property, used to collect any limited pilots/upgrades in use
+        lnames = make_lnames()
+        cards = [u for u in self.upgrades.filter(limited__gte=1)]
+        if self.pilot.limited not in ('0', ''):
+            cards.append(self.pilot)
+
+        for c in cards:
+            lnames[c.limited].append(c.name)
+
+        return lnames
 
     @property
     def agility(self): return self.make_stat('agility')

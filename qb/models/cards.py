@@ -47,7 +47,7 @@ class Pilot(Card, Charges):
     ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
     caption = models.CharField(max_length=100, blank=True)
     droid = models.BooleanField(default=False)
-    initiative = models.IntegerField(
+    initiative = models.PositiveSmallIntegerField(
         default=1,
         validators=[MinValueValidator(1), MaxValueValidator(6)]
      )

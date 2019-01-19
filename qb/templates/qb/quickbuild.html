@@ -7,6 +7,7 @@
 
     <section class="quickbuild border rounded">
     {% for build in qb.build_set.all %}
+        {% with pilot=build.pilot ship=build.pilot.ship %}
         <section class="container">
 
            <!-- {% if not forloop.first %}
@@ -15,11 +16,11 @@
 
             <div class="row"> <!-- row 1 -->
                 <div class="col-md-8">
-                    <h5>{{build.pilot}} ({{build.pilot.ship}})</h5>
+                    <h5>{{pilot}} ({{ship}})</h5>
                 </div>
 
                 <div class="col text-right">
-                    {% for attack in build.pilot.ship.shipattack_set.all %}
+                    {% for attack in ship.shipattack_set.all %}
                         <span class="icon attack">{{ attack.display_name|iconize }}</span>
                     {% endfor %}
 
@@ -35,9 +36,9 @@
                         <span class="icon">{{ "forcecharge"|get_icon:"force" }} {{build.force}}</span>
                     {% endif %}
 
-                    {% if build.pilot.charge %}
-                        <span class="icon">{{ "charge"|get_icon:"charge" }} {{build.pilot.charge}}
-                        {% if build.pilot.charge_regen %} {{"recurring"|get_icon:"charge"}}{% endif %}</span>
+                    {% if pilot.charge %}
+                        <span class="icon">{{ "charge"|get_icon:"charge" }} {{ pilot.charge }}
+                        {% if pilot.charge_regen %} {{"recurring"|get_icon:"charge"}}{% endif %}</span>
                     {% endif %}
                 </div>
 
@@ -46,12 +47,12 @@
             <div class="row"> <!-- row 2 -->
 
                 <div class="col-md-5">
-                    <h5>Initiative {{ build.pilot.initiative }}</h5>
+                    <h5>Initiative {{ pilot.initiative }}</h5>
                 </div>
 
 
                 <div class="col text-right"> <!-- action sidebar -->
-                    {% for action in build.pilot.actions %}
+                    {% for action in pilot.actions %}
                         <span>{{action.display_name|safe}}</span>
                     {% endfor %}
                 </div>
@@ -59,22 +60,22 @@
             </div> <!-- end row 2 -->
 
             <section> <!-- upgrade group -->
-                {% if build.pilot.ability %}
+                {% if pilot.ability %}
                 <div class="row upgrade">
-                    <div class="col-md-3 text-nowrap">{{build.pilot.display_name}}</div>
+                    <div class="col-md-3 text-nowrap">{{ pilot.display_name }}</div>
 
                     <div class="col ability">
-                        <span>{{ build.pilot.ability|iconize|safe }}</span>
-                        {% if build.pilot.charge %}
+                        <span>{{ pilot.ability|iconize|safe }}</span>
+                        {% if pilot.charge %}
                             <div>
                                 {{ "charge"|get_icon:"charge" }}
-                                {{ build.pilot.charge }}{% if build.pilot.charge_regen %}{{ "recurring"|get_icon }}{% endif %}
+                                {{ pilot.charge }}{% if pilot.charge_regen %}{{ "recurring"|get_icon }}{% endif %}
                             </div>
                         {% endif %}
                     </div>
                 </div>
 
-                {% with condition=build.pilot.condition %}
+                {% with condition=pilot.condition %}
                 {% if condition %}
                 <div class="row condition">
                     <div class="col-md-3">
@@ -90,10 +91,10 @@
 
                 {% endif %}
 
-                {% if build.pilot.ship.ability_title %}
+                {% if ship.ability_title %}
                 <div class="row upgrade">
-                    <div class=" col-md-3 text-nowrap">{{ build.pilot.ship.ability_title }} {{ build.pilot.ship.icon }}</div>
-                    <div class="col ability">{{ build.pilot.ship.ability|iconize }}</div>
+                    <div class=" col-md-3 text-nowrap">{{ ship.ability_title }} {{ ship.icon }}</div>
+                    <div class="col ability">{{ ship.ability|iconize }}</div>
                 </div>
                 {% endif %}
 
@@ -115,7 +116,7 @@
                         {% if upgrade.actions %}
                             <div class="text-right">
                                 {% for action in upgrade.upgradeaction_set.all %}
-                                {{ action.display_name }}
+                                {{ action }}
                                 {% endfor %}
                             </div>
                         {% endif %}
@@ -193,7 +194,7 @@
 
                 {% endfor %} <!-- end upgrades -->
 
-                {% if not build.pilot.ability and not build.pilot.ship.ability and not build.upgrades %}
+                {% if not pilot.ability and not ship.ability and not build.upgrades %}
                 <div class="col">
                     <span><i>No special abilities.</i></span>
                 </div>
@@ -204,6 +205,7 @@
         </section>
 
         <!-- end build -->
+        {% endwith %}
     {% endfor %} <!-- end quickbuild -->
 
     </section>

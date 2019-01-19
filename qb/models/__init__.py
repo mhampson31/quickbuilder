@@ -5,4 +5,4 @@ from .base import Card, Action, Attack, ActionMixin, Charges, Condition, Faction
 from .cards import Ship, ShipAction, ShipAttack, Pilot, Upgrade, UpgradeAction, UpgradeAttack
 from .quickbuilds import Build, QuickBuild
 
-from .collection import Collection
+from .collection import Inventory
