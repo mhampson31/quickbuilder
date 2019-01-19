@@ -4,5 +4,3 @@ from .choices import LIMITED_CHOICES, SIZE_TYPES, SIZE_CHOICES, RANGE_CHOICES, A
 from .base import Card, Action, Attack, ActionMixin, Charges, Condition, Faction, make_lnames
 from .cards import Ship, ShipAction, ShipAttack, Pilot, Upgrade, UpgradeAction, UpgradeAttack
 from .quickbuilds import Build, QuickBuild
-
-from .collection import Inventory

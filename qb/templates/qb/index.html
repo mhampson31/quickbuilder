@@ -2,14 +2,14 @@
 
 {% block content %}
 
-    {% if ship_list %}
+    {% if faction_list %}
         <ul>
-        {% for ship in ship_list %}
-            <li><a href={% url 'qb:ship_detail' ship.id %}>{{ship.name}}</a></li>
+        {% for faction in faction_list %}
+            <li><a href={% url 'qb:faction_builds' faction.xws %}>{{faction.name}}</a></li>
         {% endfor %}
         </ul>
     {% else %}
-        <p>No ships exist.</p>
+        <p>No factions exist.</p>
     {% endif %}
 
 {% endblock %}

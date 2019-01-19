@@ -6,11 +6,15 @@
 
 <h3>{{ faction.name }}</h3>
 
+<ul>
 {% for qb in builds %}
-<div class="row">
-    <span class="font-weight-light {{ qb.threat|threatbar }}">{{ qb.threat|threatbar|safe }} </span>
-    <span>{{ qb }} {{qb.id }}</span>
-</div>
+    <li>
+        <span class="font-weight-light {{ qb.threat|threatbar }}">
+            {{ qb.threat|threatbar|safe }}
+        </span>
+        <span> <a href={% url 'qb:qb_detail' qb.id %}>{{ qb.pilot_names }}</span>
+    </li>
 {% endfor %}
+</ul>
 
 {% endblock %}

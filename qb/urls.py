@@ -8,6 +8,7 @@ urlpatterns = [
     path(r'ship/<int:pk>/', views.ShipView.as_view(), name='ship_detail'),
     path(r'random/', views.random_quickbuild, name='random_quickbuild'),
     path(r'quicklist/<str:qb_list>/', views.quickbuild_list, name='quickbuild_list'),
-    path(r'quickbuilds/<str:faction>/', views.faction_builds, name='faction_builds')
+    path(r'quickbuilds/<str:faction>/', views.faction_builds, name='faction_builds'),
+    path(r'qb/<int:qb_id>/', views.qb_detail, name='qb_detail')
 ]
 

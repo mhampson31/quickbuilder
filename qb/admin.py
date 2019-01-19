@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 
 from .models import Ship, Pilot, Upgrade, QuickBuild, Faction, Build, Action,\
-    ShipAction, UpgradeAction, UpgradeAttack, ShipAttack, Condition, Collection
+    ShipAction, UpgradeAction, UpgradeAttack, ShipAttack, Condition
 
 stat_fields = (
     (None, {'fields':('name', 'caption', 'initiative')}),
@@ -96,20 +96,6 @@ class QuickBuildAdmin(admin.ModelAdmin):
     list_display = ('pilot_names', 'threat', 'faction')
     list_filter = ('threat', 'faction')
 admin.site.register(QuickBuild, QuickBuildAdmin)
-
-
-class CollectionInline(admin.StackedInline):
-    model = Collection
-    can_delete = False
-    verbose_name_plural = 'collection'
-
-
-class UserAdmin(BaseUserAdmin):
-    inlines = (CollectionInline, )
-
-
-admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
 
 
 admin.site.register(Action)

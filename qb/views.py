@@ -16,10 +16,10 @@ id_rx = re.compile(r'\d+')
 
 class IndexView(generic.ListView):
     template_name = 'qb/index.html'
-    context_object_name = 'ship_list'
+    context_object_name = 'faction_list'
 
     def get_queryset(self):
-        return Ship.objects.all()
+        return Faction.objects.all()
 
 
 class ShipView(generic.DetailView):
@@ -31,6 +31,11 @@ def faction_builds(request, faction):
     faction = Faction.objects.values('id', 'name').get(xws=faction)
     builds = QuickBuild.objects.filter(faction_id=faction['id']).order_by('-threat')
     return render(request, 'qb/faction_builds.html', {'faction':faction['name'], 'builds':builds})
+
+
+def qb_detail(request, qb_id):
+    qb = QuickBuild.objects.get(id=qb_id)
+    return render(request, 'qb/qb_list.html', {'qb_list':(qb, )})
 
 
 def ship_detail(request, id):
