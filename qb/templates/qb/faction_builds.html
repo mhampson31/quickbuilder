@@ -4,11 +4,11 @@
 
 {% block content %}
 
-<h3>{{ faction.name }}</h3>
+<h3>{{ faction }} Quick Builds</h3>
 
-<ul>
+<ul class="list-group">
 {% for qb in builds %}
-    <li>
+    <li class="list-group-item">
         <span class="font-weight-light {{ qb.threat|threatbar }}">
             {{ qb.threat|threatbar|safe }}
         </span>

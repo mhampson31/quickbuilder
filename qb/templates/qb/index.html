@@ -3,11 +3,12 @@
 {% block content %}
 
     {% if faction_list %}
-        <ul>
+        <header>Browse Quick Builds</header>
+        <div class="list-group">
         {% for faction in faction_list %}
-            <li><a href={% url 'qb:faction_builds' faction.xws %}>{{faction.name}}</a></li>
+            <button class="list-group-item list-group-item-action"><a href={% url 'qb:faction_builds' faction.xws %}>{{faction.name}}</a></button>
         {% endfor %}
-        </ul>
+        </div>
     {% else %}
         <p>No factions exist.</p>
     {% endif %}
