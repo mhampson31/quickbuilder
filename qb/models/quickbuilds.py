@@ -3,22 +3,27 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.safestring import mark_safe
+from django.utils.functional import cached_property
 
 from .cards import Pilot, Faction, Upgrade
 from .base import make_lnames
 
 class QuickBuild(models.Model):
+    name = models.CharField(max_length=120, null=True, blank=True)
     threat = models.PositiveSmallIntegerField(db_index=True, validators=[MinValueValidator(1), MaxValueValidator(8)])
     faction = models.ForeignKey(Faction, on_delete=models.CASCADE)
     pilots = models.ManyToManyField(Pilot,
                                     through='Build',
                                     through_fields=('quickbuild', 'pilot'))
 
-    @property
-    def pilot_names(self):
-        return '; '.join([p.name for p in self.pilots.all()])
+    def make_name(self):
+        # this method can be deleted once the old names have been converted
+        name = []
+        for p in self.pilots.all():
+            name.append(p.name + '(' + p.ship.name + ')')
+        self.name = ' and '.join(name)
 
-    @property
+    @cached_property
     def limited_names(self):
         lnames = make_lnames()
         for b in self.build_set.prefetch_related('upgrades').select_related('pilot').all():
@@ -29,12 +34,8 @@ class QuickBuild(models.Model):
                 lnames[c.limited].append(c.name)
         return lnames
 
-    @property
-    def threat_color(self):
-        return QB_COLORS[self.threat]
-
     def __str__(self):
-        return '{} ({})'.format(self.pilot_names, self.threat)
+        return '{} ({})'.format(self.name, self.threat)
 
 
 class Build(models.Model):

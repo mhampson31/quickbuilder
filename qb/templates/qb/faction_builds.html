@@ -12,7 +12,7 @@
         <span class="font-weight-light {{ qb.threat|threatbar }}">
             {{ qb.threat|threatbar|safe }}
         </span>
-        <span> <a href={% url 'qb:qb_detail' qb.id %}>{{ qb.pilot_names }}</span>
+        <span> <a href={% url 'qb:qb_detail' qb.id %}>{{ qb.name }}</span>
     </li>
 {% endfor %}
 </ul>
