@@ -16,6 +16,7 @@ stat_fields = (
 
 class BuildInline(admin.TabularInline):
     model = Build
+    filter_horizontal = ('upgrades', )
     extra = 0
 
 
