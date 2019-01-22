@@ -53,7 +53,7 @@
 
                 <div class="col text-right"> <!-- action sidebar -->
                     {% for action in pilot.actions %}
-                        <span>{{action.display_name|safe}}</span>
+                        <span>{{ action.display_name }}</span>
                     {% endfor %}
                 </div>
 
@@ -116,7 +116,7 @@
                         {% if upgrade.actions %}
                             <div class="text-right">
                                 {% for action in upgrade.upgradeaction_set.all %}
-                                {{ action }}
+                                {{ action.display_name }}
                                 {% endfor %}
                             </div>
                         {% endif %}

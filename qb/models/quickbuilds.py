@@ -6,7 +6,22 @@ from django.utils.safestring import mark_safe
 from django.utils.functional import cached_property
 
 from .cards import Pilot, Faction, Upgrade
-from .base import make_lnames
+
+
+class QBLimited(models.Model):
+    # This model is used to access the qb_limited_view in the DB.
+    # The purpose of that view is to offload some of the repetitive queries done by the limited checks when assembling
+    # random quickbuild lists.
+    quickbuild_id = models.IntegerField(primary_key=True)
+    faction = models.ForeignKey(Faction, on_delete=models.DO_NOTHING)
+    threat = models.PositiveSmallIntegerField()
+    name = models.CharField(max_length=120, null=True, blank=True)
+    limited = models.PositiveSmallIntegerField(null=True, blank=True)
+
+    class Meta:
+        managed = False
+        db_table = 'qb_limited_v'
+
 
 class QuickBuild(models.Model):
     name = models.CharField(max_length=120, null=True, blank=True)
@@ -20,19 +35,8 @@ class QuickBuild(models.Model):
         # this method can be deleted once the old names have been converted
         name = []
         for p in self.pilots.all():
-            name.append(p.name + '(' + p.ship.name + ')')
+            name.append(p.name + ' (' + p.ship.name + ')')
         self.name = ' and '.join(name)
-
-    @cached_property
-    def limited_names(self):
-        lnames = make_lnames()
-        for b in self.build_set.prefetch_related('upgrades').select_related('pilot').all():
-            cards = list(b.upgrades.filter(limited__gte=1))
-            if b.pilot.limited not in ('0', ''):
-                cards.append(b.pilot)
-            for c in cards:
-                lnames[c.limited].append(c.name)
-        return lnames
 
     def __str__(self):
         return '{} ({})'.format(self.name, self.threat)
@@ -54,19 +58,6 @@ class Build(models.Model):
         """This method lets us add any upgrade benefits to a ship's agility, hull, or shields """
         stat_gt = {'{}__gt'.format(stat): 0}
         return getattr(self.pilot.ship, stat) + sum([getattr(u, stat) for u in self.upgrades.filter(**stat_gt)])
-
-    @property
-    def limited_names(self):
-        # QuickBuilds and Builds have a similar property, used to collect any limited pilots/upgrades in use
-        lnames = make_lnames()
-        cards = [u for u in self.upgrades.filter(limited__gte=1)]
-        if self.pilot.limited not in ('0', ''):
-            cards.append(self.pilot)
-
-        for c in cards:
-            lnames[c.limited].append(c.name)
-
-        return lnames
 
     @property
     def agility(self): return self.make_stat('agility')

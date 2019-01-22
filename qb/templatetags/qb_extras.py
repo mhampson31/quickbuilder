@@ -12,6 +12,7 @@ icon_text = {
     'Barrel Roll':'barrelroll',
     'Bank Left':'bankleft',
     'Bank Right':'bankright',
+    'Boost': 'boost',
     'Bullseye Arc':'bullseyearc',
     'Single Turret Arc':'singleturretarc',
     'Double Turret Arc':'doubleturretarc',

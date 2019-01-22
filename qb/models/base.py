@@ -7,20 +7,6 @@ from qb.templatetags.qb_extras import get_icon
 from .choices import LIMITED_CHOICES, ARC_CHOICES, RANGE_CHOICES
 
 
-def make_lnames():
-    """
-    this is a utility function to help compare the names of limited cards across a build
-    :return: a dictionary in the form of {n:[], ...} where n is each possible count of limited pips on a card.
-    The idea is that if a card has, say, one limited pip, we append its name to the list under that key, and can
-    count the number of times it occurs there later.
-    There's probably a more efficient/clever way to do this but it works for now.
-    """
-    lnames = {}
-    for k, v in LIMITED_CHOICES:
-        lnames[k] = []
-    return lnames
-
-
 class Card(models.Model):
     name = models.CharField(max_length=64)
     xws = models.CharField(max_length=64, db_index=True)
