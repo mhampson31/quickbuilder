@@ -15354,7 +15354,7 @@
     "fields": {
         "faction": 2,
         "threat": 3,
-        "name": "Zertik Strom",
+        "name": "Squad Leader",
         "limited": "1"
     }
 },
@@ -15364,7 +15364,17 @@
     "fields": {
         "faction": 2,
         "threat": 3,
-        "name": "Squad Leader",
+        "name": "Zertik Strom",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 24,
+    "fields": {
+        "faction": 2,
+        "threat": 3,
+        "name": "Colonel Jendon",
         "limited": "1"
     }
 },
@@ -15390,11 +15400,11 @@
 },
 {
     "model": "qb.qblimited",
-    "pk": 24,
+    "pk": 25,
     "fields": {
         "faction": 2,
         "threat": 3,
-        "name": "Colonel Jendon",
+        "name": "Captain Kagi",
         "limited": "1"
     }
 },
@@ -15410,11 +15420,11 @@
 },
 {
     "model": "qb.qblimited",
-    "pk": 25,
+    "pk": 26,
     "fields": {
         "faction": 2,
         "threat": 3,
-        "name": "Captain Kagi",
+        "name": "Lieutenant Sai",
         "limited": "1"
     }
 },
@@ -15425,16 +15435,6 @@
         "faction": 2,
         "threat": 3,
         "name": "Ciena Ree",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 26,
-    "fields": {
-        "faction": 2,
-        "threat": 3,
-        "name": "Lieutenant Sai",
         "limited": "1"
     }
 },
@@ -15504,7 +15504,7 @@
     "fields": {
         "faction": 2,
         "threat": 3,
-        "name": "Lone Wolf",
+        "name": "\"Echo\"",
         "limited": "1"
     }
 },
@@ -15514,7 +15514,7 @@
     "fields": {
         "faction": 2,
         "threat": 3,
-        "name": "\"Echo\"",
+        "name": "Lone Wolf",
         "limited": "1"
     }
 },
@@ -15714,7 +15714,7 @@
     "fields": {
         "faction": 2,
         "threat": 4,
-        "name": "Dauntless",
+        "name": "Captain Oicunn",
         "limited": "1"
     }
 },
@@ -15734,17 +15734,7 @@
     "fields": {
         "faction": 2,
         "threat": 4,
-        "name": "Captain Oicunn",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 70,
-    "fields": {
-        "faction": 2,
-        "threat": 4,
-        "name": "Minister Tua",
+        "name": "Dauntless",
         "limited": "1"
     }
 },
@@ -15760,11 +15750,11 @@
 },
 {
     "model": "qb.qblimited",
-    "pk": 71,
+    "pk": 70,
     "fields": {
         "faction": 2,
         "threat": 4,
-        "name": "Fifth Brother",
+        "name": "Minister Tua",
         "limited": "1"
     }
 },
@@ -15790,11 +15780,11 @@
 },
 {
     "model": "qb.qblimited",
-    "pk": 72,
+    "pk": 71,
     "fields": {
         "faction": 2,
-        "threat": 2,
-        "name": "Director Krennic",
+        "threat": 4,
+        "name": "Fifth Brother",
         "limited": "1"
     }
 },
@@ -15805,6 +15795,16 @@
         "faction": 2,
         "threat": 2,
         "name": "\"Vizier\"",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 72,
+    "fields": {
+        "faction": 2,
+        "threat": 2,
+        "name": "Director Krennic",
         "limited": "1"
     }
 },
@@ -15864,7 +15864,7 @@
     "fields": {
         "faction": 1,
         "threat": 3,
-        "name": "R5-P8",
+        "name": "Jek Porkins",
         "limited": "1"
     }
 },
@@ -15874,7 +15874,7 @@
     "fields": {
         "faction": 1,
         "threat": 3,
-        "name": "Jek Porkins",
+        "name": "R5-P8",
         "limited": "1"
     }
 },
@@ -16004,7 +16004,7 @@
     "fields": {
         "faction": 1,
         "threat": 3,
-        "name": "Ten Numb",
+        "name": "Squad Leader",
         "limited": "1"
     }
 },
@@ -16014,7 +16014,7 @@
     "fields": {
         "faction": 1,
         "threat": 3,
-        "name": "Squad Leader",
+        "name": "Ten Numb",
         "limited": "1"
     }
 },
@@ -16104,6 +16104,16 @@
     "fields": {
         "faction": 1,
         "threat": 3,
+        "name": "Cloaking Device",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 109,
+    "fields": {
+        "faction": 1,
+        "threat": 3,
         "name": "Moldy Crow",
         "limited": "1"
     }
@@ -16115,16 +16125,6 @@
         "faction": 1,
         "threat": 3,
         "name": "Jan Ors",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 109,
-    "fields": {
-        "faction": 1,
-        "threat": 3,
-        "name": "Cloaking Device",
         "limited": "1"
     }
 },
@@ -16324,7 +16324,7 @@
     "fields": {
         "faction": 1,
         "threat": 2,
-        "name": "Bodhi Rook",
+        "name": "Cassian Andor",
         "limited": "1"
     }
 },
@@ -16334,7 +16334,7 @@
     "fields": {
         "faction": 1,
         "threat": 2,
-        "name": "Cassian Andor",
+        "name": "Bodhi Rook",
         "limited": "1"
     }
 },
@@ -16355,16 +16355,6 @@
         "faction": 1,
         "threat": 3,
         "name": "Bistan",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 127,
-    "fields": {
-        "faction": 1,
-        "threat": 5,
-        "name": "Lone Wolf",
         "limited": "1"
     }
 },
@@ -16400,21 +16390,11 @@
 },
 {
     "model": "qb.qblimited",
-    "pk": 128,
+    "pk": 127,
     "fields": {
         "faction": 1,
-        "threat": 6,
-        "name": "C-3PO",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 128,
-    "fields": {
-        "faction": 1,
-        "threat": 6,
-        "name": "Han Solo",
+        "threat": 5,
+        "name": "Lone Wolf",
         "limited": "1"
     }
 },
@@ -16454,6 +16434,16 @@
     "fields": {
         "faction": 1,
         "threat": 6,
+        "name": "Luke Skywalker",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 128,
+    "fields": {
+        "faction": 1,
+        "threat": 6,
         "name": "Leia Organa",
         "limited": "1"
     }
@@ -16464,17 +16454,17 @@
     "fields": {
         "faction": 1,
         "threat": 6,
-        "name": "Luke Skywalker",
+        "name": "C-3PO",
         "limited": "1"
     }
 },
 {
     "model": "qb.qblimited",
-    "pk": 129,
+    "pk": 128,
     "fields": {
         "faction": 1,
-        "threat": 5,
-        "name": "Nien Nunb",
+        "threat": 6,
+        "name": "Han Solo",
         "limited": "1"
     }
 },
@@ -16495,6 +16485,16 @@
         "faction": 1,
         "threat": 5,
         "name": "Lando Calrissian",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 129,
+    "fields": {
+        "faction": 1,
+        "threat": 5,
+        "name": "Nien Nunb",
         "limited": "1"
     }
 },
@@ -16524,13 +16524,23 @@
     "fields": {
         "faction": 1,
         "threat": 2,
-        "name": "Hera Syndulla",
+        "name": "Phantom",
         "limited": "1"
     }
 },
 {
     "model": "qb.qblimited",
     "pk": 135,
+    "fields": {
+        "faction": 1,
+        "threat": 2,
+        "name": "Hera Syndulla",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 136,
     "fields": {
         "faction": 1,
         "threat": 2,
@@ -16550,11 +16560,11 @@
 },
 {
     "model": "qb.qblimited",
-    "pk": 136,
+    "pk": 137,
     "fields": {
         "faction": 1,
-        "threat": 2,
-        "name": "Phantom",
+        "threat": 5,
+        "name": "Dash Rendar",
         "limited": "1"
     }
 },
@@ -16565,16 +16575,6 @@
         "faction": 1,
         "threat": 5,
         "name": "Outrider",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 137,
-    "fields": {
-        "faction": 1,
-        "threat": 5,
-        "name": "Dash Rendar",
         "limited": "1"
     }
 },
@@ -16694,27 +16694,17 @@
     "fields": {
         "faction": 1,
         "threat": 6,
-        "name": "Ezra Bridger",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 148,
-    "fields": {
-        "faction": 1,
-        "threat": 6,
-        "name": "Ghost",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 148,
-    "fields": {
-        "faction": 1,
-        "threat": 6,
         "name": "Phantom",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 148,
+    "fields": {
+        "faction": 1,
+        "threat": 6,
+        "name": "Kanan Jarrus",
         "limited": "1"
     }
 },
@@ -16734,7 +16724,7 @@
     "fields": {
         "faction": 1,
         "threat": 6,
-        "name": "Kanan Jarrus",
+        "name": "\"Zeb\" Orrelios",
         "limited": "1"
     }
 },
@@ -16744,27 +16734,17 @@
     "fields": {
         "faction": 1,
         "threat": 6,
-        "name": "\"Zeb\" Orrelios",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 149,
-    "fields": {
-        "faction": 1,
-        "threat": 6,
         "name": "Ezra Bridger",
         "limited": "1"
     }
 },
 {
     "model": "qb.qblimited",
-    "pk": 149,
+    "pk": 148,
     "fields": {
         "faction": 1,
         "threat": 6,
-        "name": "Kanan Jarrus",
+        "name": "Ghost",
         "limited": "1"
     }
 },
@@ -16800,31 +16780,21 @@
 },
 {
     "model": "qb.qblimited",
-    "pk": 150,
+    "pk": 149,
     "fields": {
         "faction": 1,
         "threat": 6,
-        "name": "\"Zeb\" Orrelios",
+        "name": "Ezra Bridger",
         "limited": "1"
     }
 },
 {
     "model": "qb.qblimited",
-    "pk": 150,
+    "pk": 149,
     "fields": {
         "faction": 1,
         "threat": 6,
-        "name": "Phantom",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 150,
-    "fields": {
-        "faction": 1,
-        "threat": 6,
-        "name": "AP-5",
+        "name": "Kanan Jarrus",
         "limited": "1"
     }
 },
@@ -16845,6 +16815,46 @@
         "faction": 1,
         "threat": 6,
         "name": "\"Chopper\"",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 150,
+    "fields": {
+        "faction": 1,
+        "threat": 6,
+        "name": "Phantom",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 150,
+    "fields": {
+        "faction": 1,
+        "threat": 6,
+        "name": "\"Zeb\" Orrelios",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 150,
+    "fields": {
+        "faction": 1,
+        "threat": 6,
+        "name": "AP-5",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 151,
+    "fields": {
+        "faction": 1,
+        "threat": 6,
+        "name": "Ghost",
         "limited": "1"
     }
 },
@@ -16875,16 +16885,6 @@
         "faction": 1,
         "threat": 6,
         "name": "Lando Calrissian",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 151,
-    "fields": {
-        "faction": 1,
-        "threat": 6,
-        "name": "Ghost",
         "limited": "1"
     }
 },
@@ -16984,6 +16984,16 @@
     "fields": {
         "faction": 3,
         "threat": 5,
+        "name": "Han Solo",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 163,
+    "fields": {
+        "faction": 3,
+        "threat": 5,
         "name": "Outer Rim Pioneer",
         "limited": "1"
     }
@@ -17020,11 +17030,21 @@
 },
 {
     "model": "qb.qblimited",
-    "pk": 163,
+    "pk": 164,
     "fields": {
         "faction": 3,
-        "threat": 5,
-        "name": "Han Solo",
+        "threat": 4,
+        "name": "Lando Calrissian",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 164,
+    "fields": {
+        "faction": 3,
+        "threat": 4,
+        "name": "L3-37",
         "limited": "1"
     }
 },
@@ -17060,46 +17080,6 @@
 },
 {
     "model": "qb.qblimited",
-    "pk": 164,
-    "fields": {
-        "faction": 3,
-        "threat": 4,
-        "name": "Lando Calrissian",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 164,
-    "fields": {
-        "faction": 3,
-        "threat": 4,
-        "name": "L3-37",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 165,
-    "fields": {
-        "faction": 3,
-        "threat": 5,
-        "name": "Lando's Millennium Falcon",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 165,
-    "fields": {
-        "faction": 3,
-        "threat": 5,
-        "name": "Qi'ra",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
     "pk": 165,
     "fields": {
         "faction": 3,
@@ -17130,11 +17110,21 @@
 },
 {
     "model": "qb.qblimited",
-    "pk": 166,
+    "pk": 165,
     "fields": {
         "faction": 3,
-        "threat": 3,
+        "threat": 5,
         "name": "Lando's Millennium Falcon",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 165,
+    "fields": {
+        "faction": 3,
+        "threat": 5,
+        "name": "Qi'ra",
         "limited": "1"
     }
 },
@@ -17150,51 +17140,41 @@
 },
 {
     "model": "qb.qblimited",
+    "pk": 166,
+    "fields": {
+        "faction": 3,
+        "threat": 3,
+        "name": "Lando's Millennium Falcon",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 167,
+    "fields": {
+        "faction": 3,
+        "threat": 4,
+        "name": "Latts Razzi",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 167,
+    "fields": {
+        "faction": 3,
+        "threat": 4,
+        "name": "Dengar",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
     "pk": 167,
     "fields": {
         "faction": 3,
         "threat": 4,
         "name": "Moralo Eval",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 167,
-    "fields": {
-        "faction": 3,
-        "threat": 4,
-        "name": "Latts Razzi",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 167,
-    "fields": {
-        "faction": 3,
-        "threat": 4,
-        "name": "Dengar",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 168,
-    "fields": {
-        "faction": 3,
-        "threat": 3,
-        "name": "Dengar",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 168,
-    "fields": {
-        "faction": 3,
-        "threat": 3,
-        "name": "Latts Razzi",
         "limited": "1"
     }
 },
@@ -17220,11 +17200,51 @@
 },
 {
     "model": "qb.qblimited",
+    "pk": 168,
+    "fields": {
+        "faction": 3,
+        "threat": 3,
+        "name": "Dengar",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 168,
+    "fields": {
+        "faction": 3,
+        "threat": 3,
+        "name": "Latts Razzi",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
     "pk": 169,
     "fields": {
         "faction": 3,
         "threat": 3,
         "name": "Jabba the Hutt",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 170,
+    "fields": {
+        "faction": 3,
+        "threat": 3,
+        "name": "Nashtah Pup",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 170,
+    "fields": {
+        "faction": 3,
+        "threat": 3,
+        "name": "Hound's Tooth",
         "limited": "1"
     }
 },
@@ -17250,21 +17270,11 @@
 },
 {
     "model": "qb.qblimited",
-    "pk": 170,
+    "pk": 171,
     "fields": {
         "faction": 3,
         "threat": 3,
         "name": "Nashtah Pup",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 170,
-    "fields": {
-        "faction": 3,
-        "threat": 3,
-        "name": "Hound's Tooth",
         "limited": "1"
     }
 },
@@ -17280,11 +17290,11 @@
 },
 {
     "model": "qb.qblimited",
-    "pk": 171,
+    "pk": 172,
     "fields": {
         "faction": 3,
-        "threat": 3,
-        "name": "Nashtah Pup",
+        "threat": 4,
+        "name": "Slave I",
         "limited": "1"
     }
 },
@@ -17310,11 +17320,11 @@
 },
 {
     "model": "qb.qblimited",
-    "pk": 172,
+    "pk": 173,
     "fields": {
         "faction": 3,
-        "threat": 4,
-        "name": "Slave I",
+        "threat": 3,
+        "name": "Kath Scarlet",
         "limited": "1"
     }
 },
@@ -17325,16 +17335,6 @@
         "faction": 3,
         "threat": 3,
         "name": "Marauder",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 173,
-    "fields": {
-        "faction": 3,
-        "threat": 3,
-        "name": "Kath Scarlet",
         "limited": "1"
     }
 },
@@ -17534,7 +17534,7 @@
     "fields": {
         "faction": 3,
         "threat": 3,
-        "name": "\"Genius\"",
+        "name": "Kavil",
         "limited": "1"
     }
 },
@@ -17544,7 +17544,7 @@
     "fields": {
         "faction": 3,
         "threat": 3,
-        "name": "Kavil",
+        "name": "\"Genius\"",
         "limited": "1"
     }
 },
@@ -17584,7 +17584,7 @@
     "fields": {
         "faction": 3,
         "threat": 2,
-        "name": "Cloaking Device",
+        "name": "Torkil Mux",
         "limited": "1"
     }
 },
@@ -17594,7 +17594,7 @@
     "fields": {
         "faction": 3,
         "threat": 2,
-        "name": "Torkil Mux",
+        "name": "Cloaking Device",
         "limited": "1"
     }
 },
@@ -17624,7 +17624,7 @@
     "fields": {
         "faction": 3,
         "threat": 3,
-        "name": "Unkar Plutt",
+        "name": "Sarco Plank",
         "limited": "1"
     }
 },
@@ -17634,17 +17634,7 @@
     "fields": {
         "faction": 3,
         "threat": 3,
-        "name": "Sarco Plank",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 207,
-    "fields": {
-        "faction": 3,
-        "threat": 3,
-        "name": "Prince Xizor",
+        "name": "Unkar Plutt",
         "limited": "1"
     }
 },
@@ -17655,6 +17645,16 @@
         "faction": 3,
         "threat": 3,
         "name": "Virago",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 207,
+    "fields": {
+        "faction": 3,
+        "threat": 3,
+        "name": "Prince Xizor",
         "limited": "1"
     }
 },
@@ -17754,7 +17754,7 @@
     "fields": {
         "faction": 3,
         "threat": 3,
-        "name": "Punishing One",
+        "name": "Dengar",
         "limited": "1"
     }
 },
@@ -17764,7 +17764,7 @@
     "fields": {
         "faction": 3,
         "threat": 3,
-        "name": "Dengar",
+        "name": "Punishing One",
         "limited": "1"
     }
 },
@@ -17775,16 +17775,6 @@
         "faction": 3,
         "threat": 3,
         "name": "Manaroo",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 224,
-    "fields": {
-        "faction": 3,
-        "threat": 2,
-        "name": "Cloaking Device",
         "limited": "1"
     }
 },
@@ -17810,11 +17800,41 @@
 },
 {
     "model": "qb.qblimited",
+    "pk": 224,
+    "fields": {
+        "faction": 3,
+        "threat": 2,
+        "name": "Cloaking Device",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
     "pk": 226,
     "fields": {
         "faction": 3,
         "threat": 2,
         "name": "Kaa'to Leeachos",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 228,
+    "fields": {
+        "faction": 3,
+        "threat": 3,
+        "name": "BT-1",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 228,
+    "fields": {
+        "faction": 3,
+        "threat": 3,
+        "name": "Mist Hunter",
         "limited": "1"
     }
 },
@@ -17850,20 +17870,20 @@
 },
 {
     "model": "qb.qblimited",
-    "pk": 228,
+    "pk": 229,
     "fields": {
         "faction": 3,
-        "threat": 3,
-        "name": "BT-1",
+        "threat": 2,
+        "name": "Lone Wolf",
         "limited": "1"
     }
 },
 {
     "model": "qb.qblimited",
-    "pk": 228,
+    "pk": 229,
     "fields": {
         "faction": 3,
-        "threat": 3,
+        "threat": 2,
         "name": "Mist Hunter",
         "limited": "1"
     }
@@ -17885,26 +17905,6 @@
         "faction": 3,
         "threat": 2,
         "name": "4-LOM",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 229,
-    "fields": {
-        "faction": 3,
-        "threat": 2,
-        "name": "Lone Wolf",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 229,
-    "fields": {
-        "faction": 3,
-        "threat": 2,
-        "name": "Mist Hunter",
         "limited": "1"
     }
 },
@@ -17954,16 +17954,6 @@
     "fields": {
         "faction": 3,
         "threat": 3,
-        "name": "Captain Nym",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 234,
-    "fields": {
-        "faction": 3,
-        "threat": 3,
         "name": "Havoc",
         "limited": "1"
     }
@@ -17975,6 +17965,16 @@
         "faction": 3,
         "threat": 3,
         "name": "Squad Leader",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 234,
+    "fields": {
+        "faction": 3,
+        "threat": 3,
+        "name": "Captain Nym",
         "limited": "1"
     }
 },
@@ -18044,6 +18044,16 @@
     "fields": {
         "faction": 4,
         "threat": 4,
+        "name": "BB-8",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 240,
+    "fields": {
+        "faction": 4,
+        "threat": 4,
         "name": "Poe Dameron",
         "limited": "1"
     }
@@ -18055,16 +18065,6 @@
         "faction": 4,
         "threat": 4,
         "name": "Black One",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 240,
-    "fields": {
-        "faction": 4,
-        "threat": 4,
-        "name": "BB-8",
         "limited": "1"
     }
 },
@@ -18204,7 +18204,7 @@
     "fields": {
         "faction": 4,
         "threat": 4,
-        "name": "Paige Tico",
+        "name": "Finch Dallow",
         "limited": "1"
     }
 },
@@ -18214,7 +18214,7 @@
     "fields": {
         "faction": 4,
         "threat": 4,
-        "name": "Finch Dallow",
+        "name": "Paige Tico",
         "limited": "1"
     }
 },
@@ -18244,16 +18244,6 @@
     "fields": {
         "faction": 4,
         "threat": 4,
-        "name": "Vennie",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 262,
-    "fields": {
-        "faction": 4,
-        "threat": 4,
         "name": "Rose Tico",
         "limited": "1"
     }
@@ -18265,6 +18255,16 @@
         "faction": 4,
         "threat": 4,
         "name": "Finn",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 262,
+    "fields": {
+        "faction": 4,
+        "threat": 4,
+        "name": "Vennie",
         "limited": "1"
     }
 },
@@ -18304,16 +18304,6 @@
     "fields": {
         "faction": 4,
         "threat": 5,
-        "name": "Rey",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 265,
-    "fields": {
-        "faction": 4,
-        "threat": 5,
         "name": "BB-8",
         "limited": "1"
     }
@@ -18340,10 +18330,10 @@
 },
 {
     "model": "qb.qblimited",
-    "pk": 266,
+    "pk": 265,
     "fields": {
         "faction": 4,
-        "threat": 4,
+        "threat": 5,
         "name": "Rey",
         "limited": "1"
     }
@@ -18370,6 +18360,26 @@
 },
 {
     "model": "qb.qblimited",
+    "pk": 266,
+    "fields": {
+        "faction": 4,
+        "threat": 4,
+        "name": "Rey",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 267,
+    "fields": {
+        "faction": 4,
+        "threat": 4,
+        "name": "Chewbacca",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
     "pk": 267,
     "fields": {
         "faction": 4,
@@ -18385,16 +18395,6 @@
         "faction": 4,
         "threat": 4,
         "name": "Han Solo",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 267,
-    "fields": {
-        "faction": 4,
-        "threat": 4,
-        "name": "Chewbacca",
         "limited": "1"
     }
 },
@@ -18454,6 +18454,16 @@
     "fields": {
         "faction": 5,
         "threat": 4,
+        "name": "Supreme Leader Snoke",
+        "limited": "1"
+    }
+},
+{
+    "model": "qb.qblimited",
+    "pk": 277,
+    "fields": {
+        "faction": 5,
+        "threat": 4,
         "name": "Lieutenant Tavson",
         "limited": "1"
     }
@@ -18465,16 +18475,6 @@
         "faction": 5,
         "threat": 4,
         "name": "Kylo Ren",
-        "limited": "1"
-    }
-},
-{
-    "model": "qb.qblimited",
-    "pk": 277,
-    "fields": {
-        "faction": 5,
-        "threat": 4,
-        "name": "Supreme Leader Snoke",
         "limited": "1"
     }
 },

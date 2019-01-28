@@ -1,0 +1,2 @@
+python manage.py dumpdata --indent=4 --natural-foreign --natural-primary -o quickbuilder/fixtures/qb.json qb
+
