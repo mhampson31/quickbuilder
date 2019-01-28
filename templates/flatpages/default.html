@@ -1,0 +1,16 @@
+{% extends 'quickbuilder/base.html' %}
+
+{% load crispy_forms_tags %}
+{% load qb_extras %}
+
+{% block title %}
+  {{ flatpage.title }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    {{ flatpage.content }}
+  </div>
+
+{% endblock %}

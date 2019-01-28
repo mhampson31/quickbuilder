@@ -19,6 +19,7 @@ from django.conf import settings
 
 urlpatterns = [
     path(r'', include('qb.urls')),
+    path(r'pages/', include('django.contrib.flatpages.urls')),
     path(r'control/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
 

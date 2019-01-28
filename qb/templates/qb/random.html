@@ -1,7 +1,11 @@
-{% extends 'qb/base.html' %}
+{% extends 'quickbuilder/base.html' %}
 
 {% load crispy_forms_tags %}
 {% load qb_extras %}
+
+{% block title %}
+    Random Quick List
+{% endblock %}
 
 {% block content %}
     <h1>Random Quick List</h1>
@@ -13,8 +17,6 @@
             <input type="submit" value="Submit">
         </form>
     </div>
-
-
 
     {% if qb_list %}
         {% for qb in qb_list %}
