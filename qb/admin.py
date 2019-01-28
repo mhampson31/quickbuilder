@@ -95,7 +95,7 @@ admin.site.register(Pilot, PilotAdmin)
 class QuickBuildAdmin(admin.ModelAdmin):
     inlines = (BuildInline, )
     list_display = ('name', 'threat', 'faction')
-    list_filter = ('name', 'threat', 'faction')
+    list_filter = ('threat', 'faction', 'name')
 admin.site.register(QuickBuild, QuickBuildAdmin)
 
 
